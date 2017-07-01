@@ -5,11 +5,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:cropToPadding="true"
+       android:scaleType="fitXY"
         android:src="@drawable/carpet_cleaning"/>
 
     <TextView
