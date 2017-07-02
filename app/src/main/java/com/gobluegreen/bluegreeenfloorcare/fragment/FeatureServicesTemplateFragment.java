@@ -25,7 +25,7 @@ public class FeatureServicesTemplateFragment extends Fragment {
     private int imageResourceId;
 
     public FeatureServicesTemplateFragment() {
-        // Required empty public constructor
+        // Required empty constructor
     }
 
     /**

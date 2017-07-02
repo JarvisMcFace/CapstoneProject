@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Blue Greeen Floor Care</string>
+    <string name="app_name">Blue Green Floor Care</string>
 
+    <string name="home_activity_screen_name">Blue Green Floor Care</string>
     <string name="title_activity_feature_services">Featured Services</string>
 
     <string name="feature_service_title_we_call_wi_come">We Call Wisconsin Home</string>
