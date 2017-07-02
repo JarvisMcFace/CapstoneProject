@@ -2,40 +2,65 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:scrollIndicators="left">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/material_margin"
-            android:layout_marginRight="@dimen/material_margin"
-            android:layout_marginTop="@dimen/material_margin"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/services_viewpager"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/feature_services_viewpager_height"/>
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/material_margin"
+                android:layout_marginStart="@dimen/material_margin"
+                android:layout_marginTop="@dimen/material_margin"
+                android:orientation="vertical">
 
-            <me.relex.circleindicator.CircleIndicator
-                android:id="@+id/services_indicator"
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/services_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/feature_services_viewpager_height"/>
+
+                <me.relex.circleindicator.CircleIndicator
+                    android:id="@+id/services_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/feature_services_indicator_height"
+                    app:ci_animator="@animator/indicator_animator"
+                    app:ci_animator_reverse="@animator/indicator_animator_reverse"
+                    app:ci_drawable="@drawable/black_radius_square"
+                    app:ci_height="@dimen/service_indicator_height"
+                    app:ci_margin="@dimen/service_indicator_margin"
+                    app:ci_width="@dimen/service_indicator_width"/>
+            </LinearLayout>
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/feature_services_indicator_height"
-                app:ci_animator="@animator/indicator_animator"
-                app:ci_animator_reverse="@animator/indicator_animator_reverse"
-                app:ci_drawable="@drawable/black_radius_square"
-                app:ci_height="4dp"
-                app:ci_margin="6dp"
-                app:ci_width="10dp"/>
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/material_margin_half"
+                android:layout_marginTop="@dimen/material_margin_half"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/cardview_corner_radius"
+                app:cardElevation="@dimen/cardview_default_elevation"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true">
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/cardview_bottom_title_margin"
+                    android:layout_marginEnd="@dimen/material_margin"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:layout_marginTop="@dimen/cardview_title_margin"
+                    android:text="@string/estimate_builder"
+                    />
+            </android.support.v7.widget.CardView>
+
         </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="alksjdf lakjsdf alsdfj"/>
-    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 </layout>

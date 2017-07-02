@@ -1,7 +1,16 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
     <dimen name="material_margin">16dp</dimen>
+    <dimen name="material_margin_half">8dp</dimen>
+
     <dimen name="feature_services_viewpager_height">240dp</dimen>
     <dimen name="feature_services_indicator_height">40dp</dimen>
     <dimen name="feature_services_template_title_height">72dp</dimen>
+
+    <dimen name="cardview_corner_radius">2dp</dimen>
+    <dimen name="cardview_default_elevation">2dp</dimen>
+    <dimen name="cardview_title_margin">24dp</dimen>
+    <dimen name="cardview_bottom_title_margin">12dp</dimen>
+    <dimen name="service_indicator_height">4dp</dimen>
+    <dimen name="service_indicator_margin">6dp</dimen>
+    <dimen name="service_indicator_width">10dp</dimen>
 </resources>
