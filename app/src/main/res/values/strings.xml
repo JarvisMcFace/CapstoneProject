@@ -7,4 +7,6 @@
     <string name="feature_service_title_we_call_wi_come">We Call Wisconsin Home</string>
     <string name="feature_service_sub_title_we_call_wi_come">Southeastern Wisconsin\'s premier cleaning service provider</string>
     <string name="estimate_builder">Estimate Builder</string>
+    <string name="estimate_builder_choose_rooms">Choose the rooms you would like cleaned and see your estimate then scheduled your cleaning.</string>
+    <string name="create_estimate">Create Estimate</string>
 </resources>
