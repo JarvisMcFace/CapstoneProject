@@ -9,4 +9,5 @@
     <string name="estimate_builder">Estimate Builder</string>
     <string name="estimate_builder_choose_rooms">Choose the rooms you would like cleaned and see your estimate then scheduled your cleaning.</string>
     <string name="create_estimate">Create Estimate</string>
+    <string name="customer_address_activity_screen_name">Locations Address</string>
 </resources>

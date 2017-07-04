@@ -6,16 +6,20 @@ import android.support.v7.widget.Toolbar;
 
 import com.gobluegreen.bluegreeenfloorcare.R;
 
-public class HomeActivity extends AppCompatActivity {
+/**
+ * Created by David on 7/4/17.
+ */
+
+public class CustomerAddress extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_customer_address);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
-
     }
 }
