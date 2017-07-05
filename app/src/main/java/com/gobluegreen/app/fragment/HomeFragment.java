@@ -14,6 +14,7 @@ import com.gobluegreen.app.R;
 import com.gobluegreen.app.activity.CustomerAddress;
 import com.gobluegreen.app.adapter.ServicesPagerAdapter;
 import com.gobluegreen.app.databinding.FragmentHomeBinding;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 /**
  *
@@ -22,15 +23,18 @@ public class HomeFragment extends Fragment {
 
     private View rootView;
     private FragmentHomeBinding fragmentHomeBinding;
-
+    private FirebaseAnalytics firebaseAnalytics;
 
     public HomeFragment() {
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView =  inflater.inflate(R.layout.fragment_home, container, false);
         fragmentHomeBinding = DataBindingUtil.bind(rootView);
+
+        firebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
         return rootView;
     }
 
@@ -51,6 +55,8 @@ public class HomeFragment extends Fragment {
 
             Intent intent = new Intent(getActivity(), CustomerAddress.class);
             startActivity(intent);
+
+
         }
     };
 }
