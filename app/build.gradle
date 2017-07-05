@@ -10,6 +10,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        resValue "string", "GOOGLE_MAP_API_KEY", GOOGLE_MAP_API_KEY
     }
 
     dataBinding {
@@ -22,6 +24,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
+
+
+//    buildTypes.each {
+//        it.buildConfigField 'String', 'GOOGLE_API_KEY', GoogleAPIKey
+//    }
 }
 
 dependencies {

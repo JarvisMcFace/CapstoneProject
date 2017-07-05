@@ -13,6 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/GOOGLE_MAP_API_KEY"/>
+
         <activity
             android:name="com.gobluegreen.app.activity.HomeActivity"
             android:label="@string/home_activity_screen_name"
@@ -28,6 +32,9 @@
             android:label="@string/customer_address_activity_screen_name"
             android:theme="@style/AppTheme">
         </activity>
+
+
+
 
     </application>
 
