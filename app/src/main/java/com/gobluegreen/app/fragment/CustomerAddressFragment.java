@@ -1,4 +1,4 @@
-package com.gobluegreen.bluegreeenfloorcare.fragment;
+package com.gobluegreen.app.fragment;
 
 
 import android.databinding.DataBindingUtil;
@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gobluegreen.bluegreeenfloorcare.R;
-import com.gobluegreen.bluegreeenfloorcare.databinding.FragmentCustomerAddressBinding;
+import com.gobluegreen.app.R;
+import com.gobluegreen.app.databinding.FragmentCustomerAddressBinding;
 
 /**
  * Created by David on 7/4/17.

@@ -24,5 +24,4 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="@dimen/feature_services_template_title_height"/>
 
-
 </android.support.constraint.ConstraintLayout>

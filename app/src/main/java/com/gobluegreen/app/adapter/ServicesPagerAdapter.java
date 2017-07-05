@@ -1,11 +1,11 @@
-package com.gobluegreen.bluegreeenfloorcare.adapter;
+package com.gobluegreen.app.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.gobluegreen.bluegreeenfloorcare.R;
-import com.gobluegreen.bluegreeenfloorcare.fragment.FeatureServicesTemplateFragment;
+import com.gobluegreen.app.R;
+import com.gobluegreen.app.fragment.FeatureServicesTemplateFragment;
 
 /**
  * Created by David on 7/1/17.

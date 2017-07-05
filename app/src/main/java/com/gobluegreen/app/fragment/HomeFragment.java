@@ -1,4 +1,4 @@
-package com.gobluegreen.bluegreeenfloorcare.fragment;
+package com.gobluegreen.app.fragment;
 
 
 import android.content.Intent;
@@ -10,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gobluegreen.bluegreeenfloorcare.R;
-import com.gobluegreen.bluegreeenfloorcare.activity.CustomerAddress;
-import com.gobluegreen.bluegreeenfloorcare.adapter.ServicesPagerAdapter;
-import com.gobluegreen.bluegreeenfloorcare.databinding.FragmentHomeBinding;
+import com.gobluegreen.app.R;
+import com.gobluegreen.app.activity.CustomerAddress;
+import com.gobluegreen.app.adapter.ServicesPagerAdapter;
+import com.gobluegreen.app.databinding.FragmentHomeBinding;
 
 /**
  *

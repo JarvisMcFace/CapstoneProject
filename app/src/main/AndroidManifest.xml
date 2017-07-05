@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.gobluegreen.bluegreeenfloorcare">
+          package="com.gobluegreen.app">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".activity.HomeActivity"
+            android:name="com.gobluegreen.app.activity.HomeActivity"
             android:label="@string/home_activity_screen_name"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -24,7 +24,7 @@
 
         </activity>
         <activity
-            android:name=".activity.CustomerAddress"
+            android:name="com.gobluegreen.app.activity.CustomerAddress"
             android:label="@string/customer_address_activity_screen_name"
             android:theme="@style/AppTheme">
         </activity>

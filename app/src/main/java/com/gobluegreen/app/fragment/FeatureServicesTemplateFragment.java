@@ -1,4 +1,4 @@
-package com.gobluegreen.bluegreeenfloorcare.fragment;
+package com.gobluegreen.app.fragment;
 
 
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gobluegreen.bluegreeenfloorcare.R;
+import com.gobluegreen.app.R;
 
 /**
 

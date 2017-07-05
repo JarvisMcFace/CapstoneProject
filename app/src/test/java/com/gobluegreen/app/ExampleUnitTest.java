@@ -1,4 +1,4 @@
-package com.gobluegreen.bluegreeenfloorcare;
+package com.gobluegreen.app;
 
 import org.junit.Test;
 

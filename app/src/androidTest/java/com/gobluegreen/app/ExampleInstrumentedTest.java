@@ -1,4 +1,4 @@
-package com.gobluegreen.bluegreeenfloorcare;
+package com.gobluegreen.app;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
