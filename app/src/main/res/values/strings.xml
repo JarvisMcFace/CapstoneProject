@@ -18,4 +18,7 @@
     <string name="cleaning_services">Cleaning services</string>
     <string name="services_selection_carpet">Carpet</string>
     <string name="services_selection_upholstery">Upholstery</string>
+    <string name="upholstery_to_clean">Upholstery to clean</string>
+    <string name="sofa">Sofa</string>
+    <string name="chair">Chair</string>
 </resources>

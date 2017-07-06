@@ -1,0 +1,58 @@
+package com.gobluegreen.app.to;
+
+import java.io.Serializable;
+
+/**
+ * Created by David on 7/6/17.
+ */
+
+public class RoomTO implements Serializable {
+
+    private static final long serialVersionUID = 6131794314671804481L;
+
+    private RoomType roomType;
+    private int length;
+    private int width;
+    private boolean moveFurniture;
+    private boolean carpetProtector;
+
+    public RoomType getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public boolean isMoveFurniture() {
+        return moveFurniture;
+    }
+
+    public void setMoveFurniture(boolean moveFurniture) {
+        this.moveFurniture = moveFurniture;
+    }
+
+    public boolean isCarpetProtector() {
+        return carpetProtector;
+    }
+
+    public void setCarpetProtector(boolean carpetProtector) {
+        this.carpetProtector = carpetProtector;
+    }
+}
