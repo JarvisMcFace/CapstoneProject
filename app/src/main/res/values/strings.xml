@@ -10,4 +10,12 @@
     <string name="estimate_builder_choose_rooms">Choose the rooms you would like cleaned and see your estimate then scheduled your cleaning.</string>
     <string name="create_estimate">Create Estimate</string>
     <string name="customer_address_activity_screen_name">Locations Address</string>
+    <string name="modify">Modify</string>
+    <string name="rooms_to_clean">Rooms to clean</string>
+    <string name="activity_estimate_builder">Estimate Builder</string>
+    <string name="activity_select_services">Select Services</string>
+    <string name="service_selectoin">How can we serve you?</string>
+    <string name="cleaning_services">Cleaning services</string>
+    <string name="services_selection_carpet">Carpet</string>
+    <string name="services_selection_upholstery">Upholstery</string>
 </resources>

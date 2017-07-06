@@ -7,16 +7,14 @@ import android.support.v7.widget.Toolbar;
 import com.gobluegreen.app.R;
 
 /**
- * Created by David on 7/4/17.
+ * Created by David on 7/5/17.
  */
-
-public class CustomerAddress extends AppCompatActivity {
-
+public class EstimateServicesOfferingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_address);
+        setContentView(R.layout.activity_estimate_services_offering);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 

@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gobluegreen.app.R;
-import com.gobluegreen.app.activity.CustomerAddress;
+import com.gobluegreen.app.activity.EstimateBuilderLandingActivity;
 import com.gobluegreen.app.adapter.ServicesPagerAdapter;
 import com.gobluegreen.app.databinding.FragmentHomeBinding;
 
@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
         @Override
         public void onClick(View v) {
 
-            Intent intent = new Intent(getActivity(), CustomerAddress.class);
+            Intent intent = new Intent(getActivity(), EstimateBuilderLandingActivity.class);
             startActivity(intent);
         }
     };
