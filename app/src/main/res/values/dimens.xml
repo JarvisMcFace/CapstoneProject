@@ -14,4 +14,5 @@
     <dimen name="service_indicator_margin">6dp</dimen>
     <dimen name="service_indicator_width">10dp</dimen>
     <dimen name="services_dialog_padding">10dp</dimen>
+    <dimen name="material_list_with_icon_height">48dp</dimen>
 </resources>

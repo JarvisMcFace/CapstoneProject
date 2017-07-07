@@ -15,6 +15,7 @@ public class EstimateInProgressTO  implements Serializable{
     private List<UpholsteryTO> upholsteryTOs;
     private List<RoomTO> roomTOs;
     private CustomerTO customerTO;
+    private List<RoomType> roomTypes;
 
     public Set<ServiceType> getServiceTypeSet() {
         return serviceTypeSet;
@@ -22,6 +23,14 @@ public class EstimateInProgressTO  implements Serializable{
 
     public void setServiceTypeSet(Set<ServiceType> serviceTypeSet) {
         this.serviceTypeSet = serviceTypeSet;
+    }
+
+    public List<UpholsteryTO> getUpholsteryTOs() {
+        return upholsteryTOs;
+    }
+
+    public void setUpholsteryTOs(List<UpholsteryTO> upholsteryTOs) {
+        this.upholsteryTOs = upholsteryTOs;
     }
 
     public List<RoomTO> getRoomTOs() {
@@ -40,11 +49,11 @@ public class EstimateInProgressTO  implements Serializable{
         this.customerTO = customerTO;
     }
 
-    public List<UpholsteryTO> getUpholsteryTOs() {
-        return upholsteryTOs;
+    public List<RoomType> getRoomTypes() {
+        return roomTypes;
     }
 
-    public void setUpholsteryTOs(List<UpholsteryTO> upholsteryTOs) {
-        this.upholsteryTOs = upholsteryTOs;
+    public void setRoomTypes(List<RoomType> roomTypes) {
+        this.roomTypes = roomTypes;
     }
 }

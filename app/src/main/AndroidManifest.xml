@@ -38,9 +38,9 @@
             android:theme="@style/AppTheme">
         </activity>
         <activity
-            android:name="com.gobluegreen.app.activity.EstimateServicesOfferingActivity"
+            android:name="com.gobluegreen.app.activity.CarpetCleaningServicesActivity"
             android:label="@string/activity_select_services"
-            android:theme="@style/AppTheme.EstimateServices.Dialog">
+            android:theme="@style/AppTheme.EstimateCarpetServices.Dialog">
         </activity>
 
 

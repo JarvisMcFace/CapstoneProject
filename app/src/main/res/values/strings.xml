@@ -21,4 +21,6 @@
     <string name="upholstery_to_clean">Upholstery to clean</string>
     <string name="sofa">Sofa</string>
     <string name="chair">Chair</string>
+    <string name="done">Done</string>
+
 </resources>

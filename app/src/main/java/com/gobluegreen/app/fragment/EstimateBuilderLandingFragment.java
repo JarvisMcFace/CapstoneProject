@@ -1,6 +1,7 @@
 package com.gobluegreen.app.fragment;
 
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 
 import com.gobluegreen.app.R;
+import com.gobluegreen.app.activity.CarpetCleaningServicesActivity;
 import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.databinding.FragmentEstimateBuilderLandingBinding;
 import com.gobluegreen.app.to.EstimateInProgressTO;
@@ -26,6 +28,8 @@ import static android.content.ContentValues.TAG;
  * Created by David on 7/5/17.
  */
 public class EstimateBuilderLandingFragment extends Fragment {
+
+    private static final int CARPET_CLEANING_REQUEST_CODE = 100;
 
     private View rootView;
     private FragmentEstimateBuilderLandingBinding landingBinding;
@@ -52,10 +56,10 @@ public class EstimateBuilderLandingFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         initEstimateInProgress();
-        initViews();
+        initServicesCardViews();
     }
 
-    private void initViews() {
+    private void initServicesCardViews() {
 
         landingBinding.layoutServicesSelection.servicesSelectionCarpetCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -63,10 +67,13 @@ public class EstimateBuilderLandingFragment extends Fragment {
 
                 if (isChecked) {
                     landingBinding.layoutCarpetCleaningServices.carpetCleaningServicesCardview.setVisibility(View.VISIBLE);
-                    addServiceType(ServiceType.CARPET);
+                    addServiceToEstimate(ServiceType.CARPET);
+
+                    Intent intent = new Intent(getActivity(), CarpetCleaningServicesActivity.class);
+                    startActivityForResult(intent, CARPET_CLEANING_REQUEST_CODE);
                 } else {
                     landingBinding.layoutCarpetCleaningServices.carpetCleaningServicesCardview.setVisibility(View.GONE);
-                    removeServiceType(ServiceType.CARPET);
+                    removeServiceFromEstimate(ServiceType.CARPET);
                     estimateInProgressTO.setRoomTOs(null);
                 }
             }
@@ -78,17 +85,17 @@ public class EstimateBuilderLandingFragment extends Fragment {
 
                 if (isChecked) {
                     landingBinding.layoutUpholsteryServices.upholsteryCleaningServicesCardview.setVisibility(View.VISIBLE);
-                    addServiceType(ServiceType.UPHOLSTERY);
+                    addServiceToEstimate(ServiceType.UPHOLSTERY);
                 } else {
                     landingBinding.layoutUpholsteryServices.upholsteryCleaningServicesCardview.setVisibility(View.GONE);
-                    removeServiceType(ServiceType.UPHOLSTERY);
+                    removeServiceFromEstimate(ServiceType.UPHOLSTERY);
                     estimateInProgressTO.setUpholsteryTOs(null);
                 }
             }
         });
     }
 
-    private void addServiceType(ServiceType serviceType) {
+    private void addServiceToEstimate(ServiceType serviceType) {
         Set<ServiceType> serviceTypeSet = estimateInProgressTO.getServiceTypeSet();
 
         if (serviceTypeSet == null) {
@@ -99,7 +106,7 @@ public class EstimateBuilderLandingFragment extends Fragment {
         serviceTypeSet.add(serviceType);
     }
 
-    private void removeServiceType(ServiceType serviceType) {
+    private void removeServiceFromEstimate(ServiceType serviceType) {
 
         Set<ServiceType> serviceTypeSet = estimateInProgressTO.getServiceTypeSet();
 
@@ -119,6 +126,4 @@ public class EstimateBuilderLandingFragment extends Fragment {
             goBluegreenApplication.setEstimateInProgressTO(estimateInProgressTO);
         }
     }
-
-
 }

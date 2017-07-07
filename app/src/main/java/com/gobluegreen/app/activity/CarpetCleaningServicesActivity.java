@@ -9,12 +9,12 @@ import com.gobluegreen.app.R;
 /**
  * Created by David on 7/5/17.
  */
-public class EstimateServicesOfferingActivity extends AppCompatActivity {
+public class CarpetCleaningServicesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_estimate_services_offering);
+        setContentView(R.layout.activity_carpet_cleaning_services);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
