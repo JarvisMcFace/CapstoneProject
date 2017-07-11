@@ -6,30 +6,34 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
+import android.widget.ArrayAdapter;
 
 import com.gobluegreen.app.R;
 import com.gobluegreen.app.activity.CarpetCleaningServicesActivity;
 import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.databinding.FragmentEstimateBuilderLandingBinding;
 import com.gobluegreen.app.to.EstimateInProgressTO;
+import com.gobluegreen.app.to.RoomType;
 import com.gobluegreen.app.to.ServiceType;
+import com.gobluegreen.app.to.UpholsteryType;
+import com.gobluegreen.app.util.CarpetQuoteCacheUtility;
+import com.gobluegreen.app.util.ListUtils;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by David on 7/5/17.
  */
 public class EstimateBuilderLandingFragment extends Fragment {
 
-    private static final int CARPET_CLEANING_REQUEST_CODE = 100;
+    public static final int CARPET_CLEANING_REQUEST_CODE = 100;
 
     private View rootView;
     private FragmentEstimateBuilderLandingBinding landingBinding;
@@ -46,12 +50,6 @@ public class EstimateBuilderLandingFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, "David: " + "onResume() called");
-    }
-
-    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
@@ -59,43 +57,114 @@ public class EstimateBuilderLandingFragment extends Fragment {
         initServicesCardViews();
     }
 
+    @Override
+    public void onPause() {
+
+        GoBluegreenApplication application = (GoBluegreenApplication) getActivity().getApplication();
+        CarpetQuoteCacheUtility.saveEstimateInProgress(application);
+        super.onPause();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == CARPET_CLEANING_REQUEST_CODE) {
+
+            addCarpetServicesToCardView();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
     private void initServicesCardViews() {
 
-        landingBinding.layoutServicesSelection.servicesSelectionCarpetCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        landingBinding.layoutServicesSelection.servicesSelectionCarpetCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onClick(View v) {
 
+                boolean isChecked = landingBinding.layoutServicesSelection.servicesSelectionCarpetCheckbox.isChecked();
                 if (isChecked) {
-                    landingBinding.layoutCarpetCleaningServices.carpetCleaningServicesCardview.setVisibility(View.VISIBLE);
                     addServiceToEstimate(ServiceType.CARPET);
-
-                    Intent intent = new Intent(getActivity(), CarpetCleaningServicesActivity.class);
-                    startActivityForResult(intent, CARPET_CLEANING_REQUEST_CODE);
+                    startCarpetServiceSelectionActivity();
                 } else {
                     landingBinding.layoutCarpetCleaningServices.carpetCleaningServicesCardview.setVisibility(View.GONE);
                     removeServiceFromEstimate(ServiceType.CARPET);
                     estimateInProgressTO.setRoomTOs(null);
+                    estimateInProgressTO.setRoomTypes(null);
                 }
             }
         });
 
-        landingBinding.layoutServicesSelection.servicesSelectionUpholsteryCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        landingBinding.layoutServicesSelection.servicesSelectionUpholsteryCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onClick(View v) {
 
+                boolean isChecked = landingBinding.layoutServicesSelection.servicesSelectionUpholsteryCheckbox.isChecked();
                 if (isChecked) {
                     landingBinding.layoutUpholsteryServices.upholsteryCleaningServicesCardview.setVisibility(View.VISIBLE);
                     addServiceToEstimate(ServiceType.UPHOLSTERY);
                 } else {
                     landingBinding.layoutUpholsteryServices.upholsteryCleaningServicesCardview.setVisibility(View.GONE);
                     removeServiceFromEstimate(ServiceType.UPHOLSTERY);
-                    estimateInProgressTO.setUpholsteryTOs(null);
+                    estimateInProgressTO.setUpholsterySet(null);
                 }
             }
         });
+
+        landingBinding.layoutUpholsteryServices.servicesSelectionSofaCheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                boolean isChecked = landingBinding.layoutUpholsteryServices.servicesSelectionSofaCheckbox.isChecked();
+                if (isChecked) {
+                    addUpholsteryToEstimate(UpholsteryType.SOFA);
+                } else {
+                    removeUpHolsteryToEstimate(UpholsteryType.SOFA);
+                }
+            }
+        });
+
+        landingBinding.layoutUpholsteryServices.servicesSelectionChairCheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                boolean isChecked = landingBinding.layoutUpholsteryServices.servicesSelectionSofaCheckbox.isChecked();
+                if (isChecked) {
+                    addUpholsteryToEstimate(UpholsteryType.CHAIR);
+                } else {
+                    removeUpHolsteryToEstimate(UpholsteryType.CHAIR);
+                }
+            }
+        });
+
+        landingBinding.layoutCarpetCleaningServices.modifyCarpetingCleaningRooms.setOnClickListener(getModifyCarpetCleaningOnClickListener);
+    }
+
+    private void addUpholsteryToEstimate(UpholsteryType upholsteryType) {
+
+        Set<UpholsteryType> upholsterySet = estimateInProgressTO.getUpholsterySet();
+
+        if (upholsterySet == null) {
+            upholsterySet = new HashSet<>();
+            estimateInProgressTO.setUpholsterySet(upholsterySet);
+        }
+
+        upholsterySet.add(upholsteryType);
+    }
+
+    private void removeUpHolsteryToEstimate(UpholsteryType upholsteryType) {
+
+        Set<UpholsteryType> upholsteryTypeSet = estimateInProgressTO.getUpholsterySet();
+
+        if (upholsteryTypeSet == null) {
+            return;
+        }
+        upholsteryTypeSet.remove(upholsteryType);
     }
 
     private void addServiceToEstimate(ServiceType serviceType) {
+
+
         Set<ServiceType> serviceTypeSet = estimateInProgressTO.getServiceTypeSet();
 
         if (serviceTypeSet == null) {
@@ -116,14 +185,97 @@ public class EstimateBuilderLandingFragment extends Fragment {
         serviceTypeSet.remove(serviceType);
     }
 
-
     private void initEstimateInProgress() {
+
         GoBluegreenApplication goBluegreenApplication = (GoBluegreenApplication) getActivity().getApplication();
 
-        estimateInProgressTO = goBluegreenApplication.getEstimateInProgressTO();
+        estimateInProgressTO = CarpetQuoteCacheUtility.getEstimateInProgress(goBluegreenApplication);
+
         if (estimateInProgressTO == null) {
             estimateInProgressTO = new EstimateInProgressTO();
             goBluegreenApplication.setEstimateInProgressTO(estimateInProgressTO);
+        } else {
+            goBluegreenApplication.setEstimateInProgressTO(estimateInProgressTO);
+            restoreEstimate();
+        }
+    }
+
+    private void restoreEstimate() {
+
+        Set<ServiceType> serviceTypeSet = estimateInProgressTO.getServiceTypeSet();
+
+        for (ServiceType serviceType : serviceTypeSet) {
+
+            switch (serviceType) {
+
+                case CARPET:
+                    landingBinding.layoutServicesSelection.servicesSelectionCarpetCheckbox.setChecked(true);
+                    addCarpetServicesToCardView();
+                    break;
+                case TILE_GROUT:
+                    break;
+                case UPHOLSTERY:
+                    landingBinding.layoutServicesSelection.servicesSelectionUpholsteryCheckbox.setChecked(true);
+                    addUpholsteryEstimate();
+                    break;
+                case WOOD_FLOOR:
+                    break;
+            }
+        }
+    }
+
+    private void addUpholsteryEstimate() {
+
+        Set<UpholsteryType> upholsterySet = estimateInProgressTO.getUpholsterySet();
+        if (upholsterySet == null || upholsterySet.size() == 0) {
+            return;
+        }
+
+        landingBinding.layoutUpholsteryServices.upholsteryCleaningServicesCardview.setVisibility(View.VISIBLE);
+
+        for (UpholsteryType upholsteryType : upholsterySet) {
+
+            switch (upholsteryType) {
+
+                case SOFA:
+                    landingBinding.layoutUpholsteryServices.servicesSelectionSofaCheckbox.setChecked(true);
+                    break;
+                case CHAIR:
+                    landingBinding.layoutUpholsteryServices.servicesSelectionChairCheckbox.setChecked(true);
+                    break;
+            }
+        }
+    }
+
+    private View.OnClickListener getModifyCarpetCleaningOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startCarpetServiceSelectionActivity();
+        }
+    };
+
+    private void startCarpetServiceSelectionActivity() {
+        Intent intent = new Intent(getActivity(), CarpetCleaningServicesActivity.class);
+        startActivityForResult(intent, CARPET_CLEANING_REQUEST_CODE);
+    }
+
+    private void addCarpetServicesToCardView() {
+
+        landingBinding.layoutCarpetCleaningServices.carpetCleaningServicesCardview.setVisibility(View.VISIBLE);
+
+        List<RoomType> roomTypes = estimateInProgressTO.getRoomTypes();
+        List<String> roomServiceList = new ArrayList<>();
+
+        if (ListUtils.isNotEmpty(roomTypes)) {
+
+            for (RoomType roomType : roomTypes) {
+                roomServiceList.add(roomType.getDescription());
+            }
+
+            final ArrayAdapter<String> gridViewArrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.layout_selected_carpet_servcies_item, roomServiceList);
+            landingBinding.layoutCarpetCleaningServices.roomsToCleanGridView.setAdapter(gridViewArrayAdapter);
+            gridViewArrayAdapter.notifyDataSetChanged();
         }
     }
 }
+

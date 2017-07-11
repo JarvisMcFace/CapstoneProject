@@ -12,7 +12,7 @@ public class EstimateInProgressTO  implements Serializable{
     private static final long serialVersionUID = -993644511096944070L;
 
     private Set<ServiceType> serviceTypeSet;
-    private List<UpholsteryTO> upholsteryTOs;
+    private Set<UpholsteryType> upholsterySet;
     private List<RoomTO> roomTOs;
     private CustomerTO customerTO;
     private List<RoomType> roomTypes;
@@ -25,12 +25,12 @@ public class EstimateInProgressTO  implements Serializable{
         this.serviceTypeSet = serviceTypeSet;
     }
 
-    public List<UpholsteryTO> getUpholsteryTOs() {
-        return upholsteryTOs;
+    public Set<UpholsteryType> getUpholsterySet() {
+        return upholsterySet;
     }
 
-    public void setUpholsteryTOs(List<UpholsteryTO> upholsteryTOs) {
-        this.upholsteryTOs = upholsteryTOs;
+    public void setUpholsterySet(Set<UpholsteryType> upholsterySet) {
+        this.upholsterySet = upholsterySet;
     }
 
     public List<RoomTO> getRoomTOs() {

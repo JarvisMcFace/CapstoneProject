@@ -61,6 +61,7 @@ dependencies {
 
 //    Third Party Library
     compile 'me.relex:circleindicator:1.2.2@aar'
+    compile 'com.google.code.gson:gson:2.2.4'
 
     testCompile 'junit:junit:4.12'
 }

@@ -21,17 +21,21 @@
                 style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/material_margin"
+                android:layout_marginBottom="@dimen/material_margin_half"
                 android:layout_marginEnd="@dimen/material_margin"
                 android:layout_marginStart="@dimen/material_margin"
                 android:layout_marginTop="@dimen/cardview_title_margin"
                 android:text="@string/rooms_to_clean"/>
 
-            <LinearLayout
-                android:id="@+id/container_carpet_rooms_to_clean"
+            <com.gobluegreen.app.custom.CarpetServicesGridView
+                android:id="@+id/rooms_to_clean_grid_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+                android:layout_marginEnd="@dimen/material_margin"
+                android:layout_marginStart="@dimen/material_margin"
+                android:numColumns="2"
+                android:stretchMode="columnWidth"
+                tools:listitem="@layout/layout_selected_carpet_servcies_item"/>
 
             <Button
                 android:id="@+id/modify_carpeting_cleaning_rooms"
