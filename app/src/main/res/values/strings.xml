@@ -8,8 +8,8 @@
     <string name="feature_service_sub_title_we_call_wi_come">Southeastern Wisconsin\'s premier cleaning service provider</string>
     <string name="estimate_builder">Estimate Builder</string>
     <string name="estimate_builder_choose_rooms">Choose the rooms you would like cleaned and see your estimate then scheduled your cleaning.</string>
-    <string name="create_estimate">Create Estimate</string>
-    <string name="customer_address_activity_screen_name">Locations Address</string>
+    <string name="create_estimate">Start</string>
+    <string name="customer_address_activity_screen_name">Contact Information</string>
     <string name="modify">Modify</string>
     <string name="rooms_to_clean">Rooms to clean</string>
     <string name="activity_estimate_builder">Estimate Builder</string>
@@ -22,5 +22,25 @@
     <string name="sofa">Sofa</string>
     <string name="chair">Chair</string>
     <string name="done">Done</string>
+    <string name="contact_information">Contact Information</string>
+    <string name="add_contact_information">Add</string>
+
+    <!-- Customer Information -->
+    <string name="first_name">First Name *</string>
+    <string name="last_name">Last Name *</string>
+    <string name="customer_contact_reqeust_information">To better serve you, please enter contact information.</string>
+    <string name="customer_city">City</string>
+    <string name="customer_postal_code">Postal Code</string>
+    <string name="customer_address">Address</string>
+    <string name="customer_phone_number">Phone Number *</string>
+    <string name="customer_save_button">Save</string>
+    <string name="error_customer_last_not_valid">Last name is not valid</string>
+    <string name="indicates_required_field">* indicates required field</string>
+
+    <string name="error_customer_first_not_valid">First name is not valid.</string>
+    <string name="error_customer_address_not_valid">Address is not valid.</string>
+    <string name="error_customer_city_not_valid">City is not valid.</string>
+    <string name="error_customer_zip_not_valid">Zip code is not valid.</string>
+    <string name="error_customer_phone_not_valid">Valid 7 or 10 digit phone number.</string>
 
 </resources>

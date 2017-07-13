@@ -5,6 +5,10 @@
     <color name="colorAccent">#011495</color>
 
 
+
+    <color name="ripple_pressed">#ebebeb</color>
+    <color name="ripple_activated">#c2dbee</color>
+
     <color name="white">#FFFFFF</color>
     <color name="default_background">#fff3f3f3</color>
 </resources>

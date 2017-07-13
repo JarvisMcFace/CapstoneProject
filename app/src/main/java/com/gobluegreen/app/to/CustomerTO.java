@@ -1,7 +1,6 @@
 package com.gobluegreen.app.to;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by David on 7/6/17.
@@ -20,7 +19,7 @@ public class CustomerTO implements Serializable {
     private String city;
     private String state;
     private String zipCode;
-    private List<PhoneTO> phoneTOs;
+    private String phoneNumber;
 
     public CustomerType getCustomerType() {
         return customerType;
@@ -94,11 +93,11 @@ public class CustomerTO implements Serializable {
         this.zipCode = zipCode;
     }
 
-    public List<PhoneTO> getPhoneTOs() {
-        return phoneTOs;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhoneTOs(List<PhoneTO> phoneTOs) {
-        this.phoneTOs = phoneTOs;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

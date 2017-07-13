@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 
 import com.gobluegreen.app.R;
 import com.gobluegreen.app.activity.CarpetCleaningServicesActivity;
+import com.gobluegreen.app.activity.CustomerAddressActivity;
 import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.databinding.FragmentEstimateBuilderLandingBinding;
 import com.gobluegreen.app.to.EstimateInProgressTO;
@@ -33,7 +34,9 @@ import java.util.Set;
  */
 public class EstimateBuilderLandingFragment extends Fragment {
 
+    public static final String EXTRA_ESTIMATE_IN_PROGRESS = "com.gobluegreen.app.fragment.estimate.in.progress";
     public static final int CARPET_CLEANING_REQUEST_CODE = 100;
+    public static final int CUSTOMER_INFORMATION_REQUEST_CODE = 200;
 
     private View rootView;
     private FragmentEstimateBuilderLandingBinding landingBinding;
@@ -134,6 +137,14 @@ public class EstimateBuilderLandingFragment extends Fragment {
                 } else {
                     removeUpHolsteryToEstimate(UpholsteryType.CHAIR);
                 }
+            }
+        });
+
+        landingBinding.layoutCustomerInformation.addContactInformation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CustomerAddressActivity.class);
+                startActivityForResult(intent, CUSTOMER_INFORMATION_REQUEST_CODE);
             }
         });
 
@@ -256,6 +267,7 @@ public class EstimateBuilderLandingFragment extends Fragment {
 
     private void startCarpetServiceSelectionActivity() {
         Intent intent = new Intent(getActivity(), CarpetCleaningServicesActivity.class);
+        intent.putExtra(EXTRA_ESTIMATE_IN_PROGRESS, estimateInProgressTO);
         startActivityForResult(intent, CARPET_CLEANING_REQUEST_CODE);
     }
 

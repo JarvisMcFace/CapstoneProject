@@ -15,4 +15,7 @@
     <dimen name="service_indicator_width">10dp</dimen>
     <dimen name="services_dialog_padding">10dp</dimen>
     <dimen name="material_list_with_icon_height">48dp</dimen>
+    <dimen name="customer_contact_space">4dp</dimen>
+    <dimen name="material_padding">16dp</dimen>
+    <dimen name="bottom_sheet_button_height">56dp</dimen>
 </resources>

@@ -1,16 +1,34 @@
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.v4.widget.NestedScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <include
+            android:id="@+id/customer_information_cardview"
+            layout="@layout/layout_customer_information_card_view"/>
 
+        <LinearLayout
+            android:id="@+id/customer_information_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/material_ripple"
+            android:clickable="true"
+            android:elevation="@dimen/material_margin_half"
+            android:translationZ="@dimen/material_margin_half">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bottom_sheet_button_height"
+                android:layout_gravity="bottom"
+                android:gravity="end|center_vertical"
+                android:paddingEnd="@dimen/material_padding"
+                android:text="@string/customer_save_button"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"/>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </FrameLayout>
+
 </layout>
