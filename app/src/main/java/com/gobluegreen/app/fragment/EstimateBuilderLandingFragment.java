@@ -177,6 +177,10 @@ public class EstimateBuilderLandingFragment extends Fragment {
             return;
         }
         upholsteryTypeSet.remove(upholsteryType);
+
+        if (upholsteryTypeSet.size() == 0){
+            estimateInProgressTO.setUpholsterySet(null);
+        }
     }
 
     private void addServiceToEstimate(ServiceType serviceType) {
@@ -214,6 +218,7 @@ public class EstimateBuilderLandingFragment extends Fragment {
         } else {
             goBluegreenApplication.setEstimateInProgressTO(estimateInProgressTO);
             restoreEstimate();
+
             if (estimateInProgressTO.getCustomerTO() != null) {
                 addCustomerInformationTOCardView();
             }
@@ -223,6 +228,10 @@ public class EstimateBuilderLandingFragment extends Fragment {
     private void restoreEstimate() {
 
         Set<ServiceType> serviceTypeSet = estimateInProgressTO.getServiceTypeSet();
+
+        if (serviceTypeSet == null) {
+            return;
+        }
 
         for (ServiceType serviceType : serviceTypeSet) {
 
@@ -282,6 +291,7 @@ public class EstimateBuilderLandingFragment extends Fragment {
 
     private void addCarpetServicesToCardView() {
 
+        final String DOT = "\u00b7";
         landingBinding.layoutCarpetCleaningServices.carpetCleaningServicesCardview.setVisibility(View.VISIBLE);
 
         List<RoomType> roomTypes = estimateInProgressTO.getRoomTypes();
@@ -290,7 +300,7 @@ public class EstimateBuilderLandingFragment extends Fragment {
         if (ListUtils.isNotEmpty(roomTypes)) {
 
             for (RoomType roomType : roomTypes) {
-                roomServiceList.add(roomType.getDescription());
+                roomServiceList.add(DOT + " " + roomType.getDescription());
             }
 
             final ArrayAdapter<String> gridViewArrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.layout_selected_carpet_servcies_item, roomServiceList);
@@ -333,7 +343,8 @@ public class EstimateBuilderLandingFragment extends Fragment {
         }
 
         String zip = customerTO.getZipCode();
-        if (StringUtils.isNotEmpty(zip)){
+        String selectedState = getString(R.string.select_state);
+        if (StringUtils.isEmpty(zip) && !selectedState.equalsIgnoreCase(zip)){
             stringBuilder.append(" ").append(zip);
         }
 

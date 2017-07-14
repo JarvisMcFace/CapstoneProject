@@ -76,7 +76,12 @@ public class CustomerAddressFragment extends Fragment {
         customerTO.setCity(customerAddressBinding.customerInformationCardview.customerCity.getText().toString());
         customerTO.setZipCode(customerAddressBinding.customerInformationCardview.customerPostalCode.getText().toString());
         customerTO.setPhoneNumber(customerAddressBinding.customerInformationCardview.customerPhone.getText().toString());
-        customerTO.setState(customerAddressBinding.customerInformationCardview.customerState.getSelectedItem().toString());
+
+        String selectedStateSpinner = getString(R.string.select_state);
+        String customerSelectedState = customerAddressBinding.customerInformationCardview.customerState.getSelectedItem().toString();
+        if (selectedStateSpinner.equalsIgnoreCase(customerSelectedState)) {
+            customerTO.setState(customerSelectedState);
+        }
 
         GoBluegreenApplication application = (GoBluegreenApplication) getActivity().getApplication();
 
@@ -92,11 +97,11 @@ public class CustomerAddressFragment extends Fragment {
 
         EstimateInProgressTO estimateInProgressTO = application.getEstimateInProgressTO();
         if (estimateInProgressTO == null) {
-           return;
+            return;
         }
 
         CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
-        if (customerTO == null){
+        if (customerTO == null) {
             return;
         }
 
@@ -105,17 +110,17 @@ public class CustomerAddressFragment extends Fragment {
         customerAddressBinding.customerInformationCardview.customerPhone.setText(customerTO.getPhoneNumber());
 
         String address = customerTO.getAddress1();
-        if (StringUtils.isNotEmpty(address)){
+        if (StringUtils.isNotEmpty(address)) {
             customerAddressBinding.customerInformationCardview.customerAddress.setText(customerTO.getAddress1());
         }
 
         String city = customerTO.getCity();
-        if (StringUtils.isNotEmpty(city)){
+        if (StringUtils.isNotEmpty(city)) {
             customerAddressBinding.customerInformationCardview.customerCity.setText(customerTO.getCity());
         }
 
         String postalCode = customerTO.getZipCode();
-        if (StringUtils.isNotEmpty(postalCode)){
+        if (StringUtils.isNotEmpty(postalCode)) {
             customerAddressBinding.customerInformationCardview.customerPostalCode.setText(customerTO.getZipCode());
         }
 
