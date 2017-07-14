@@ -42,5 +42,6 @@
     <string name="error_customer_city_not_valid">City is not valid.</string>
     <string name="error_customer_zip_not_valid">Zip code is not valid.</string>
     <string name="error_customer_phone_not_valid">Valid 7 or 10 digit phone number.</string>
+    <string name="customer_information_provice_service">Provide your contact information to better assist in your service.</string>
 
 </resources>

@@ -1,12 +1,13 @@
 package com.gobluegreen.app.fragment;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,6 @@ import com.gobluegreen.app.to.CustomerTO;
 import com.gobluegreen.app.to.EstimateInProgressTO;
 import com.gobluegreen.app.util.CustomerInformationValidator;
 import com.gobluegreen.app.util.StringUtils;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by David on 7/4/17.
@@ -52,18 +51,19 @@ public class CustomerAddressFragment extends Fragment {
 
         initEstimateInProgress();
 
+        customerAddressBinding.customerInformationCardview.customerPhone.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
         customerAddressBinding.customerInformationSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (isInputFieldValid()) {
                     populateCustomerTO();
-                    Log.d(TAG, "David: " + "onClick() called with: v = [" + v + "]");
-                    getActivity().finish();
+                    Activity activity = getActivity();
+                    activity.setResult(EstimateBuilderLandingFragment.CUSTOMER_INFORMATION_REQUEST_CODE);
+                    activity.finish();
                 }
             }
         });
-
 
     }
 
@@ -129,10 +129,6 @@ public class CustomerAddressFragment extends Fragment {
                 customerAddressBinding.customerInformationCardview.customerState.setSelection(spinnerPosition);
             }
         }
-
-
-
-
     }
 
     private boolean isInputFieldValid() {

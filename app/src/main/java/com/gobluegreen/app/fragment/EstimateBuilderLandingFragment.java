@@ -16,12 +16,14 @@ import com.gobluegreen.app.activity.CarpetCleaningServicesActivity;
 import com.gobluegreen.app.activity.CustomerAddressActivity;
 import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.databinding.FragmentEstimateBuilderLandingBinding;
+import com.gobluegreen.app.to.CustomerTO;
 import com.gobluegreen.app.to.EstimateInProgressTO;
 import com.gobluegreen.app.to.RoomType;
 import com.gobluegreen.app.to.ServiceType;
 import com.gobluegreen.app.to.UpholsteryType;
 import com.gobluegreen.app.util.CarpetQuoteCacheUtility;
 import com.gobluegreen.app.util.ListUtils;
+import com.gobluegreen.app.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -70,12 +72,16 @@ public class EstimateBuilderLandingFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == CARPET_CLEANING_REQUEST_CODE) {
-
-            addCarpetServicesToCardView();
-        }
         super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case CARPET_CLEANING_REQUEST_CODE:
+                addCarpetServicesToCardView();
+                break;
+            case CUSTOMER_INFORMATION_REQUEST_CODE:
+                addCustomerInformationTOCardView();
+                break;
+        }
     }
 
 
@@ -140,7 +146,7 @@ public class EstimateBuilderLandingFragment extends Fragment {
             }
         });
 
-        landingBinding.layoutCustomerInformation.addContactInformation.setOnClickListener(new View.OnClickListener() {
+        landingBinding.layoutCustomerInformation.addModifyContactInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), CustomerAddressActivity.class);
@@ -208,6 +214,9 @@ public class EstimateBuilderLandingFragment extends Fragment {
         } else {
             goBluegreenApplication.setEstimateInProgressTO(estimateInProgressTO);
             restoreEstimate();
+            if (estimateInProgressTO.getCustomerTO() != null) {
+                addCustomerInformationTOCardView();
+            }
         }
     }
 
@@ -289,5 +298,52 @@ public class EstimateBuilderLandingFragment extends Fragment {
             gridViewArrayAdapter.notifyDataSetChanged();
         }
     }
+
+
+    private void addCustomerInformationTOCardView() {
+
+        String modifyText = getResources().getString(R.string.modify);
+        landingBinding.layoutCustomerInformation.addModifyContactInformation.setText(modifyText);
+        landingBinding.layoutCustomerInformation.customerInformationInitialDirections.setVisibility(View.GONE);
+        landingBinding.layoutCustomerInformation.customerInformationCompleted.setVisibility(View.VISIBLE);
+
+        CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
+
+        String customerName = customerTO.getFirstName() + " " + customerTO.getLastName();
+        landingBinding.layoutCustomerInformation.customerInformationFullName.setText(customerName);
+
+        String phone = customerTO.getPhoneNumber();
+        landingBinding.layoutCustomerInformation.customerInformationPhone.setText(phone);
+
+        String address = customerTO.getAddress1();
+        if (StringUtils.isNotEmpty(address)){
+            landingBinding.layoutCustomerInformation.customerInformationAddress.setText(address);
+            landingBinding.layoutCustomerInformation.customerInformationAddress.setVisibility(View.VISIBLE);
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        String city = customerTO.getCity();
+        if (StringUtils.isNotEmpty(city)){
+            stringBuilder.append(city);
+        }
+
+        String state = customerTO.getState();
+        if (StringUtils.isNotEmpty(state)){
+            stringBuilder.append(" ").append(state);
+        }
+
+        String zip = customerTO.getZipCode();
+        if (StringUtils.isNotEmpty(zip)){
+            stringBuilder.append(" ").append(zip);
+        }
+
+        String cityStateZip = stringBuilder.toString();
+        if (StringUtils.isNotEmpty(cityStateZip)){
+            landingBinding.layoutCustomerInformation.customerInformationCityState.setText(cityStateZip);
+            landingBinding.layoutCustomerInformation.customerInformationCityState.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private static final String FORMAT_US = "US";
 }
 

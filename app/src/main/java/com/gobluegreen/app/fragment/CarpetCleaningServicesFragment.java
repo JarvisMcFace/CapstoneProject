@@ -40,7 +40,6 @@ public class CarpetCleaningServicesFragment extends Fragment {
     private List<String> selectedCleaningDescriptions;
     private CarpetItemAdapter adapter;
 
-
     public CarpetCleaningServicesFragment() {
         //default left blank
     }

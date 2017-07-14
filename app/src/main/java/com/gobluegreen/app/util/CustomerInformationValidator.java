@@ -38,8 +38,8 @@ public class CustomerInformationValidator {
             return false;
         }
 
-        Pattern sevenDigits = Pattern.compile("[0-9]{7}");
-        Pattern tenDigits = Pattern.compile("[0-9]{10}");
+        Pattern sevenDigits = Pattern.compile("[0-9\\s\\\\(\\)-\\\\ ]{14}");
+        Pattern tenDigits = Pattern.compile("[0-9\\s\\\\(\\)-\\\\ ]{8}");
 
         Matcher matcherSeven = sevenDigits.matcher(phoneNumber);
         Matcher matcherTen = tenDigits.matcher(phoneNumber);
