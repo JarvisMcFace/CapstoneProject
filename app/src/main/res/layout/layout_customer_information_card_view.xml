@@ -7,7 +7,7 @@
         android:id="@+id/customer_information_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/bottom_sheet_button_height"
+
         tools:showIn="@layout/fragment_customer_address">
 
         <LinearLayout

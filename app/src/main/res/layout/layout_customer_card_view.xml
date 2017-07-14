@@ -6,6 +6,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/customer_contact_cardview"
         style="@style/CardView_Common_Elements"
+        android:layout_marginBottom="@dimen/material_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="visible"

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import com.gobluegreen.app.to.CustomerTO;
 import com.gobluegreen.app.to.EstimateInProgressTO;
 import com.gobluegreen.app.util.CustomerInformationValidator;
 import com.gobluegreen.app.util.StringUtils;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by David on 7/4/17.
@@ -79,7 +82,7 @@ public class CustomerAddressFragment extends Fragment {
 
         String selectedStateSpinner = getString(R.string.select_state);
         String customerSelectedState = customerAddressBinding.customerInformationCardview.customerState.getSelectedItem().toString();
-        if (selectedStateSpinner.equalsIgnoreCase(customerSelectedState)) {
+        if (!selectedStateSpinner.equalsIgnoreCase(customerSelectedState)) {
             customerTO.setState(customerSelectedState);
         }
 
@@ -89,6 +92,7 @@ public class CustomerAddressFragment extends Fragment {
         if (estimateInProgressTO != null) {
             estimateInProgressTO.setCustomerTO(customerTO);
         }
+        Log.d(TAG, "David: " + "populateCustomerTO() called");
     }
 
     private void initEstimateInProgress() {

@@ -24,6 +24,7 @@
     <string name="done">Done</string>
     <string name="contact_information">Contact Information</string>
     <string name="add_contact_information">Add</string>
+    <string name="continue_esitimate">Continue</string>
 
     <!-- Customer Information -->
     <string name="first_name">First Name *</string>
