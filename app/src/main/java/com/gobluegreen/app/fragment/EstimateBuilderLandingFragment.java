@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import android.widget.ArrayAdapter;
 import com.gobluegreen.app.R;
 import com.gobluegreen.app.activity.CarpetCleaningServicesActivity;
 import com.gobluegreen.app.activity.CustomerAddressActivity;
+import com.gobluegreen.app.activity.EstimateActivity;
 import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.databinding.FragmentEstimateBuilderLandingBinding;
 import com.gobluegreen.app.to.CustomerTO;
@@ -31,8 +31,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static android.content.ContentValues.TAG;
 
 
 /**
@@ -259,7 +257,8 @@ public class EstimateBuilderLandingFragment extends Fragment {
     private View.OnClickListener getContinueButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Log.d(TAG, "David: " + "Continue onClick() called with: v = [" + v + "]");
+            Intent intent = new Intent(getActivity(), EstimateActivity.class);
+            startActivity(intent);
         }
     };
 

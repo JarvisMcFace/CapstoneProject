@@ -7,7 +7,7 @@
     android:padding="@dimen/services_dialog_padding">
 
     <fragment
-        android:id="@+id/home_fragment"
+        android:id="@+id/carpet_cleaning_servcies_fragment"
         android:name="com.gobluegreen.app.fragment.CarpetCleaningServicesFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

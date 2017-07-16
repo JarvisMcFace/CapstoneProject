@@ -2,9 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.gobluegreen.app">
 
-    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>-->
-    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>-->
-
+    <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> -->
     <application
         android:name=".application.GoBluegreenApplication"
         android:allowBackup="true"
@@ -13,37 +12,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/GOOGLE_MAP_API_KEY"/>
 
         <activity
-            android:name="com.gobluegreen.app.activity.HomeActivity"
+            android:name=".activity.HomeActivity"
             android:label="@string/home_activity_screen_name"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name="com.gobluegreen.app.activity.CustomerAddressActivity"
+            android:name=".activity.CustomerAddressActivity"
             android:label="@string/customer_address_activity_screen_name"
             android:theme="@style/AppTheme">
         </activity>
         <activity
-            android:name="com.gobluegreen.app.activity.EstimateBuilderLandingActivity"
+            android:name=".activity.EstimateBuilderLandingActivity"
             android:label="@string/activity_estimate_builder"
             android:theme="@style/AppTheme">
         </activity>
         <activity
-            android:name="com.gobluegreen.app.activity.CarpetCleaningServicesActivity"
+            android:name=".activity.CarpetCleaningServicesActivity"
             android:label="@string/activity_select_services"
             android:theme="@style/AppTheme.EstimateCarpetServices.Dialog">
         </activity>
-
-
+        <activity android:name=".activity.EstimateActivity">
+        </activity>
     </application>
 
 </manifest>

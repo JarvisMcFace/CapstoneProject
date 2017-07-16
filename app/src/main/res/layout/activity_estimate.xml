@@ -9,8 +9,8 @@
     <include layout="@layout/appbar_toolbar_layout"/>
 
     <fragment
-        android:id="@+id/customer_address_fragment"
-        android:name="com.gobluegreen.app.fragment.CustomerAddressFragment"
+        android:id="@+id/estimate_fragment"
+        android:name="com.gobluegreen.app.fragment.EstimateFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
