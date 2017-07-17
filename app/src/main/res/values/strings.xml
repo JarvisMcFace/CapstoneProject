@@ -49,5 +49,6 @@
     <string name="length">Length</string>
     <string name="width">Width</string>
     <string name="x">X</string>
+    <string name="price_estimate">price estimate</string>
 
 </resources>

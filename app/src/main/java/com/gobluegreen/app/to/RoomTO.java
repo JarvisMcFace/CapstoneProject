@@ -15,6 +15,8 @@ public class RoomTO implements Serializable {
     private int width;
     private boolean moveFurniture;
     private boolean carpetProtector;
+    private int squareFeet;
+    private double priceEstimate;
 
     public RoomType getRoomType() {
         return roomType;
@@ -54,5 +56,21 @@ public class RoomTO implements Serializable {
 
     public void setCarpetProtector(boolean carpetProtector) {
         this.carpetProtector = carpetProtector;
+    }
+
+    public int getSquareFeet() {
+        return squareFeet;
+    }
+
+    public void setSquareFeet(int squareFeet) {
+        this.squareFeet = squareFeet;
+    }
+
+    public double getPriceEstimate() {
+        return priceEstimate;
+    }
+
+    public void setPriceEstimate(double priceEstimate) {
+        this.priceEstimate = priceEstimate;
     }
 }

@@ -154,6 +154,11 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 //intentionally left blank
             }
         });
+
+        double estimatePrice = roomTO.getPriceEstimate();
+        if (!Double.isNaN(estimatePrice) && estimatePrice > 0){
+            binding.estimatedPrice.setText(String.valueOf(estimatePrice));
+        }
     }
 
 }

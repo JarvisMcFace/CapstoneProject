@@ -27,6 +27,8 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import static android.content.ContentValues.TAG;
 
 /**
@@ -102,13 +104,13 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
         for (RoomTO roomTO : roomTOs) {
             if (updateRoomTO.getRoomType() == roomTO.getRoomType()){
                 int width = updateRoomTO.getWidth();
+                roomTO.setPriceEstimate(330D);
                 roomTO.setWidth(width);
                 Log.d(TAG, "David: " + "updateRoomWidth() called with: width = [" + roomTO.getWidth() + "]");
                 break;
             }
-
-
         }
+
 
     }
 
@@ -140,11 +142,13 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
         estimateInProgressTO.setRoomTOs(roomTOs);
     }
 
-    private boolean doesRoomAlreadyExistInList(RoomType roomTypeExist) {
+    private boolean doesRoomAlreadyExistInList(@Nonnull RoomType roomTypeExist) {
 
-        List<RoomType> roomTypes = estimateInProgressTO.getRoomTypes();
+        List<RoomTO> roomTOs = estimateInProgressTO.getRoomTOs();
 
-        for (RoomType roomType : roomTypes) {
+        for (RoomTO roomTO : roomTOs) {
+
+            RoomType roomType = roomTO.getRoomType();
 
             if (roomType.equals(roomTypeExist)) {
                 return true;

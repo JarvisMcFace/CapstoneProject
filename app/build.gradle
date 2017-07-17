@@ -51,6 +51,7 @@ dependencies {
     compile 'me.relex:circleindicator:1.2.2@aar'
     compile 'com.google.code.gson:gson:2.2.4'
     testCompile 'junit:junit:4.12'
+    compile 'com.google.code.findbugs:jsr305:2.0.1'
 }
 
 
