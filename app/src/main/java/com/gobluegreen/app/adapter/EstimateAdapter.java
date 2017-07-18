@@ -77,7 +77,7 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         EstimateItemTO estimateItemTO = estimateItemTOs.get(position);
 
         if (estimateItemTO.getItemType() == EstimateItemTO.ItemType.ROOM) {
-            bindCarpetCleaningService((RoomEstimateViewHolder) holder, estimateItemTO);
+            bindCarpetCleaningService((RoomEstimateViewHolder) holder, estimateItemTO, position);
         }
 
     }
@@ -87,9 +87,9 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return estimateItemTOs.size();
     }
 
-    private void bindCarpetCleaningService(RoomEstimateViewHolder roomEstimateViewHolder, EstimateItemTO estimateItemTO) {
+    private void bindCarpetCleaningService(RoomEstimateViewHolder roomEstimateViewHolder, EstimateItemTO estimateItemTO, final int position) {
 
-        ItemRoomEstimateBinding binding = roomEstimateViewHolder.getBinding();
+        final ItemRoomEstimateBinding binding = roomEstimateViewHolder.getBinding();
 
         final RoomTO roomTO = (RoomTO) estimateItemTO.getItemObject();
 
@@ -116,8 +116,9 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
 
                 roomTO.setLength(length);
-                CarpetRoomServiceCallBack carpetRoomServiceCallBack = weakReferenceCarpetRoomServiceCallBack.get();
-                carpetRoomServiceCallBack.updateRoomLength(roomTO);
+                //TODO David Clean this up, not needed
+//                CarpetRoomServiceCallBack carpetRoomServiceCallBack = weakReferenceCarpetRoomServiceCallBack.get();
+//                carpetRoomServiceCallBack.updateRoomLength(roomTO);
             }
 
             @Override
@@ -145,8 +146,9 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
 
                 roomTO.setWidth(width);
+                //TODO David Clean this up, not needed
                 CarpetRoomServiceCallBack carpetRoomServiceCallBack = weakReferenceCarpetRoomServiceCallBack.get();
-                carpetRoomServiceCallBack.updateRoomWidth(roomTO);
+                carpetRoomServiceCallBack.updateRoomWidth(roomTO, position,  binding.estimatedPrice);
             }
 
             @Override
@@ -155,8 +157,9 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
         });
 
+
         double estimatePrice = roomTO.getPriceEstimate();
-        if (!Double.isNaN(estimatePrice) && estimatePrice > 0){
+        if (!Double.isNaN(estimatePrice) && estimatePrice > 0) {
             binding.estimatedPrice.setText(String.valueOf(estimatePrice));
         }
     }

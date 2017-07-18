@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.gobluegreen.app.R;
 import com.gobluegreen.app.adapter.CarpetRoomServiceCallBack;
@@ -28,8 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by David on 7/14/17.
@@ -77,7 +75,7 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
     }
 
     @Override
-    public void updateRoomLength(RoomTO updateRoomTO) {
+    public void updateRoomLength(RoomTO updateRoomTO, int position) {
 
        List<RoomTO> roomTOs =  estimateInProgressTO.getRoomTOs();
         if (ListUtils.isEmpty(roomTOs)) {
@@ -88,14 +86,13 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
             if (updateRoomTO.getRoomType() == roomTO.getRoomType()){
                 int length = updateRoomTO.getLength();
                 roomTO.setLength(length);
-                Log.d(TAG, "David: " + "updateRoomWidth() called with: lenght = [" + roomTO.getLength() + "]");
                 break;
             }
         }
     }
 
     @Override
-    public void updateRoomWidth(RoomTO updateRoomTO) {
+    public void updateRoomWidth(RoomTO updateRoomTO, int position, TextView estimatedPrice) {
         List<RoomTO> roomTOs =  estimateInProgressTO.getRoomTOs();
         if (ListUtils.isEmpty(roomTOs)) {
             return;
@@ -104,14 +101,10 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
         for (RoomTO roomTO : roomTOs) {
             if (updateRoomTO.getRoomType() == roomTO.getRoomType()){
                 int width = updateRoomTO.getWidth();
-                roomTO.setPriceEstimate(330D);
                 roomTO.setWidth(width);
-                Log.d(TAG, "David: " + "updateRoomWidth() called with: width = [" + roomTO.getWidth() + "]");
                 break;
             }
         }
-
-
     }
 
     private void populateRoomsToEstimate() {
@@ -124,6 +117,7 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
         List<RoomTO> roomTOs = estimateInProgressTO.getRoomTOs();
         if (ListUtils.isEmpty(roomTOs)) {
             roomTOs= new ArrayList<>();
+            estimateInProgressTO.setRoomTOs(roomTOs);
         }
 
         for (RoomType roomType : roomTypes) {
