@@ -6,6 +6,6 @@ package com.gobluegreen.app.data;
 
 public class DatabaseConstants {
 
-    public static final String DATABASE_NAME = "Estimates.db";
+    public static final String DATABASE_NAME = "Estimates";
     public static final int DATABASE_VERSION = 1;
 }

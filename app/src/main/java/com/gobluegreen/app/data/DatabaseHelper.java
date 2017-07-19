@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.gobluegreen.app.data.estimatebuilder.EstimateBuilderDbAdapter;
+import com.gobluegreen.app.data.customer.CustomerDbAdapter;
 
 /**
  * Created by David on 11/6/16.
@@ -19,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(EstimateBuilderDbAdapter.CREATE_ESTIMATE_BUILDER_TABLE);
+        sqLiteDatabase.execSQL(CustomerDbAdapter.CREATE_ESTIMATE_BUILDER_TABLE);
     }
 
     @Override

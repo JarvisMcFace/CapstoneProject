@@ -45,10 +45,10 @@
         </activity>
 
 
-        <provider
-            android:name=".data.estimatebuilder.EstimateBuilderContentProvider"
-            android:authorities="com.gobluegreen.app.data.estimatebuilderprovider"
-            android:exported="false"/>
+        <!--<provider-->
+            <!--android:name=".data.customer.CustomerContentProvider"-->
+            <!--android:authorities="com.go bluegreen.app.data.customer.provider"-->
+            <!--android:exported="false"/>-->
 
     </application>
 

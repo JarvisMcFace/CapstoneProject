@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.gobluegreen.app.R;
 import com.gobluegreen.app.adapter.viewholder.RoomEstimateViewHolder;
@@ -116,9 +117,7 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
 
                 roomTO.setLength(length);
-                //TODO David Clean this up, not needed
-//                CarpetRoomServiceCallBack carpetRoomServiceCallBack = weakReferenceCarpetRoomServiceCallBack.get();
-//                carpetRoomServiceCallBack.updateRoomLength(roomTO);
+                updateEstimatedPrice(roomTO, binding.estimatedPrice);
             }
 
             @Override
@@ -146,9 +145,8 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
 
                 roomTO.setWidth(width);
-                //TODO David Clean this up, not needed
-                CarpetRoomServiceCallBack carpetRoomServiceCallBack = weakReferenceCarpetRoomServiceCallBack.get();
-                carpetRoomServiceCallBack.updateRoomWidth(roomTO, position,  binding.estimatedPrice);
+
+                updateEstimatedPrice(roomTO, binding.estimatedPrice);
             }
 
             @Override
@@ -158,10 +156,27 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         });
 
 
-        double estimatePrice = roomTO.getPriceEstimate();
-        if (!Double.isNaN(estimatePrice) && estimatePrice > 0) {
+        String estimatePrice = roomTO.getPriceEstimate();
+        if (StringUtils.isNotEmpty(estimatePrice)) {
             binding.estimatedPrice.setText(String.valueOf(estimatePrice));
         }
+    }
+
+    private void updateEstimatedPrice(RoomTO roomTO, TextView estimatedPrice) {
+
+        int roomLength = roomTO.getLength();
+        int roomWidth = roomTO.getWidth();
+
+        if (roomLength > 0 && roomWidth > 0) {
+
+            int totalSqFeet = roomLength *roomWidth;
+            roomTO.setPriceEstimate(totalSqFeet + "sq");
+
+            estimatedPrice.setText(totalSqFeet + "sq");
+        } else {
+            estimatedPrice.setText("");
+        }
+
     }
 
 }
