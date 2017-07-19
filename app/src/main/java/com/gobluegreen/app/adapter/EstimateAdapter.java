@@ -160,6 +160,39 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (StringUtils.isNotEmpty(estimatePrice)) {
             binding.estimatedPrice.setText(String.valueOf(estimatePrice));
         }
+
+        if (roomTO.isCarpetProtector()) {
+            binding.estimateCarpetProtectorCheckbox.setChecked(true);
+        }
+        binding.estimateCarpetProtectorCheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                boolean isChecked =  binding.estimateCarpetProtectorCheckbox.isChecked();
+                if (isChecked) {
+                    roomTO.setCarpetProtector(true  );
+                } else {
+                    roomTO.setCarpetProtector(false);
+                }
+            }
+        });
+
+        if (roomTO.isMoveFurniture()) {
+            binding.estimateMoveFurnatureCheckbox.setChecked(true);
+        }
+        binding.estimateMoveFurnatureCheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                boolean isChecked =  binding.estimateMoveFurnatureCheckbox.isChecked();
+                if (isChecked) {
+                    roomTO.setMoveFurniture(true);
+
+                } else {
+                    roomTO.setMoveFurniture(false);
+                }
+            }
+        });
     }
 
     private void updateEstimatedPrice(RoomTO roomTO, TextView estimatedPrice) {
