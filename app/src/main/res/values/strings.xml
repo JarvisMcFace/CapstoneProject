@@ -50,5 +50,6 @@
     <string name="width">Width</string>
     <string name="x">X</string>
     <string name="price_estimate">price estimate</string>
+    <string name="number_of_stairs">Number of stairs</string>
 
 </resources>

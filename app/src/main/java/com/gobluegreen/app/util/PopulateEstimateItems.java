@@ -26,7 +26,29 @@ public class PopulateEstimateItems {
         }
 
         populateCarpetCleaningServices(estimateItemTOs, estimateInProgressTO);
+        populateCarpetStarwayServcies(estimateItemTOs,estimateInProgressTO);
 
+
+        return estimateItemTOs;
+    }
+
+    private static List<EstimateItemTO> populateCarpetStarwayServcies(List<EstimateItemTO> estimateItemTOs, EstimateInProgressTO estimateInProgressTO) {
+
+        List<RoomTO> roomTOs = estimateInProgressTO.getRoomTOs();
+        if (ListUtils.isEmpty(roomTOs)) {
+            return estimateItemTOs;
+        }
+
+        for (RoomTO roomTO : roomTOs) {
+
+            if (roomTO.getRoomType() != RoomType.STAIRWAY_LANDING) {
+                continue;
+            }
+            EstimateItemTO estimateItemTO = new EstimateItemTO(EstimateItemTO.ItemType.STAIRWAY);
+            estimateItemTO.setItemObject(roomTO);
+
+            estimateItemTOs.add(estimateItemTO);
+        }
 
         return estimateItemTOs;
     }
@@ -39,6 +61,11 @@ public class PopulateEstimateItems {
         }
 
         for (RoomTO roomTO : roomTOs) {
+
+            if (roomTO.getRoomType() == RoomType.STAIRWAY_LANDING) {
+                continue;
+            }
+
             EstimateItemTO estimateItemTO = new EstimateItemTO(EstimateItemTO.ItemType.ROOM);
             estimateItemTO.setItemObject(roomTO);
 

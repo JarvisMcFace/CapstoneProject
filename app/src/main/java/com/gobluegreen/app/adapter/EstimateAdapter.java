@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.gobluegreen.app.R;
 import com.gobluegreen.app.adapter.viewholder.RoomEstimateViewHolder;
+import com.gobluegreen.app.adapter.viewholder.RoomStairwayEstimateViewHolder;
 import com.gobluegreen.app.databinding.ItemRoomEstimateBinding;
+import com.gobluegreen.app.databinding.ItemRoomStairwayEstimateBinding;
 import com.gobluegreen.app.to.EstimateItemTO;
 import com.gobluegreen.app.to.RoomTO;
 import com.gobluegreen.app.util.StringUtils;
@@ -59,13 +61,15 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
+        View view = null;
         switch (viewType) {
             case VIEW_TYPE_HEADER:
             case VIEW_TYPE_ROOM:
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_room_estimate, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_room_estimate, parent, false);
                 return new RoomEstimateViewHolder(view);
             case VIEW_TYPE_STAIRWAY:
+                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_room_stairway_estimate, parent, false);
+                return new RoomStairwayEstimateViewHolder(view);
             case VIEW_TYPE_UPHOLSTERY:
         }
 
@@ -79,6 +83,12 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         if (estimateItemTO.getItemType() == EstimateItemTO.ItemType.ROOM) {
             bindCarpetCleaningService((RoomEstimateViewHolder) holder, estimateItemTO, position);
+            return;
+        }
+
+        if (estimateItemTO.getItemType() == EstimateItemTO.ItemType.STAIRWAY) {
+            bindStairwayCleaningService((RoomStairwayEstimateViewHolder) holder, estimateItemTO, position);
+            return;
         }
 
     }
@@ -195,6 +205,83 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         });
     }
 
+
+    private void bindStairwayCleaningService(RoomStairwayEstimateViewHolder roomStairwayEstimateViewHolder, EstimateItemTO estimateItemTO, final int position) {
+
+        final ItemRoomStairwayEstimateBinding binding = roomStairwayEstimateViewHolder.getBinding();
+
+        final RoomTO roomTO = (RoomTO) estimateItemTO.getItemObject();
+
+        binding.carpetStairwayServiceLabel.setText(roomTO.getRoomType().getDescription());
+
+        int numberSteps = roomTO.getNumberSteps();
+
+        if (numberSteps > 0) {
+            binding.estimateNumberOfSteps.setText(String.valueOf(numberSteps));
+        }
+        binding.estimateNumberOfSteps.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //intentionally left blank
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                int numberSteps = 0;
+
+                if (StringUtils.isNotEmpty(s.toString())) {
+                    numberSteps = Integer.parseInt(s.toString());
+                }
+
+                roomTO.setNumberSteps(numberSteps);
+                updateNumberOfStepEstimatedPrice(roomTO, binding.estimatedPrice);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //intentionally left blank
+            }
+        });
+
+
+        String estimatePrice = roomTO.getPriceEstimate();
+        if (StringUtils.isNotEmpty(estimatePrice)) {
+            binding.estimatedPrice.setText(String.valueOf(estimatePrice));
+        }
+
+        if (roomTO.isCarpetProtector()) {
+            binding.estimateCarpetProtectorCheckbox.setChecked(true);
+        }
+        binding.estimateCarpetProtectorCheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                boolean isChecked =  binding.estimateCarpetProtectorCheckbox.isChecked();
+                if (isChecked) {
+                    roomTO.setCarpetProtector(true  );
+                } else {
+                    roomTO.setCarpetProtector(false);
+                }
+            }
+        });
+
+
+    }
+
+    private void updateNumberOfStepEstimatedPrice(RoomTO roomTO, TextView estimatedPrice) {
+
+        int numberOfSteps = roomTO.getNumberSteps();
+
+        if (numberOfSteps > 0) {
+
+            roomTO.setPriceEstimate("step price");
+            estimatedPrice.setText("step price");
+        } else {
+            estimatedPrice.setText("");
+        }
+    }
+
     private void updateEstimatedPrice(RoomTO roomTO, TextView estimatedPrice) {
 
         int roomLength = roomTO.getLength();
@@ -209,7 +296,6 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else {
             estimatedPrice.setText("");
         }
-
     }
 
 }

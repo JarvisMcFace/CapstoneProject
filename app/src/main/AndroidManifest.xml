@@ -41,14 +41,18 @@
             android:label="@string/activity_select_services"
             android:theme="@style/AppTheme.EstimateCarpetServices.Dialog">
         </activity>
-        <activity android:name=".activity.EstimateActivity">
+        <activity
+            android:name=".activity.EstimateActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+
         </activity>
 
 
         <!--<provider-->
-            <!--android:name=".data.customer.CustomerContentProvider"-->
-            <!--android:authorities="com.go bluegreen.app.data.customer.provider"-->
-            <!--android:exported="false"/>-->
+        <!--android:name=".data.customer.CustomerContentProvider"-->
+        <!--android:authorities="com.go bluegreen.app.data.customer.provider"-->
+        <!--android:exported="false"/>-->
 
     </application>
 

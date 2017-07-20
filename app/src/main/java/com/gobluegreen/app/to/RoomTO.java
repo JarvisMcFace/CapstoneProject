@@ -17,6 +17,7 @@ public class RoomTO implements Serializable {
     private boolean carpetProtector;
     private int squareFeet;
     private String priceEstimate;
+    private int numberSteps;
 
     public RoomType getRoomType() {
         return roomType;
@@ -73,4 +74,13 @@ public class RoomTO implements Serializable {
     public void setPriceEstimate(String priceEstimate) {
         this.priceEstimate = priceEstimate;
     }
+
+    public int getNumberSteps() {
+        return numberSteps;
+    }
+
+    public void setNumberSteps(int numberSteps) {
+        this.numberSteps = numberSteps;
+    }
 }
+
