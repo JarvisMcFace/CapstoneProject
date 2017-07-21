@@ -18,6 +18,7 @@ import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.databinding.FragmentCarpetCleaningServicesBinding;
 import com.gobluegreen.app.to.EstimateInProgressTO;
 import com.gobluegreen.app.to.RoomDescriptionItemTO;
+import com.gobluegreen.app.to.RoomTO;
 import com.gobluegreen.app.to.RoomType;
 import com.gobluegreen.app.util.ListUtils;
 
@@ -117,11 +118,13 @@ public class CarpetCleaningServicesFragment extends Fragment {
 
         List<RoomType> roomTypes = adapter.getRoomTypeList();
         if (ListUtils.isNotEmpty(roomTypes)) {
-            estimateInProgressTO.setRoomTypes(roomTypes);
+            updateRemovedRooms(roomTypes);
+
         }
 
         super.onPause();
     }
+
 
     private List<String> initCarpetServices() {
 
@@ -145,4 +148,28 @@ public class CarpetCleaningServicesFragment extends Fragment {
             activity.finish();
         }
     };
+
+
+    private void updateRemovedRooms(List<RoomType> roomTypes) {
+
+        List<RoomTO> roomTOs = estimateInProgressTO.getRoomTOs();
+        if (ListUtils.isEmpty(roomTOs)) {
+            estimateInProgressTO.setRoomTypes(roomTypes);
+            return;
+        }
+
+        List<RoomTO> roomToRemove = new ArrayList<>();
+        for (RoomTO roomTO : roomTOs) {
+           RoomType roomType =  roomTO.getRoomType();
+            if (roomTypes.contains(roomType)) {
+                continue;
+            }
+
+            roomToRemove.add(roomTO);
+        }
+
+        roomTOs.removeAll(roomToRemove);
+
+        estimateInProgressTO.setRoomTypes(roomTypes);
+    }
 }
