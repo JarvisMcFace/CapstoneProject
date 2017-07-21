@@ -59,7 +59,7 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
         estimateInProgressTO = application.getEstimateInProgressTO();
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        estimateBinding.estimateRecyclerView.setLayoutManager(linearLayoutManager);
+        estimateBinding.layoutEstimate.estimateRecyclerView.setLayoutManager(linearLayoutManager);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
 
         WeakReference<CarpetRoomServiceCallBack> weakReferenceCarpetRoomServiceCallBack =  new WeakReference<CarpetRoomServiceCallBack>(this);
         estimateAdapter = new EstimateAdapter(estimateItemTOs,weakReferenceCarpetRoomServiceCallBack);
-        estimateBinding.estimateRecyclerView.setAdapter(estimateAdapter);
+        estimateBinding.layoutEstimate.estimateRecyclerView.setAdapter(estimateAdapter);
     }
 
     @Override

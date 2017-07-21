@@ -4,21 +4,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 
 import com.gobluegreen.app.R;
 import com.gobluegreen.app.adapter.viewholder.CarpetItemHolder;
+import com.gobluegreen.app.adapter.viewholder.CleaningServiceSelectedRoomCallback;
 import com.gobluegreen.app.databinding.ItemCarpetCleaningServiceBinding;
 import com.gobluegreen.app.to.RoomDescriptionItemTO;
 import com.gobluegreen.app.to.RoomType;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by David on 7/6/17.
  */
-public class CarpetItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class CarpetItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements CleaningServiceSelectedRoomCallback {
 
     private List<RoomDescriptionItemTO> roomDescriptionItemTOs;
     private List<RoomType> roomTypeList;
@@ -36,8 +37,8 @@ public class CarpetItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_carpet_cleaning_service, parent, false);
-        CarpetItemHolder carpetItemHolder = new CarpetItemHolder(view);
-
+        WeakReference<CleaningServiceSelectedRoomCallback> carpetRoomServiceCallBackWeakReference = new WeakReference<CleaningServiceSelectedRoomCallback>(this);
+        CarpetItemHolder carpetItemHolder = new CarpetItemHolder(view, roomDescriptionItemTOs, carpetRoomServiceCallBackWeakReference);
         return carpetItemHolder;
     }
 
@@ -45,32 +46,18 @@ public class CarpetItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
 
         CarpetItemHolder carpetItemHolder = (CarpetItemHolder) holder;
-        ItemCarpetCleaningServiceBinding binding = carpetItemHolder.getBinding();
+        final ItemCarpetCleaningServiceBinding binding = carpetItemHolder.getBinding();
 
-        String carpetService = roomDescriptionItemTOs.get(position).getDescription();
+        RoomDescriptionItemTO roomDescriptionItemTO =  roomDescriptionItemTOs.get(position);
+        String carpetService = roomDescriptionItemTO.getDescription();
         binding.carpetCleaningServiceLabel.setText(carpetService);
 
-        binding.carpetCleaningServiceCheckbox.setChecked(roomDescriptionItemTOs.get(position).isSelected());
-        binding.carpetCleaningServiceCheckbox.setOnCheckedChangeListener(null);
-        binding.carpetCleaningServiceCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                RoomDescriptionItemTO roomDescriptionItemTO = roomDescriptionItemTOs.get(holder.getAdapterPosition());
-                roomDescriptionItemTO.setSelected(isChecked);
-                final String carpetDescription = roomDescriptionItemTO.getDescription();
-                RoomType roomType = RoomType.lookupRoomType(carpetDescription);
-
-                if (isChecked) {
-                    if (!roomTypeList.contains(roomType)) {
-                        roomTypeList.add(roomType);
-                    }
-                } else {
-                    roomTypeList.remove(roomType);
-                }
-            }
-        });
-
-
+        boolean isSelected = roomDescriptionItemTO.isSelected();
+        if (isSelected) {
+            binding.carpetCleaningServiceCheckbox.setChecked(true);
+        } else {
+            binding.carpetCleaningServiceCheckbox.setChecked(false);
+        }
     }
 
     @Override
@@ -80,5 +67,17 @@ public class CarpetItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public List<RoomType> getRoomTypeList() {
         return roomTypeList;
+    }
+
+    @Override
+    public void onRoomSelected(boolean isChecked, RoomType roomType) {
+
+        if (isChecked) {
+            if (!roomTypeList.contains(roomType)) {
+                roomTypeList.add(roomType);
+            }
+        } else {
+            roomTypeList.remove(roomType);
+        }
     }
 }

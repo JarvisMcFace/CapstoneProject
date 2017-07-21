@@ -6,14 +6,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/estimate_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/bottom_sheet_landing_button_height"
-            android:fitsSystemWindows="true"
-            android:scrollbars="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        <include
+            android:id="@+id/layout_estimate"
+            layout="@layout/layout_estimate"/>
 
 
         <LinearLayout
