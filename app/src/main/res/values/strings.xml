@@ -52,4 +52,8 @@
     <string name="price_estimate">price estimate</string>
     <string name="number_of_stairs">Number of stairs</string>
 
+
+    <string name="build_estimated_price_range">Estimated Price Range</string>
+    <string name="estimated_square_carpet_squre_feet">Estimated square carpet squre feet</string>
+
 </resources>
