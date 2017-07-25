@@ -3,6 +3,7 @@ package com.gobluegreen.app.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +14,16 @@ import com.gobluegreen.app.adapter.viewholder.RoomEstimateViewHolder;
 import com.gobluegreen.app.adapter.viewholder.RoomStairwayEstimateViewHolder;
 import com.gobluegreen.app.databinding.ItemRoomEstimateBinding;
 import com.gobluegreen.app.databinding.ItemRoomStairwayEstimateBinding;
+import com.gobluegreen.app.to.CleaningPriceFactorTO;
+import com.gobluegreen.app.to.CleaningPriceFactors;
 import com.gobluegreen.app.to.EstimateItemTO;
 import com.gobluegreen.app.to.RoomTO;
+import com.gobluegreen.app.to.RoomType;
 import com.gobluegreen.app.util.StringUtils;
+import com.google.gson.Gson;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -296,6 +302,28 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else {
             estimatedPrice.setText("");
         }
+
+
+        CleaningPriceFactors cleaningPriceFactors = new CleaningPriceFactors();
+        cleaningPriceFactors.setCleaningPriceFactorTOs(new ArrayList<CleaningPriceFactorTO>());
+        cleaningPriceFactors.setLowEstRangeFactor(.9);
+        cleaningPriceFactors.setHighEstRangeFactor(1.1);
+
+        for (RoomType type : RoomType.values()) {
+            CleaningPriceFactorTO cleaningPriceFactorTO = new CleaningPriceFactorTO();
+            cleaningPriceFactorTO.setRoomType(type);
+            cleaningPriceFactorTO.setSquareFeetFactor(.8);
+            cleaningPriceFactorTO.setCarpetProtectorFactor(.2);
+            cleaningPriceFactorTO.setPricePerSquareFeet(.5);
+            cleaningPriceFactors.getCleaningPriceFactorTOs().add(cleaningPriceFactorTO);
+        }
+
+
+        Gson gson = new Gson();
+
+        String jsonString = gson.toJson(cleaningPriceFactors, CleaningPriceFactors.class);
+
+        Log.d("david", jsonString);
     }
 
 }

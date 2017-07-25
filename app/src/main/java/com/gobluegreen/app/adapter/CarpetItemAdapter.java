@@ -79,5 +79,11 @@ public class CarpetItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         } else {
             roomTypeList.remove(roomType);
         }
+
+
+
     }
+
+
+
 }
