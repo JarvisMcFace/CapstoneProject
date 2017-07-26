@@ -127,7 +127,7 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
 
                 roomTO.setLength(length);
-                updateEstimatedPrice(roomTO, binding.estimatedPrice);
+                updateRoomEstimatedPrice(roomTO, binding.estimatedPrice);
             }
 
             @Override
@@ -156,7 +156,7 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                 roomTO.setWidth(width);
 
-                updateEstimatedPrice(roomTO, binding.estimatedPrice);
+                updateRoomEstimatedPrice(roomTO, binding.estimatedPrice);
             }
 
             @Override
@@ -184,6 +184,7 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 } else {
                     roomTO.setCarpetProtector(false);
                 }
+                updateRoomEstimatedPrice(roomTO, binding.estimatedPrice);
             }
         });
 
@@ -201,8 +202,11 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 } else {
                     roomTO.setMoveFurniture(false);
                 }
+
             }
         });
+
+        updateRoomEstimatedPrice(roomTO, binding.estimatedPrice);
     }
 
 
@@ -264,7 +268,7 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     roomTO.setCarpetProtector(false);
                 }
 
-                updateEstimatedPrice(roomTO, binding.estimatedPrice);
+                updateRoomEstimatedPrice(roomTO, binding.estimatedPrice);
             }
         });
 
@@ -276,15 +280,15 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         int numberOfSteps = roomTO.getNumberSteps();
 
         if (numberOfSteps > 0) {
-
-            roomTO.setPriceEstimate("step price");
+            // TODO: 7/25/17 price per stemp?
+            roomTO.setPriceEstimate("TODO step price");
             estimatedPrice.setText("step price");
         } else {
             estimatedPrice.setText("");
         }
     }
 
-    private void updateEstimatedPrice(RoomTO roomTO, TextView estimatedPrice) {
+    private void updateRoomEstimatedPrice(RoomTO roomTO, TextView estimatedPrice) {
 
         int roomLength = roomTO.getLength();
         int roomWidth = roomTO.getWidth();
@@ -298,7 +302,6 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else {
             estimatedPrice.setText("");
         }
-
     }
 
 }
