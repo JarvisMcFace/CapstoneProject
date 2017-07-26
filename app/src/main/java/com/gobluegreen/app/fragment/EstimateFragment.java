@@ -19,12 +19,14 @@ import com.gobluegreen.app.to.EstimateInProgressTO;
 import com.gobluegreen.app.to.EstimateItemTO;
 import com.gobluegreen.app.to.RoomTO;
 import com.gobluegreen.app.to.RoomType;
+import com.gobluegreen.app.util.CurrencyFormatter;
+import com.gobluegreen.app.util.DeriveEstimatedPriceHighLowRange;
 import com.gobluegreen.app.util.DeriveEstimatedPriceOfRoom;
+import com.gobluegreen.app.util.DeriveEstimatedTotalSquareFeet;
 import com.gobluegreen.app.util.ListUtils;
 import com.gobluegreen.app.util.PopulateEstimateItems;
 
 import java.lang.ref.WeakReference;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,17 +88,26 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
         roomTO.setSquareFeet(squareFeet);
 
         double estimatedRoomPrice = DeriveEstimatedPriceOfRoom.execute(application, roomTO);
-
+        roomTO.setPriceEstimate(estimatedRoomPrice);
         if (estimatedRoomPrice <= 0) {
             return "";
         }
 
-        DecimalFormat decimalFormat = new DecimalFormat(("$###,###.00"));
-        String formatedCurrency = decimalFormat.format(estimatedRoomPrice);
-        if (formatedCurrency.contains("$.")) {
-            formatedCurrency = formatedCurrency.replace("$.", "$0.");
-        }
+        String formatedCurrency = CurrencyFormatter.execute(estimatedRoomPrice);
         return formatedCurrency;
+    }
+
+    @Override
+    public void updateEstimatedPriceRange() {
+
+        String estimatedPriceRange = DeriveEstimatedPriceHighLowRange.execute(application);
+        estimateBinding.layoutEstimate.estimatePriceRange.setText(estimatedPriceRange);
+    }
+
+    @Override
+    public void updateEstimatedTotalSquareFeet() {
+        int estimatedTotalSquareFeet = DeriveEstimatedTotalSquareFeet.execute(application);
+        estimateBinding.layoutEstimate.estimatedTotalSquareFeet.setText(String.valueOf(estimatedTotalSquareFeet));
     }
 
     private void populateRoomsToEstimate() {
@@ -142,4 +153,6 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
         }
         return false;
     }
+
+
 }

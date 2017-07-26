@@ -15,6 +15,7 @@ import com.gobluegreen.app.databinding.ItemRoomEstimateBinding;
 import com.gobluegreen.app.databinding.ItemRoomStairwayEstimateBinding;
 import com.gobluegreen.app.to.EstimateItemTO;
 import com.gobluegreen.app.to.RoomTO;
+import com.gobluegreen.app.util.CurrencyFormatter;
 import com.gobluegreen.app.util.StringUtils;
 
 import java.lang.ref.WeakReference;
@@ -166,8 +167,9 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         });
 
 
-        String estimatePrice = roomTO.getPriceEstimate();
-        if (StringUtils.isNotEmpty(estimatePrice)) {
+        Double estimatePrice = roomTO.getPriceEstimate();
+        if (!Double.isNaN(estimatePrice) && estimatePrice > 0) {
+            String formattedPrice = CurrencyFormatter.execute(estimatePrice);
             binding.estimatedPrice.setText(String.valueOf(estimatePrice));
         }
 
@@ -249,9 +251,10 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         });
 
 
-        String estimatePrice = roomTO.getPriceEstimate();
-        if (StringUtils.isNotEmpty(estimatePrice)) {
-            binding.estimatedPrice.setText(String.valueOf(estimatePrice));
+        Double estimatePrice = roomTO.getPriceEstimate();
+        if (!Double.isNaN(estimatePrice) && estimatePrice > 0) {
+            String formattedPrice = CurrencyFormatter.execute(estimatePrice);
+            binding.estimatedPrice.setText(formattedPrice);
         }
 
         if (roomTO.isCarpetProtector()) {
@@ -281,11 +284,12 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         if (numberOfSteps > 0) {
             // TODO: 7/25/17 price per stemp?
-            roomTO.setPriceEstimate("TODO step price");
-            estimatedPrice.setText("step price");
+            estimatedPrice.setText("TODO step price");
         } else {
             estimatedPrice.setText("");
         }
+
+        updateEstimatedPriceRange();
     }
 
     private void updateRoomEstimatedPrice(RoomTO roomTO, TextView estimatedPrice) {
@@ -296,12 +300,22 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (roomLength > 0 && roomWidth > 0) {
 
             CarpetRoomServiceCallBack carpetRoomServiceCallBack = weakReferenceCarpetRoomServiceCallBack.get();
-            String roomEstimatedSquareFeet = carpetRoomServiceCallBack.showEstimatedPrice(roomTO);
-            estimatedPrice.setText(roomEstimatedSquareFeet);
+            String estimatedRoomPrice = carpetRoomServiceCallBack.showEstimatedPrice(roomTO);
+            estimatedPrice.setText(estimatedRoomPrice);
 
         } else {
             estimatedPrice.setText("");
+            roomTO.setPriceEstimate(0);
         }
+
+        updateEstimatedPriceRange();
+    }
+
+    private void updateEstimatedPriceRange() {
+
+        CarpetRoomServiceCallBack carpetRoomServiceCallBack = weakReferenceCarpetRoomServiceCallBack.get();
+        carpetRoomServiceCallBack.updateEstimatedPriceRange();
+        carpetRoomServiceCallBack.updateEstimatedTotalSquareFeet();
     }
 
 }

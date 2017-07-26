@@ -13,8 +13,6 @@ import java.util.Map;
 
 public class DeriveEstimatedPriceOfRoom {
 
-    private static final int VALUE_NOT_SET = 0;
-
     public static double execute(GoBluegreenApplication application, RoomTO roomTO) {
 
 
@@ -32,8 +30,7 @@ public class DeriveEstimatedPriceOfRoom {
             carpetProtectorCost = calculateCarpetProtectorPrice(roomTO, carpetProtectorFactor);
         }
 
-
-        int estimatedSquareFeetToQuote = (int) (roomTO.getSquareFeet() * cleaningPriceFactorTO.getSquareFeetFactor());
+        int estimatedSquareFeetToQuote = (int) (roomTO.getSquareFeet() * squareFeetFactor);
 
         return estimatedSquareFeetToQuote + carpetProtectorCost;
     }
