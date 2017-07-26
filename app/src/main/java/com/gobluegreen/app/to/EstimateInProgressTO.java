@@ -18,9 +18,6 @@ public class EstimateInProgressTO  implements Serializable{
     private List<RoomType> roomTypes;
 
     public Set<ServiceType> getServiceTypeSet() {
-        ServiceType new3 = ServiceType.CARPET;
-
-        new3.ordinal();
         return serviceTypeSet;
     }
 

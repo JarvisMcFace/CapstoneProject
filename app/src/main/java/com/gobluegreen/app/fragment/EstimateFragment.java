@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.gobluegreen.app.R;
 import com.gobluegreen.app.adapter.CarpetRoomServiceCallBack;
@@ -20,10 +19,12 @@ import com.gobluegreen.app.to.EstimateInProgressTO;
 import com.gobluegreen.app.to.EstimateItemTO;
 import com.gobluegreen.app.to.RoomTO;
 import com.gobluegreen.app.to.RoomType;
+import com.gobluegreen.app.util.DeriveEstimatedPriceOfRoom;
 import com.gobluegreen.app.util.ListUtils;
 import com.gobluegreen.app.util.PopulateEstimateItems;
 
 import java.lang.ref.WeakReference;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,42 +70,33 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
         populateRoomsToEstimate();
         List<EstimateItemTO> estimateItemTOs = PopulateEstimateItems.execute(application);
 
-        WeakReference<CarpetRoomServiceCallBack> weakReferenceCarpetRoomServiceCallBack =  new WeakReference<CarpetRoomServiceCallBack>(this);
-        estimateAdapter = new EstimateAdapter(estimateItemTOs,weakReferenceCarpetRoomServiceCallBack);
+        WeakReference<CarpetRoomServiceCallBack> weakReferenceCarpetRoomServiceCallBack = new WeakReference<CarpetRoomServiceCallBack>(this);
+        estimateAdapter = new EstimateAdapter(estimateItemTOs, weakReferenceCarpetRoomServiceCallBack);
         estimateBinding.layoutEstimate.estimateRecyclerView.setAdapter(estimateAdapter);
     }
 
     @Override
-    public void updateRoomLength(RoomTO updateRoomTO, int position) {
+    public String showEstimatedPrice(RoomTO roomTO) {
 
-       List<RoomTO> roomTOs =  estimateInProgressTO.getRoomTOs();
-        if (ListUtils.isEmpty(roomTOs)) {
-            return;
+        if (roomTO == null) {
+            return "";
         }
 
-        for (RoomTO roomTO : roomTOs) {
-            if (updateRoomTO.getRoomType() == roomTO.getRoomType()){
-                int length = updateRoomTO.getLength();
-                roomTO.setLength(length);
-                break;
-            }
-        }
-    }
+        int squareFeet = roomTO.getLength() * roomTO.getWidth();
+        roomTO.setSquareFeet(squareFeet);
 
-    @Override
-    public void updateRoomWidth(RoomTO updateRoomTO, int position, TextView estimatedPrice) {
-        List<RoomTO> roomTOs =  estimateInProgressTO.getRoomTOs();
-        if (ListUtils.isEmpty(roomTOs)) {
-            return;
+        double estimatedRoomPrice = DeriveEstimatedPriceOfRoom.execute(application, roomTO);
+
+        if (estimatedRoomPrice <= 0) {
+            return "";
         }
 
-        for (RoomTO roomTO : roomTOs) {
-            if (updateRoomTO.getRoomType() == roomTO.getRoomType()){
-                int width = updateRoomTO.getWidth();
-                roomTO.setWidth(width);
-                break;
-            }
+        DecimalFormat decimalFormat = new DecimalFormat(("$###,###.00"));
+        String formatedCurrency = decimalFormat.format(estimatedRoomPrice);
+        if (formatedCurrency.contains("$.")) {
+            formatedCurrency = formatedCurrency.replace("$.", "$0.");
         }
+        return formatedCurrency;
     }
 
     private void populateRoomsToEstimate() {
@@ -116,7 +108,7 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
 
         List<RoomTO> roomTOs = estimateInProgressTO.getRoomTOs();
         if (ListUtils.isEmpty(roomTOs)) {
-            roomTOs= new ArrayList<>();
+            roomTOs = new ArrayList<>();
             estimateInProgressTO.setRoomTOs(roomTOs);
         }
 

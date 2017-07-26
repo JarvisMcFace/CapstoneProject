@@ -18,6 +18,7 @@ public class RoomTO implements Serializable {
     private int squareFeet;
     private String priceEstimate;
     private int numberSteps;
+    private int estimatedSquareFeet;
 
     public RoomType getRoomType() {
         return roomType;
@@ -81,6 +82,14 @@ public class RoomTO implements Serializable {
 
     public void setNumberSteps(int numberSteps) {
         this.numberSteps = numberSteps;
+    }
+
+    public int getEstimatedSquareFeet() {
+        return estimatedSquareFeet;
+    }
+
+    public void setEstimatedSquareFeet(int estimatedSquareFeet) {
+        this.estimatedSquareFeet = estimatedSquareFeet;
     }
 }
 

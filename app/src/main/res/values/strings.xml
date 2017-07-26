@@ -11,6 +11,7 @@
     <string name="create_estimate">Start</string>
     <string name="customer_address_activity_screen_name">Contact Information</string>
     <string name="modify">Modify</string>
+    <string name="add_rooms">Add rooms</string>
     <string name="rooms_to_clean">Rooms to clean</string>
     <string name="activity_estimate_builder">Estimate Builder</string>
     <string name="activity_select_services">Select Services</string>
@@ -54,6 +55,8 @@
 
 
     <string name="build_estimated_price_range">Estimated Price Range</string>
-    <string name="estimated_square_carpet_squre_feet">Estimated square carpet squre feet</string>
+    <string name="estimated_square_carpet_squre_feet">Estimated carpet square feet</string>
+    <string name="square_feet">sq feet</string>
+
 
 </resources>

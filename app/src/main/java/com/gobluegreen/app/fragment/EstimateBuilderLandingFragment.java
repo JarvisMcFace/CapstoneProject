@@ -118,9 +118,9 @@ public class EstimateBuilderLandingFragment extends Fragment {
                     landingBinding.layoutUpholsteryServices.upholsteryCleaningServicesCardview.setVisibility(View.VISIBLE);
                     addServiceToEstimate(ServiceType.UPHOLSTERY);
                 } else {
-                    landingBinding.layoutUpholsteryServices.upholsteryCleaningServicesCardview.setVisibility(View.GONE);
-                    removeServiceFromEstimate(ServiceType.UPHOLSTERY);
                     estimateInProgressTO.setUpholsterySet(null);
+                    removeServiceFromEstimate(ServiceType.UPHOLSTERY);
+                    landingBinding.layoutUpholsteryServices.upholsteryCleaningServicesCardview.setVisibility(View.GONE);
                 }
 
                 shouldContinueButtonBeEnabled();
@@ -135,7 +135,7 @@ public class EstimateBuilderLandingFragment extends Fragment {
                 if (isChecked) {
                     addUpholsteryToEstimate(UpholsteryType.SOFA);
                 } else {
-                    removeUpHolsteryToEstimate(UpholsteryType.SOFA);
+                    removeUpholsteryToEstimate(UpholsteryType.SOFA);
                 }
             }
         });
@@ -148,7 +148,7 @@ public class EstimateBuilderLandingFragment extends Fragment {
                 if (isChecked) {
                     addUpholsteryToEstimate(UpholsteryType.CHAIR);
                 } else {
-                    removeUpHolsteryToEstimate(UpholsteryType.CHAIR);
+                    removeUpholsteryToEstimate(UpholsteryType.CHAIR);
                 }
             }
         });
@@ -176,7 +176,7 @@ public class EstimateBuilderLandingFragment extends Fragment {
         upholsterySet.add(upholsteryType);
     }
 
-    private void removeUpHolsteryToEstimate(UpholsteryType upholsteryType) {
+    private void removeUpholsteryToEstimate(UpholsteryType upholsteryType) {
 
         Set<UpholsteryType> upholsteryTypeSet = estimateInProgressTO.getUpholsterySet();
 
@@ -187,6 +187,7 @@ public class EstimateBuilderLandingFragment extends Fragment {
 
         if (upholsteryTypeSet.size() == 0) {
             estimateInProgressTO.setUpholsterySet(null);
+
         }
     }
 
@@ -292,12 +293,12 @@ public class EstimateBuilderLandingFragment extends Fragment {
 
     private void addUpholsteryEstimate() {
 
+        landingBinding.layoutUpholsteryServices.upholsteryCleaningServicesCardview.setVisibility(View.VISIBLE);
+
         Set<UpholsteryType> upholsterySet = estimateInProgressTO.getUpholsterySet();
         if (upholsterySet == null || upholsterySet.size() == 0) {
             return;
         }
-
-        landingBinding.layoutUpholsteryServices.upholsteryCleaningServicesCardview.setVisibility(View.VISIBLE);
 
         for (UpholsteryType upholsteryType : upholsterySet) {
 
@@ -329,6 +330,15 @@ public class EstimateBuilderLandingFragment extends Fragment {
     private void addCarpetServicesToCardView() {
 
         final String DOT = "\u00b7";
+        int roomTypeSize = estimateInProgressTO.getRoomTypes().size();
+        if (roomTypeSize == 0) {
+            String addText = getResources().getString(R.string.add_rooms);
+            landingBinding.layoutCarpetCleaningServices.modifyCarpetingCleaningRooms.setText(addText);
+        } else {
+            String modifyText = getResources().getString(R.string.modify);
+            landingBinding.layoutCarpetCleaningServices.modifyCarpetingCleaningRooms.setText(modifyText);
+        }
+
         landingBinding.layoutCarpetCleaningServices.carpetCleaningServicesCardview.setVisibility(View.VISIBLE);
 
         List<RoomType> roomTypes = estimateInProgressTO.getRoomTypes();
@@ -343,6 +353,8 @@ public class EstimateBuilderLandingFragment extends Fragment {
             final ArrayAdapter<String> gridViewArrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.layout_selected_carpet_servcies_item, roomServiceList);
             landingBinding.layoutCarpetCleaningServices.roomsToCleanGridView.setAdapter(gridViewArrayAdapter);
             gridViewArrayAdapter.notifyDataSetChanged();
+        } else {
+            landingBinding.layoutCarpetCleaningServices.roomsToCleanGridView.setAdapter(null);
         }
 
         shouldContinueButtonBeEnabled();

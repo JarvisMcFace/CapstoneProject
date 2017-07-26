@@ -1,0 +1,20 @@
+CleaningPriceFactors cleaningPriceFactors = new CleaningPriceFactors();
+        cleaningPriceFactors.setCleaningPriceFactorTOs(new ArrayList<CleaningPriceFactorTO>());
+        cleaningPriceFactors.setLowEstRangeFactor(.9);
+        cleaningPriceFactors.setHighEstRangeFactor(1.1);
+
+        for (RoomType type : RoomType.values()) {
+        CleaningPriceFactorTO cleaningPriceFactorTO = new CleaningPriceFactorTO();
+        cleaningPriceFactorTO.setRoomType(type);
+        cleaningPriceFactorTO.setSquareFeetFactor(.8);
+        cleaningPriceFactorTO.setCarpetProtectorFactor(.2);
+        cleaningPriceFactorTO.setPricePerSquareFeet(.5);
+        cleaningPriceFactors.getCleaningPriceFactorTOs().add(cleaningPriceFactorTO);
+        }
+
+
+        Gson gson = new Gson();
+
+        String jsonString = gson.toJson(cleaningPriceFactors, CleaningPriceFactors.class);
+
+        Log.d("david", jsonString);

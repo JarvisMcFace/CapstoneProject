@@ -117,10 +117,7 @@ public class CarpetCleaningServicesFragment extends Fragment {
     public void onPause() {
 
         List<RoomType> roomTypes = adapter.getRoomTypeList();
-        if (ListUtils.isNotEmpty(roomTypes)) {
-            updateRemovedRooms(roomTypes);
-
-        }
+        updateRemovedRooms(roomTypes);
 
         super.onPause();
     }
