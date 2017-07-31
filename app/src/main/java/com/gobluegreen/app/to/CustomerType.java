@@ -6,6 +6,6 @@ package com.gobluegreen.app.to;
 
 public enum CustomerType {
 
-    COMMERICAL,
+    COMMERCIAL,
     RESIDENTIAL
 }

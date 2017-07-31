@@ -28,6 +28,7 @@
     <string name="continue_esitimate">Continue</string>
 
     <!-- Customer Information -->
+    <string name="business_name">Business Name *</string>
     <string name="first_name">First Name *</string>
     <string name="last_name">Last Name *</string>
     <string name="customer_contact_reqeust_information">To better serve you, please enter contact information.</string>
@@ -39,6 +40,7 @@
     <string name="error_customer_last_not_valid">Last name is not valid</string>
     <string name="indicates_required_field">* indicates required field</string>
 
+    <string name="error_customer_business_not_valid">First name is not valid.</string>
     <string name="error_customer_first_not_valid">First name is not valid.</string>
     <string name="error_customer_address_not_valid">Address is not valid.</string>
     <string name="error_customer_city_not_valid">City is not valid.</string>
@@ -57,6 +59,10 @@
     <string name="build_estimated_price_range">Estimated Price Range</string>
     <string name="estimated_square_carpet_squre_feet">Estimated carpet square feet</string>
     <string name="square_feet">sq feet</string>
+    <string name="to_better_assist_in_your_service">To better assist in your service</string>
+    <string name="residential">Residential</string>
+    <string name="commercial">Commercial</string>
+
 
 
 </resources>

@@ -15,6 +15,7 @@ public class CleaningPriceFactorTO implements Serializable{
     private double pricePerSquareFeet;  // $.5
     private double moveFurnitureFactor;    //no value
     private double carpetProtectorFactor;   //sq *.2
+    private double pricePerStep;
 
     public RoomType getRoomType() {
         return roomType;
@@ -54,5 +55,13 @@ public class CleaningPriceFactorTO implements Serializable{
 
     public void setCarpetProtectorFactor(double carpetProtectorFactor) {
         this.carpetProtectorFactor = carpetProtectorFactor;
+    }
+
+    public double getPricePerStep() {
+        return pricePerStep;
+    }
+
+    public void setPricePerStep(double pricePerStep) {
+        this.pricePerStep = pricePerStep;
     }
 }

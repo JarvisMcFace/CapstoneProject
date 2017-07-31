@@ -4,6 +4,7 @@ package com.gobluegreen.app.fragment;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RadioGroup;
 
 import com.gobluegreen.app.R;
 import com.gobluegreen.app.activity.CarpetCleaningServicesActivity;
@@ -19,6 +21,7 @@ import com.gobluegreen.app.activity.EstimateActivity;
 import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.databinding.FragmentEstimateBuilderLandingBinding;
 import com.gobluegreen.app.to.CustomerTO;
+import com.gobluegreen.app.to.CustomerType;
 import com.gobluegreen.app.to.EstimateInProgressTO;
 import com.gobluegreen.app.to.RoomType;
 import com.gobluegreen.app.to.ServiceType;
@@ -162,7 +165,21 @@ public class EstimateBuilderLandingFragment extends Fragment {
         });
 
         landingBinding.layoutCarpetCleaningServices.modifyCarpetingCleaningRooms.setOnClickListener(getModifyCarpetCleaningOnClickListener);
+
+        landingBinding.layoutCustomerType.customerTypeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+
+                if (checkedId == R.id.customer_type_residential) {
+                    setCustomerType(CustomerType.RESIDENTIAL);
+                    residentialScreenInit();
+                } else {
+                    setCustomerType(CustomerType.COMMERCIAL);
+                }
+            }
+        });
     }
+
 
     private void addUpholsteryToEstimate(UpholsteryType upholsteryType) {
 
@@ -289,6 +306,17 @@ public class EstimateBuilderLandingFragment extends Fragment {
                     break;
             }
         }
+
+        CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
+        CustomerType customerType = customerTO.getCustomerType();
+
+        if (CustomerType.RESIDENTIAL == customerType) {
+            landingBinding.layoutCustomerType.customerTypeCommercial.setChecked(true);
+            landingBinding.layoutServicesSelection.servicesSelectionCardview.setVisibility(View.GONE);
+        } else {
+            landingBinding.layoutCustomerType.customerTypeResidential.setChecked(true);
+            landingBinding.layoutServicesSelection.servicesSelectionCardview.setVisibility(View.VISIBLE);
+        }
     }
 
     private void addUpholsteryEstimate() {
@@ -329,8 +357,13 @@ public class EstimateBuilderLandingFragment extends Fragment {
 
     private void addCarpetServicesToCardView() {
 
+        List<RoomType> roomTypes = estimateInProgressTO.getRoomTypes();
+        if (ListUtils.isEmpty(roomTypes)) {
+            return;
+        }
+
         final String DOT = "\u00b7";
-        int roomTypeSize = estimateInProgressTO.getRoomTypes().size();
+        int roomTypeSize = roomTypes.size();
         if (roomTypeSize == 0) {
             String addText = getResources().getString(R.string.add_rooms);
             landingBinding.layoutCarpetCleaningServices.modifyCarpetingCleaningRooms.setText(addText);
@@ -340,8 +373,6 @@ public class EstimateBuilderLandingFragment extends Fragment {
         }
 
         landingBinding.layoutCarpetCleaningServices.carpetCleaningServicesCardview.setVisibility(View.VISIBLE);
-
-        List<RoomType> roomTypes = estimateInProgressTO.getRoomTypes();
         List<String> roomServiceList = new ArrayList<>();
 
         if (ListUtils.isNotEmpty(roomTypes)) {
@@ -363,18 +394,30 @@ public class EstimateBuilderLandingFragment extends Fragment {
 
     private void addCustomerInformationTOCardView() {
 
+        CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
+
+        if (customerTO == null) {
+            return;
+        }
+
+        String firstName = customerTO.getFirstName();
+        String lastName = customerTO.getLastName();
+        if (StringUtils.isEmpty(firstName) || StringUtils.isEmpty(lastName)) {
+            return;
+        }
+
         String modifyText = getResources().getString(R.string.modify);
         landingBinding.layoutCustomerInformation.addModifyContactInformation.setText(modifyText);
         landingBinding.layoutCustomerInformation.customerInformationInitialDirections.setVisibility(View.GONE);
         landingBinding.layoutCustomerInformation.customerInformationCompleted.setVisibility(View.VISIBLE);
 
-        CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
-
-        String customerName = customerTO.getFirstName() + " " + customerTO.getLastName();
-        landingBinding.layoutCustomerInformation.customerInformationFullName.setText(customerName);
+        String fullName = firstName + " " + lastName;
+        landingBinding.layoutCustomerInformation.customerInformationFullName.setText(fullName);
 
         String phone = customerTO.getPhoneNumber();
-        landingBinding.layoutCustomerInformation.customerInformationPhone.setText(phone);
+        if (StringUtils.isNotEmpty(phone)) {
+            landingBinding.layoutCustomerInformation.customerInformationPhone.setText(phone);
+        }
 
         String address = customerTO.getAddress1();
         if (StringUtils.isNotEmpty(address)) {
@@ -407,5 +450,38 @@ public class EstimateBuilderLandingFragment extends Fragment {
         shouldContinueButtonBeEnabled();
     }
 
+    private void residentialScreenInit() {
+        landingBinding.layoutServicesSelection.servicesSelectionCardview.setVisibility(View.VISIBLE);
+
+        List<RoomType> roomTypes = estimateInProgressTO.getRoomTypes();
+        if (ListUtils.isNotEmpty(roomTypes)) {
+            landingBinding.layoutCarpetCleaningServices.carpetCleaningServicesCardview.setVisibility(View.VISIBLE);
+        }
+        Set<UpholsteryType> upholsterySet = estimateInProgressTO.getUpholsterySet();
+        if (upholsterySet != null && upholsterySet.size() > 0) {
+            landingBinding.layoutUpholsteryServices.upholsteryCleaningServicesCardview.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void commercialScreenInit() {
+        landingBinding.layoutServicesSelection.servicesSelectionCardview.setVisibility(View.GONE);
+        landingBinding.layoutCarpetCleaningServices.carpetCleaningServicesCardview.setVisibility(View.GONE);
+        landingBinding.layoutUpholsteryServices.upholsteryCleaningServicesCardview.setVisibility(View.GONE);
+    }
+
+    private void setCustomerType(CustomerType customerType) {
+
+        CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
+        if (customerTO == null) {
+            customerTO = new CustomerTO();
+        }
+
+        if (CustomerType.COMMERCIAL == customerType) {
+            commercialScreenInit();
+        }
+
+        customerTO.setCustomerType(customerType);
+        estimateInProgressTO.setCustomerTO(customerTO);
+    }
 }
 

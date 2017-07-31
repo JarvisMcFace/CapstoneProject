@@ -17,6 +17,10 @@
                 android:orientation="vertical">
 
                 <include
+                    android:id="@+id/layout_customer_type"
+                    layout="@layout/layout_cardview_customer_type"/>
+
+                <include
                     android:id="@+id/layout_services_selection"
                     layout="@layout/layout_cardview_services"/>
 

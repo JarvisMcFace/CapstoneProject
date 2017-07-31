@@ -11,7 +11,7 @@ public class CustomerTO implements Serializable {
     private static final long serialVersionUID = 6551234327161198049L;
 
     private CustomerType customerType;
-    private String companyName;
+    private String businessName;
     private String firstName;
     private String lastName;
     private String address1;
@@ -29,12 +29,12 @@ public class CustomerTO implements Serializable {
         this.customerType = customerType;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getBusinessName() {
+        return businessName;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setBusinessName(String businessName) {
+        this.businessName = businessName;
     }
 
     public String getFirstName() {

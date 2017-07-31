@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +17,10 @@ import com.gobluegreen.app.R;
 import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.databinding.FragmentCustomerAddressBinding;
 import com.gobluegreen.app.to.CustomerTO;
+import com.gobluegreen.app.to.CustomerType;
 import com.gobluegreen.app.to.EstimateInProgressTO;
 import com.gobluegreen.app.util.CustomerInformationValidator;
 import com.gobluegreen.app.util.StringUtils;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by David on 7/4/17.
@@ -68,16 +66,22 @@ public class CustomerAddressFragment extends Fragment {
             }
         });
 
+        initBusinessCustomer();
+
     }
+
 
     private void populateCustomerTO() {
 
         CustomerTO customerTO = new CustomerTO();
+        customerTO.setBusinessName(customerAddressBinding.customerInformationCardview.businessName.getText().toString());
         customerTO.setFirstName(customerAddressBinding.customerInformationCardview.customerFirstName.getText().toString());
         customerTO.setLastName(customerAddressBinding.customerInformationCardview.customerLastName.getText().toString());
         customerTO.setAddress1(customerAddressBinding.customerInformationCardview.customerAddress.getText().toString());
         customerTO.setCity(customerAddressBinding.customerInformationCardview.customerCity.getText().toString());
         customerTO.setZipCode(customerAddressBinding.customerInformationCardview.customerPostalCode.getText().toString());
+        customerTO.setPhoneNumber(customerAddressBinding.customerInformationCardview.customerPhone.getText().toString());
+
         customerTO.setPhoneNumber(customerAddressBinding.customerInformationCardview.customerPhone.getText().toString());
 
         String selectedStateSpinner = getString(R.string.select_state);
@@ -92,7 +96,7 @@ public class CustomerAddressFragment extends Fragment {
         if (estimateInProgressTO != null) {
             estimateInProgressTO.setCustomerTO(customerTO);
         }
-        Log.d(TAG, "David: " + "populateCustomerTO() called");
+
     }
 
     private void initEstimateInProgress() {
@@ -104,6 +108,8 @@ public class CustomerAddressFragment extends Fragment {
             return;
         }
 
+        this.estimateInProgressTO = estimateInProgressTO;
+
         CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
         if (customerTO == null) {
             return;
@@ -113,6 +119,10 @@ public class CustomerAddressFragment extends Fragment {
         customerAddressBinding.customerInformationCardview.customerLastName.setText(customerTO.getFirstName());
         customerAddressBinding.customerInformationCardview.customerPhone.setText(customerTO.getPhoneNumber());
 
+        if (CustomerType.COMMERCIAL == customerTO.getCustomerType()){
+            customerAddressBinding.customerInformationCardview.businessName.setText(customerTO.getBusinessName());
+
+        }
         String address = customerTO.getAddress1();
         if (StringUtils.isNotEmpty(address)) {
             customerAddressBinding.customerInformationCardview.customerAddress.setText(customerTO.getAddress1());
@@ -140,7 +150,33 @@ public class CustomerAddressFragment extends Fragment {
         }
     }
 
+
+    private void initBusinessCustomer() {
+
+        if (estimateInProgressTO == null) {
+            return;
+        }
+
+        CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
+
+        if (CustomerType.COMMERCIAL == customerTO.getCustomerType()) {
+            customerAddressBinding.customerInformationCardview.inputLayoutBusinessContact.setVisibility(View.VISIBLE);
+        } else {
+            customerAddressBinding.customerInformationCardview.inputLayoutBusinessContact.setVisibility(View.GONE);
+        }
+    }
+
     private boolean isInputFieldValid() {
+
+        CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
+        if (CustomerType.COMMERCIAL == customerTO.getCustomerType()){
+            String businessName = customerAddressBinding.customerInformationCardview.businessName.getText().toString();
+            if (!CustomerInformationValidator.isValidCharacters(businessName)) {
+                customerAddressBinding.customerInformationCardview.businessName.setError(getString(R.string.error_customer_business_not_valid));
+                customerAddressBinding.customerInformationCardview.businessName.requestFocus();
+                return false;
+            }
+        }
 
         String firstName = customerAddressBinding.customerInformationCardview.customerFirstName.getText().toString();
         if (!CustomerInformationValidator.isValidCharacters(firstName)) {
