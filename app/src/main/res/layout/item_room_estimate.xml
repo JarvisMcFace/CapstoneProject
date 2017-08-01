@@ -25,97 +25,129 @@
                 android:layout_marginTop="@dimen/cardview_title_margin"
                 tools:text="Living Room"/>
 
-            <LinearLayout
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:baselineAligned="false"
+                    android:id="@+id/choose_a_Dimension"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/material_margin"
-                    android:layout_weight=".6">
+                    android:orientation="horizontal">
 
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_room_length"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".06">
-
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/estimate_room_length"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/customer_contact_space"
-                            android:hint="@string/length"
-                            android:textAlignment="center"
-                            android:inputType="number"
-                            android:lines="1"
-                            android:maxLength="4"
-                            android:maxLines="1"/>
-                    </android.support.design.widget.TextInputLayout>
-
-                    <TextView
-                        style="@style/Base.TextAppearance.AppCompat.Body1"
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginTop="@dimen/material_margin_half"
-                        android:layout_weight=".03"
-                        android:textAlignment="center"
-                        android:gravity="center_vertical"
-                        android:text="@string/x"
-                        android:textAllCaps="true"
-                        android:textStyle="bold"/>
+                        android:layout_marginStart="@dimen/material_margin"
+                        android:layout_weight=".5"
+                        android:orientation="vertical">
 
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_customer_postal_code"
+                        <TextView
+                            android:id="@+id/by_lenght_width"
+                            style="@style/Widget.AppCompat.Button.Borderless"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:text="@string/by_length_x_width"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".06">
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/material_margin"
+                        android:layout_weight=".5"
+                        android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/estimate_room_width"
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/by_square_feet"
+                            style="@style/Widget.AppCompat.Button.Borderless"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:hint="@string/width"
-                            android:textAlignment="center"
-                            android:inputType="number"
-                            android:lines="1"
-                            android:maxLength="4"
-                            android:maxLines="1"/>
-                    </android.support.design.widget.TextInputLayout>
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:text="@string/by_square_feet"
+                            android:textSize="14sp"/>
+
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
+                    android:baselineAligned="false"
+                    android:id="@+id/by_deminsion_lenght_width"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/material_margin"
-                    android:layout_weight=".6">
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    tools:visibility="visible">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/material_margin"
+                        android:layout_weight=".5">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/input_room_length"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".06">
+
+                            <android.support.design.widget.TextInputEditText
+                                android:id="@+id/estimate_room_length"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/customer_contact_space"
+                                android:hint="@string/length"
+                                android:inputType="number"
+                                android:lines="1"
+                                android:maxLength="4"
+                                android:maxLines="1"
+                                android:textAlignment="center"/>
+                        </android.support.design.widget.TextInputLayout>
 
                         <TextView
-
-                            android:id="@+id/estimated_price"
-                            style="@style/Base.TextAppearance.AppCompat.Body2"
-                            android:layout_width="wrap_content"
+                            style="@style/Base.TextAppearance.AppCompat.Body1"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:layout_gravity="center_vertical|center_horizontal"
-                            android:gravity="center_horizontal|center_vertical"
-                            tools:text="$100"/>
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="@dimen/material_margin_half"
+                            android:layout_weight=".03"
+                            android:gravity="center_vertical"
+                            android:text="@string/x"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/input_customer_postal_code"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical|center_horizontal"
-                            android:text="@string/price_estimate"/>
+                            android:layout_weight=".06">
+
+                            <android.support.design.widget.TextInputEditText
+                                android:id="@+id/estimate_room_width"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/width"
+                                android:inputType="number"
+                                android:lines="1"
+                                android:maxLength="4"
+                                android:maxLines="1"
+                                android:textAlignment="center"/>
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
 
                 </LinearLayout>
+            </FrameLayout>
 
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -124,22 +156,6 @@
                 android:clickable="true"
                 android:orientation="horizontal">
 
-
-                <android.support.v7.widget.AppCompatCheckBox
-                    android:id="@+id/estimate_move_furnature_checkbox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/material_margin"/>
-
-                <TextView
-                    android:id="@+id/estimate_move_furniture_label"
-                    style="@style/TextAppearance.AppCompat.Body1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/material_margin_half"
-                    android:clickable="false"
-                    android:gravity="center_vertical"
-                    android:text="@string/move_furniture"/>
 
                 <android.support.v7.widget.AppCompatCheckBox
                     android:id="@+id/estimate_carpet_protector_checkbox"

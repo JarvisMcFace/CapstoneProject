@@ -62,7 +62,8 @@
     <string name="to_better_assist_in_your_service">To better assist in your service</string>
     <string name="residential">Residential</string>
     <string name="commercial">Commercial</string>
-
+    <string name="by_length_x_width">by Length X Width</string>
+    <string name="by_square_feet">by Square Feet</string>
 
 
 </resources>

@@ -8,9 +8,6 @@ import com.gobluegreen.app.to.RoomTO;
 
 public interface CarpetRoomServiceCallBack {
 
-    String showEstimatedPrice(RoomTO roomTO);
+    void updateEstimateHeader(RoomTO roomTO);
 
-    void updateEstimatedPriceRange();
-
-    void updateEstimatedTotalSquareFeet();
 }

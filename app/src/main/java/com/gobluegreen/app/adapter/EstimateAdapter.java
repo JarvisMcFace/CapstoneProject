@@ -6,6 +6,11 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gobluegreen.app.R;
@@ -128,7 +133,7 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
 
                 roomTO.setLength(length);
-                updateRoomEstimatedPrice(roomTO, binding.estimatedPrice);
+                updateHeaderEstimate(roomTO);
             }
 
             @Override
@@ -157,7 +162,7 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                 roomTO.setWidth(width);
 
-                updateRoomEstimatedPrice(roomTO, binding.estimatedPrice);
+                updateHeaderEstimate(roomTO);
             }
 
             @Override
@@ -165,13 +170,6 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 //intentionally left blank
             }
         });
-
-
-        Double estimatePrice = roomTO.getPriceEstimate();
-        if (!Double.isNaN(estimatePrice) && estimatePrice > 0) {
-            String formattedPrice = CurrencyFormatter.execute(estimatePrice);
-            binding.estimatedPrice.setText(String.valueOf(estimatePrice));
-        }
 
         if (roomTO.isCarpetProtector()) {
             binding.estimateCarpetProtectorCheckbox.setChecked(true);
@@ -186,29 +184,20 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 } else {
                     roomTO.setCarpetProtector(false);
                 }
-                updateRoomEstimatedPrice(roomTO, binding.estimatedPrice);
+                updateHeaderEstimate(roomTO);
             }
         });
 
-        if (roomTO.isMoveFurniture()) {
-            binding.estimateMoveFurnatureCheckbox.setChecked(true);
-        }
-        binding.estimateMoveFurnatureCheckbox.setOnClickListener(new View.OnClickListener() {
+
+        binding.byLenghtWidth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                boolean isChecked = binding.estimateMoveFurnatureCheckbox.isChecked();
-                if (isChecked) {
-                    roomTO.setMoveFurniture(true);
-
-                } else {
-                    roomTO.setMoveFurniture(false);
-                }
-
+                animateView(binding.chooseADimension, binding.byDeminsionLenghtWidth);
             }
         });
 
-        updateRoomEstimatedPrice(roomTO, binding.estimatedPrice);
+        updateHeaderEstimate(roomTO);
     }
 
 
@@ -271,12 +260,12 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     roomTO.setCarpetProtector(false);
                 }
 
-                updateRoomEstimatedPrice(roomTO, binding.estimatedPrice);
+                updateHeaderEstimate(roomTO);
             }
         });
 
-
     }
+
 
     private void updateNumberOfStepEstimatedPrice(RoomTO roomTO, TextView estimatedPrice) {
 
@@ -289,33 +278,68 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             estimatedPrice.setText("");
         }
 
-        updateEstimatedPriceRange();
+        updateHeaderEstimate(roomTO);
     }
 
-    private void updateRoomEstimatedPrice(RoomTO roomTO, TextView estimatedPrice) {
+    private void updateHeaderEstimate(RoomTO roomTO) {
 
-        int roomLength = roomTO.getLength();
-        int roomWidth = roomTO.getWidth();
-
-        if (roomLength > 0 && roomWidth > 0) {
-
-            CarpetRoomServiceCallBack carpetRoomServiceCallBack = weakReferenceCarpetRoomServiceCallBack.get();
-            String estimatedRoomPrice = carpetRoomServiceCallBack.showEstimatedPrice(roomTO);
-            estimatedPrice.setText(estimatedRoomPrice);
-
-        } else {
-            estimatedPrice.setText("");
-            roomTO.setPriceEstimate(0);
-        }
-
-        updateEstimatedPriceRange();
-    }
-
-    private void updateEstimatedPriceRange() {
+//        int roomLength = roomTO.getLength();
+//        int roomWidth = roomTO.getWidth();
+//
+//        if (roomLength > 0 && roomWidth > 0) {
+//
+//            CarpetRoomServiceCallBack carpetRoomServiceCallBack = weakReferenceCarpetRoomServiceCallBack.get();
+//            String estimatedRoomPrice = carpetRoomServiceCallBack.showEstimatedPrice(roomTO);
+//            estimatedPrice.setText(estimatedRoomPrice);
+//
+//        } else {
+//            estimatedPrice.setText("");
+//            roomTO.setPriceEstimate(0);
+//        }
+//
+//        updateEstimatedPriceRange();
 
         CarpetRoomServiceCallBack carpetRoomServiceCallBack = weakReferenceCarpetRoomServiceCallBack.get();
-        carpetRoomServiceCallBack.updateEstimatedPriceRange();
-        carpetRoomServiceCallBack.updateEstimatedTotalSquareFeet();
+        carpetRoomServiceCallBack.updateEstimateHeader(roomTO);
+    }
+
+
+    private void animateView(final LinearLayout chooseADimension, final LinearLayout showView) {
+
+        Animation animation = AnimationUtils.loadAnimation(chooseADimension.getContext(), R.anim.slide_out_to_left);
+        animation.setInterpolator(new AccelerateInterpolator());
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                showDimensionView(showView);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+
+        chooseADimension.setAnimation(animation);
+        chooseADimension.setVisibility(View.INVISIBLE);
+
+    }
+
+    private void showDimensionView(LinearLayout showView) {
+        Animation animation = AnimationUtils.loadAnimation(showView.getContext(), R.anim.slide_in_from_right);
+        animation.setInterpolator(new AccelerateDecelerateInterpolator());
+        showView.setAnimation(animation);
+        showView.setVisibility(View.VISIBLE);
     }
 
 }
+
+
+
+

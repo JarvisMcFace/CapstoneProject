@@ -400,6 +400,11 @@ public class EstimateBuilderLandingFragment extends Fragment {
             return;
         }
 
+        if (CustomerType.COMMERCIAL == customerTO.getCustomerType()) {
+            String businessName = customerTO.getBusinessName();
+            landingBinding.layoutCustomerInformation.customerInformationBusinessName.setText(businessName);
+        }
+
         String firstName = customerTO.getFirstName();
         String lastName = customerTO.getLastName();
         if (StringUtils.isEmpty(firstName) || StringUtils.isEmpty(lastName)) {

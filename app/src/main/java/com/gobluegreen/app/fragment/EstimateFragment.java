@@ -19,7 +19,6 @@ import com.gobluegreen.app.to.EstimateInProgressTO;
 import com.gobluegreen.app.to.EstimateItemTO;
 import com.gobluegreen.app.to.RoomTO;
 import com.gobluegreen.app.to.RoomType;
-import com.gobluegreen.app.util.CurrencyFormatter;
 import com.gobluegreen.app.util.DeriveEstimatedPriceHighLowRange;
 import com.gobluegreen.app.util.DeriveEstimatedPriceOfRoom;
 import com.gobluegreen.app.util.DeriveEstimatedTotalSquareFeet;
@@ -78,36 +77,38 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
     }
 
     @Override
-    public String showEstimatedPrice(RoomTO roomTO) {
+    public void updateEstimateHeader(RoomTO roomTO) {
 
         if (roomTO == null) {
-            return "";
+            return;
         }
 
-        int squareFeet = roomTO.getLength() * roomTO.getWidth();
-        roomTO.setSquareFeet(squareFeet);
+        if (roomTO.getRoomType() != RoomType.STAIRWAY_LANDING){
+            int roomLength = roomTO.getLength();
+            int roomWidth = roomTO.getWidth();
+
+            if (roomLength > 0 && roomWidth > 0) {
+                int squareFeet = roomLength * roomTO.getWidth();
+                roomTO.setSquareFeet(squareFeet);
+            } else {
+                roomTO.setSquareFeet(0);
+            }
+        }
+
 
         double estimatedRoomPrice = DeriveEstimatedPriceOfRoom.execute(application, roomTO);
         roomTO.setPriceEstimate(estimatedRoomPrice);
         if (estimatedRoomPrice <= 0) {
-            return "";
+            return;
         }
 
-        String formatedCurrency = CurrencyFormatter.execute(estimatedRoomPrice);
-        return formatedCurrency;
-    }
-
-    @Override
-    public void updateEstimatedPriceRange() {
 
         String estimatedPriceRange = DeriveEstimatedPriceHighLowRange.execute(application);
         estimateBinding.layoutEstimate.estimatePriceRange.setText(estimatedPriceRange);
-    }
 
-    @Override
-    public void updateEstimatedTotalSquareFeet() {
         int estimatedTotalSquareFeet = DeriveEstimatedTotalSquareFeet.execute(application);
         estimateBinding.layoutEstimate.estimatedTotalSquareFeet.setText(String.valueOf(estimatedTotalSquareFeet));
+
     }
 
     private void populateRoomsToEstimate() {

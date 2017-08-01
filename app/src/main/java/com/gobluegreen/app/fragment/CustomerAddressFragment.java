@@ -116,7 +116,7 @@ public class CustomerAddressFragment extends Fragment {
         }
 
         customerAddressBinding.customerInformationCardview.customerFirstName.setText(customerTO.getFirstName());
-        customerAddressBinding.customerInformationCardview.customerLastName.setText(customerTO.getFirstName());
+        customerAddressBinding.customerInformationCardview.customerLastName.setText(customerTO.getLastName());
         customerAddressBinding.customerInformationCardview.customerPhone.setText(customerTO.getPhoneNumber());
 
         if (CustomerType.COMMERCIAL == customerTO.getCustomerType()){
