@@ -64,6 +64,7 @@
     <string name="commercial">Commercial</string>
     <string name="by_length_x_width">by Length X Width</string>
     <string name="by_square_feet">by Square Feet</string>
+    <string name="estimate_square_feet">Square feet</string>
 
 
 </resources>

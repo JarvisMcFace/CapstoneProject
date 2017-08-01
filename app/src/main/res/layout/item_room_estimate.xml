@@ -31,10 +31,10 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:baselineAligned="false"
                     android:id="@+id/choose_a_Dimension"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:baselineAligned="false"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -78,13 +78,13 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:baselineAligned="false"
                     android:id="@+id/by_deminsion_lenght_width"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:baselineAligned="false"
                     android:orientation="horizontal"
                     android:visibility="invisible"
-                    tools:visibility="visible">
+                    tools:visibility="gone">
 
 
                     <LinearLayout
@@ -143,9 +143,36 @@
                                 android:textAlignment="center"/>
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
-
-
                 </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/by_deminsion_square_feet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:layout_marginEnd="@dimen/material_margin"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/input_room_square_feet"
+                            android:layout_width="@dimen/estimate_total_square_feet"
+                            android:layout_height="wrap_content">
+
+                            <android.support.design.widget.TextInputEditText
+                                android:id="@+id/estimate_by_square_feet"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/estimate_square_feet"
+                                android:inputType="number"
+                                android:digits="0123456789"
+                                android:lines="1"
+                                android:maxLength="4"
+                                android:maxLines="1"/>
+                        </android.support.design.widget.TextInputLayout>
+
+                </FrameLayout>
+
             </FrameLayout>
 
 

@@ -19,6 +19,6 @@
     <dimen name="material_padding">16dp</dimen>
     <dimen name="bottom_sheet_button_height">56dp</dimen>
     <dimen name="bottom_sheet_landing_button_height">64dp</dimen>
+    <dimen name="estimate_total_square_feet">150dp</dimen>
 
-    <dimen name="animate_distance_dimension_view">50dp</dimen>
 </resources>

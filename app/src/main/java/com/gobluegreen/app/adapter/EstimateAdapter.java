@@ -171,6 +171,31 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
         });
 
+        binding.estimateBySquareFeet.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //intentionally left blank
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int squareFeet = 0;
+
+                if (StringUtils.isNotEmpty(s.toString())) {
+                    squareFeet = Integer.parseInt(s.toString());
+                }
+
+                roomTO.setSquareFeet(squareFeet);
+
+                updateHeaderEstimate(roomTO);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //intentionally left blank
+            }
+        });
+
         if (roomTO.isCarpetProtector()) {
             binding.estimateCarpetProtectorCheckbox.setChecked(true);
         }
@@ -192,10 +217,32 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         binding.byLenghtWidth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                roomTO.setDimensionByLengthWidth(true);
                 animateView(binding.chooseADimension, binding.byDeminsionLenghtWidth);
             }
         });
+
+        binding.bySquareFeet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                animateView(binding.chooseADimension, binding.byDeminsionSquareFeet);
+            }
+        });
+
+
+        int roomSquareFeet = roomTO.getSquareFeet();
+        if (roomSquareFeet > 0) {
+
+            if (roomTO.isDimensionByLengthWidth()) {
+                binding.chooseADimension.setVisibility(View.GONE);
+                binding.byDeminsionLenghtWidth.setVisibility(View.VISIBLE);
+            } else {
+                binding.chooseADimension.setVisibility(View.GONE);
+                binding.byDeminsionSquareFeet.setVisibility(View.VISIBLE);
+                binding.estimateBySquareFeet.setText(String.valueOf(roomSquareFeet));
+            }
+        }
 
         updateHeaderEstimate(roomTO);
     }
@@ -263,7 +310,6 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 updateHeaderEstimate(roomTO);
             }
         });
-
     }
 
 
@@ -283,28 +329,12 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private void updateHeaderEstimate(RoomTO roomTO) {
 
-//        int roomLength = roomTO.getLength();
-//        int roomWidth = roomTO.getWidth();
-//
-//        if (roomLength > 0 && roomWidth > 0) {
-//
-//            CarpetRoomServiceCallBack carpetRoomServiceCallBack = weakReferenceCarpetRoomServiceCallBack.get();
-//            String estimatedRoomPrice = carpetRoomServiceCallBack.showEstimatedPrice(roomTO);
-//            estimatedPrice.setText(estimatedRoomPrice);
-//
-//        } else {
-//            estimatedPrice.setText("");
-//            roomTO.setPriceEstimate(0);
-//        }
-//
-//        updateEstimatedPriceRange();
-
         CarpetRoomServiceCallBack carpetRoomServiceCallBack = weakReferenceCarpetRoomServiceCallBack.get();
         carpetRoomServiceCallBack.updateEstimateHeader(roomTO);
     }
 
 
-    private void animateView(final LinearLayout chooseADimension, final LinearLayout showView) {
+    private void animateView(final LinearLayout chooseADimension, final View showView) {
 
         Animation animation = AnimationUtils.loadAnimation(chooseADimension.getContext(), R.anim.slide_out_to_left);
         animation.setInterpolator(new AccelerateInterpolator());
@@ -328,10 +358,9 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         chooseADimension.setAnimation(animation);
         chooseADimension.setVisibility(View.INVISIBLE);
-
     }
 
-    private void showDimensionView(LinearLayout showView) {
+    private void showDimensionView(View showView) {
         Animation animation = AnimationUtils.loadAnimation(showView.getContext(), R.anim.slide_in_from_right);
         animation.setInterpolator(new AccelerateDecelerateInterpolator());
         showView.setAnimation(animation);

@@ -83,17 +83,20 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
             return;
         }
 
-        if (roomTO.getRoomType() != RoomType.STAIRWAY_LANDING){
+        if (roomTO.getRoomType() != RoomType.STAIRWAY_LANDING && roomTO.isDimensionByLengthWidth()){
+
+
             int roomLength = roomTO.getLength();
             int roomWidth = roomTO.getWidth();
 
-            if (roomLength > 0 && roomWidth > 0) {
+            if (roomLength > 0 && roomWidth > 0 ) {
                 int squareFeet = roomLength * roomTO.getWidth();
                 roomTO.setSquareFeet(squareFeet);
             } else {
                 roomTO.setSquareFeet(0);
             }
         }
+
 
 
         double estimatedRoomPrice = DeriveEstimatedPriceOfRoom.execute(application, roomTO);

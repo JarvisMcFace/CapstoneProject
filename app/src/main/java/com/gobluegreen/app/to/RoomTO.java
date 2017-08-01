@@ -19,6 +19,7 @@ public class RoomTO implements Serializable {
     private double priceEstimate;
     private int numberSteps;
     private int estimatedSquareFeet;
+    private boolean dimensionByLengthWidth;
 
     public RoomType getRoomType() {
         return roomType;
@@ -90,6 +91,14 @@ public class RoomTO implements Serializable {
 
     public void setEstimatedSquareFeet(int estimatedSquareFeet) {
         this.estimatedSquareFeet = estimatedSquareFeet;
+    }
+
+    public boolean isDimensionByLengthWidth() {
+        return dimensionByLengthWidth;
+    }
+
+    public void setDimensionByLengthWidth(boolean dimensionByLengthWidth) {
+        this.dimensionByLengthWidth = dimensionByLengthWidth;
     }
 }
 
