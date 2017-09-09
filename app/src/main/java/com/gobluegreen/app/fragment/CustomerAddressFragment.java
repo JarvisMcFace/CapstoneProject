@@ -19,6 +19,7 @@ import com.gobluegreen.app.databinding.FragmentCustomerAddressBinding;
 import com.gobluegreen.app.to.CustomerTO;
 import com.gobluegreen.app.to.CustomerType;
 import com.gobluegreen.app.to.EstimateInProgressTO;
+import com.gobluegreen.app.util.CarpetQuoteCacheUtility;
 import com.gobluegreen.app.util.CustomerInformationValidator;
 import com.gobluegreen.app.util.StringUtils;
 
@@ -70,8 +71,17 @@ public class CustomerAddressFragment extends Fragment {
 
     }
 
+    @Override
+    public void onPause() {
+
+        GoBluegreenApplication application = (GoBluegreenApplication) getActivity().getApplication();
+        CarpetQuoteCacheUtility.saveEstimateInProgress(application);
+        super.onPause();
+    }
 
     private void populateCustomerTO() {
+
+        CustomerType customerType = estimateInProgressTO.getCustomerTO().getCustomerType();
 
         CustomerTO customerTO = new CustomerTO();
         customerTO.setBusinessName(customerAddressBinding.customerInformationCardview.businessName.getText().toString());
@@ -81,7 +91,7 @@ public class CustomerAddressFragment extends Fragment {
         customerTO.setCity(customerAddressBinding.customerInformationCardview.customerCity.getText().toString());
         customerTO.setZipCode(customerAddressBinding.customerInformationCardview.customerPostalCode.getText().toString());
         customerTO.setPhoneNumber(customerAddressBinding.customerInformationCardview.customerPhone.getText().toString());
-
+        customerTO.setCustomerType(customerType);
         customerTO.setPhoneNumber(customerAddressBinding.customerInformationCardview.customerPhone.getText().toString());
 
         String selectedStateSpinner = getString(R.string.select_state);
@@ -103,7 +113,7 @@ public class CustomerAddressFragment extends Fragment {
 
         GoBluegreenApplication application = (GoBluegreenApplication) getActivity().getApplication();
 
-        EstimateInProgressTO estimateInProgressTO = application.getEstimateInProgressTO();
+        EstimateInProgressTO estimateInProgressTO = CarpetQuoteCacheUtility.getEstimateInProgress(application);
         if (estimateInProgressTO == null) {
             return;
         }
@@ -119,7 +129,7 @@ public class CustomerAddressFragment extends Fragment {
         customerAddressBinding.customerInformationCardview.customerLastName.setText(customerTO.getLastName());
         customerAddressBinding.customerInformationCardview.customerPhone.setText(customerTO.getPhoneNumber());
 
-        if (CustomerType.COMMERCIAL == customerTO.getCustomerType()){
+        if (CustomerType.COMMERCIAL == customerTO.getCustomerType()) {
             customerAddressBinding.customerInformationCardview.businessName.setText(customerTO.getBusinessName());
 
         }
@@ -169,7 +179,12 @@ public class CustomerAddressFragment extends Fragment {
     private boolean isInputFieldValid() {
 
         CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
-        if (CustomerType.COMMERCIAL == customerTO.getCustomerType()){
+        if (customerTO == null) {
+            customerTO = new CustomerTO();
+            estimateInProgressTO.setCustomerTO(customerTO);
+        }
+
+        if (CustomerType.COMMERCIAL == customerTO.getCustomerType()) {
             String businessName = customerAddressBinding.customerInformationCardview.businessName.getText().toString();
             if (!CustomerInformationValidator.isValidCharacters(businessName)) {
                 customerAddressBinding.customerInformationCardview.businessName.setError(getString(R.string.error_customer_business_not_valid));

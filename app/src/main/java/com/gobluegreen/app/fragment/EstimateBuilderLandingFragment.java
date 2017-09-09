@@ -8,6 +8,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,10 +37,13 @@ import java.util.List;
 import java.util.Set;
 
 
+
 /**
  * Created by David on 7/5/17.
  */
 public class EstimateBuilderLandingFragment extends Fragment {
+
+    private static final String TAG = EstimateBuilderLandingFragment.class.getSimpleName();
 
     public static final String EXTRA_ESTIMATE_IN_PROGRESS = "com.gobluegreen.app.fragment.estimate.in.progress";
     public static final int CARPET_CLEANING_REQUEST_CODE = 100;
@@ -48,7 +52,6 @@ public class EstimateBuilderLandingFragment extends Fragment {
     private View rootView;
     private FragmentEstimateBuilderLandingBinding landingBinding;
     private EstimateInProgressTO estimateInProgressTO;
-
 
     public EstimateBuilderLandingFragment() {
     }
@@ -66,6 +69,12 @@ public class EstimateBuilderLandingFragment extends Fragment {
 
         initEstimateInProgress();
         initServicesCardViews();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "David: " + "onResume() called");
     }
 
     @Override
@@ -159,6 +168,11 @@ public class EstimateBuilderLandingFragment extends Fragment {
         landingBinding.layoutCustomerInformation.addModifyContactInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!hasPickedCustomerType()) {
+                  return;
+                }
+
                 Intent intent = new Intent(getActivity(), CustomerAddressActivity.class);
                 startActivityForResult(intent, CUSTOMER_INFORMATION_REQUEST_CODE);
             }
@@ -170,6 +184,7 @@ public class EstimateBuilderLandingFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
 
+                landingBinding.layoutCustomerType.customerTypeError.setVisibility(View.GONE);
                 if (checkedId == R.id.customer_type_residential) {
                     setCustomerType(CustomerType.RESIDENTIAL);
                     residentialScreenInit();
@@ -178,6 +193,16 @@ public class EstimateBuilderLandingFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private boolean hasPickedCustomerType() {
+
+        if (landingBinding.layoutCustomerType.customerTypeRadioGroup.getCheckedRadioButtonId() <= 0){
+            landingBinding.layoutCustomerType.customerTypeError.setVisibility(View.VISIBLE);
+            return false;
+        }
+
+       return true;
     }
 
 
@@ -263,7 +288,7 @@ public class EstimateBuilderLandingFragment extends Fragment {
         }
 
         Set<ServiceType> serviceTypeSet = estimateInProgressTO.getServiceTypeSet();
-        if (serviceTypeSet == null || serviceTypeSet.size() == 0) {
+        if ((serviceTypeSet == null || serviceTypeSet.size() == 0)  && CustomerType.COMMERCIAL != estimateInProgressTO.getCustomerTO().getCustomerType()) {
             return;
         }
 

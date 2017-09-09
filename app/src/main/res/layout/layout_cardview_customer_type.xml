@@ -26,13 +26,13 @@
                 android:layout_marginTop="@dimen/cardview_title_margin"
                 android:text="@string/to_better_assist_in_your_service"/>
 
-                <RadioGroup
-                    android:id="@+id/customer_type_radio_group"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <RadioGroup
+                android:id="@+id/customer_type_radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatRadioButton
                     android:id="@+id/customer_type_residential"
@@ -50,7 +50,20 @@
                     android:layout_marginStart="@dimen/material_margin"
                     android:text="@string/commercial"/>
 
-                </RadioGroup>
+            </RadioGroup>
+
+            <TextView
+                android:textColor="@color/error_color"
+                android:text="@string/please_select_radio_error"
+                android:id="@+id/customer_type_error"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/material_margin"
+                android:layout_marginStart="@dimen/material_margin_24"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_marginBottom="@dimen/material_margin_half"
+                android:textStyle="bold"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </layout>
