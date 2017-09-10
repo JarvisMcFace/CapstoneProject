@@ -100,9 +100,8 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
 
 
         double estimatedRoomPrice = DeriveEstimatedPriceOfRoom.execute(application, roomTO);
-        roomTO.setPriceEstimate(estimatedRoomPrice);
-        if (estimatedRoomPrice <= 0) {
-            return;
+        if (estimatedRoomPrice >= 0) {
+            roomTO.setPriceEstimate(estimatedRoomPrice);
         }
 
 

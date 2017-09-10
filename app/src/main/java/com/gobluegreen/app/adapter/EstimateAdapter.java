@@ -10,7 +10,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gobluegreen.app.R;
@@ -32,6 +31,10 @@ import java.util.List;
 
 public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private enum MeasureBy {SQUARE_FOOT, DEMENSION}
+
+    ;
+
     public static final int VIEW_TYPE_HEADER = 1;
     public static final int VIEW_TYPE_ROOM = 2;
     public static final int VIEW_TYPE_STAIRWAY = 3;
@@ -40,6 +43,7 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private List<EstimateItemTO> estimateItemTOs;
     private WeakReference<CarpetRoomServiceCallBack> weakReferenceCarpetRoomServiceCallBack;
+    private MeasureBy measureBy = MeasureBy.DEMENSION;
 
     public EstimateAdapter(List<EstimateItemTO> estimateItemTOs, WeakReference<CarpetRoomServiceCallBack> weakReferenceCarpetRoomServiceCallBack) {
         this.estimateItemTOs = estimateItemTOs;
@@ -112,6 +116,20 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         binding.carpetServiceLabel.setText(roomTO.getRoomType().getDescription());
 
+        if (roomTO.isDimensionByLengthWidth()) {
+            measureBy = MeasureBy.DEMENSION;
+            binding.buttonBySquareFeet.setVisibility(View.VISIBLE);
+            binding.containerSquareFeet.setVisibility(View.GONE);
+            binding.buttonByLengthWidth.setVisibility(View.GONE);
+            binding.containerLengthWidth.setVisibility(View.VISIBLE);
+        } else {
+            measureBy = MeasureBy.SQUARE_FOOT;
+            binding.buttonByLengthWidth.setVisibility(View.VISIBLE);
+            binding.containerLengthWidth.setVisibility(View.GONE);
+            binding.buttonBySquareFeet.setVisibility(View.GONE);
+            binding.containerSquareFeet.setVisibility(View.VISIBLE);
+
+        }
 
         int roomLength = roomTO.getLength();
         if (roomLength > 0) {
@@ -161,7 +179,7 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
 
                 roomTO.setWidth(width);
-
+                roomTO.setDimensionByLengthWidth(true);
                 updateHeaderEstimate(roomTO);
             }
 
@@ -171,6 +189,11 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
         });
 
+        int roomSquareFeet = roomTO.getSquareFeet();
+        if (roomSquareFeet > 0) {
+            binding.estimateBySquareFeet.setText(String.valueOf(roomSquareFeet));
+
+        }
         binding.estimateBySquareFeet.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -186,7 +209,6 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
 
                 roomTO.setSquareFeet(squareFeet);
-
                 updateHeaderEstimate(roomTO);
             }
 
@@ -217,8 +239,13 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         binding.byLenghtWidth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                roomTO.setDimensionByLengthWidth(true);
-                animateView(binding.chooseADimension, binding.byDeminsionLenghtWidth);
+
+                roomTO.setSquareFeet(0);
+                measureBy = MeasureBy.DEMENSION;
+                flipMeasureBy(binding);
+                binding.estimateBySquareFeet.setText(null);
+                animateView(binding.containerSquareFeet, binding.containerLengthWidth);
+                updateHeaderEstimate(roomTO);
             }
         });
 
@@ -226,25 +253,38 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             @Override
             public void onClick(View v) {
 
-                animateView(binding.chooseADimension, binding.byDeminsionSquareFeet);
+                measureBy = MeasureBy.SQUARE_FOOT;
+                int squareFeet = roomTO.getSquareFeet();
+                flipMeasureBy(binding);
+                animateView(binding.containerLengthWidth, binding.containerSquareFeet);
+
+                roomTO.setLength(0);
+                roomTO.setWidth(0);
+                binding.estimateRoomLength.setText(null);
+                binding.estimateRoomWidth.setText(null);
+                roomTO.setDimensionByLengthWidth(false);
+
+                if (squareFeet>0) {
+                    binding.estimateBySquareFeet.setText(String.valueOf(squareFeet));
+                }
+
+                updateHeaderEstimate(roomTO);
             }
         });
 
 
-        int roomSquareFeet = roomTO.getSquareFeet();
-        if (roomSquareFeet > 0) {
-
-            if (roomTO.isDimensionByLengthWidth()) {
-                binding.chooseADimension.setVisibility(View.GONE);
-                binding.byDeminsionLenghtWidth.setVisibility(View.VISIBLE);
-            } else {
-                binding.chooseADimension.setVisibility(View.GONE);
-                binding.byDeminsionSquareFeet.setVisibility(View.VISIBLE);
-                binding.estimateBySquareFeet.setText(String.valueOf(roomSquareFeet));
-            }
-        }
-
         updateHeaderEstimate(roomTO);
+    }
+
+    private void flipMeasureBy(ItemRoomEstimateBinding binding) {
+
+        if (measureBy == MeasureBy.DEMENSION) {
+            binding.buttonByLengthWidth.setVisibility(View.GONE);
+            binding.buttonBySquareFeet.setVisibility(View.VISIBLE);
+        } else {
+            binding.buttonByLengthWidth.setVisibility(View.VISIBLE);
+            binding.buttonBySquareFeet.setVisibility(View.GONE);
+        }
     }
 
 
@@ -334,7 +374,7 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
 
-    private void animateView(final LinearLayout chooseADimension, final View showView) {
+    private void animateView(final View chooseADimension, final View showView) {
 
         Animation animation = AnimationUtils.loadAnimation(chooseADimension.getContext(), R.anim.slide_out_to_left);
         animation.setInterpolator(new AccelerateInterpolator());
