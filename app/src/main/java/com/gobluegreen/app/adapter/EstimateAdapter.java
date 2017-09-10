@@ -221,15 +221,17 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (roomTO.isCarpetProtector()) {
             binding.estimateCarpetProtectorCheckbox.setChecked(true);
         }
-        binding.estimateCarpetProtectorCheckbox.setOnClickListener(new View.OnClickListener() {
+        binding.checkboxContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 boolean isChecked = binding.estimateCarpetProtectorCheckbox.isChecked();
                 if (isChecked) {
-                    roomTO.setCarpetProtector(true);
-                } else {
                     roomTO.setCarpetProtector(false);
+                    binding.estimateCarpetProtectorCheckbox.setChecked(false);
+                } else {
+                    roomTO.setCarpetProtector(true);
+                    binding.estimateCarpetProtectorCheckbox.setChecked(true);
                 }
                 updateHeaderEstimate(roomTO);
             }
@@ -264,7 +266,7 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 binding.estimateRoomWidth.setText(null);
                 roomTO.setDimensionByLengthWidth(false);
 
-                if (squareFeet>0) {
+                if (squareFeet > 0) {
                     binding.estimateBySquareFeet.setText(String.valueOf(squareFeet));
                 }
 
@@ -333,23 +335,6 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             binding.estimatedPrice.setText(formattedPrice);
         }
 
-        if (roomTO.isCarpetProtector()) {
-            binding.estimateCarpetProtectorCheckbox.setChecked(true);
-        }
-        binding.estimateCarpetProtectorCheckbox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                boolean isChecked = binding.estimateCarpetProtectorCheckbox.isChecked();
-                if (isChecked) {
-                    roomTO.setCarpetProtector(true);
-                } else {
-                    roomTO.setCarpetProtector(false);
-                }
-
-                updateHeaderEstimate(roomTO);
-            }
-        });
     }
 
 

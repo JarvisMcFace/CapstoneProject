@@ -131,70 +131,84 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/material_list_with_icon_height"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
                 android:orientation="horizontal">
 
 
-                <android.support.v7.widget.AppCompatCheckBox
-                    android:id="@+id/estimate_carpet_protector_checkbox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/material_margin"/>
-
-                <TextView
-                    android:id="@+id/estimate_carpet_protector_label"
-                    style="@style/TextAppearance.AppCompat.Body1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/material_margin_half"
-                    android:clickable="false"
-                    android:gravity="center_vertical"
-                    android:text="@string/carpet_protector"/>
-
-
                 <LinearLayout
-                    android:id="@+id/button_by_square_feet"
+                    android:id="@+id/checkbox_container"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/material_margin"
+                    android:layout_height="@dimen/material_list_with_icon_height"
                     android:layout_weight=".5"
-                    android:orientation="vertical">
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/estimate_carpet_protector_checkbox"
+                        android:layout_width="wrap_content"
+                        android:clickable="false"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/material_margin"/>
 
                     <TextView
-                        android:id="@+id/by_square_feet"
-                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:id="@+id/estimate_carpet_protector_label"
+                        style="@style/TextAppearance.AppCompat.Body1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|center_horizontal"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:text="@string/by_square_feet"
-                        android:textSize="14sp"/>
+                        android:layout_marginStart="@dimen/material_margin_half"
+                        android:clickable="false"
+                        android:gravity="center_vertical"
+                        android:text="@string/carpet_protector"/>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/button_by_length_width"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/material_margin"
-                    android:layout_weight=".5"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+                    android:layout_weight=".5">
 
-                    <TextView
-                        android:id="@+id/by_lenght_width"
-                        style="@style/Widget.AppCompat.Button.Borderless"
+                    <LinearLayout
+                        android:id="@+id/button_by_square_feet"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|center_horizontal"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:text="@string/by_length_x_width"
-                        android:textSize="14sp"/>
-                </LinearLayout>
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/material_margin"
+                        android:orientation="vertical">
 
+                        <TextView
+                            android:id="@+id/by_square_feet"
+                            style="@style/Widget.AppCompat.Button.Borderless"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:text="@string/by_square_feet"
+                            android:textSize="14sp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/button_by_length_width"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/material_margin"
+                        android:layout_weight=".5"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/by_lenght_width"
+                            style="@style/Widget.AppCompat.Button.Borderless"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:text="@string/by_length_x_width"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
