@@ -1,6 +1,7 @@
 package com.gobluegreen.app.fragment;
 
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gobluegreen.app.R;
+import com.gobluegreen.app.activity.EstimateReviewSubmitActivity;
 import com.gobluegreen.app.adapter.CarpetRoomServiceCallBack;
 import com.gobluegreen.app.adapter.EstimateAdapter;
 import com.gobluegreen.app.application.GoBluegreenApplication;
@@ -62,6 +64,8 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         estimateBinding.layoutEstimate.estimateRecyclerView.setLayoutManager(linearLayoutManager);
+
+        estimateBinding.landingContinueButton.setOnClickListener(getContinueButtonOnClickListener);
     }
 
     @Override
@@ -158,4 +162,11 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
     }
 
 
+    private View.OnClickListener getContinueButtonOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = EstimateReviewSubmitActivity.newIntent(getContext());
+            startActivity(intent);
+        }
+    };
 }

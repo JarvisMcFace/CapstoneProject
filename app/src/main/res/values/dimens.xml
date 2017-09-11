@@ -1,6 +1,7 @@
 <resources>
     <dimen name="material_margin">16dp</dimen>
     <dimen name="material_margin_24">24dp</dimen>
+    <dimen name="material_4">4dp</dimen>
     <dimen name="material_margin_half">8dp</dimen>
 
     <dimen name="feature_services_viewpager_height">240dp</dimen>
@@ -21,5 +22,8 @@
     <dimen name="bottom_sheet_button_height">56dp</dimen>
     <dimen name="bottom_sheet_landing_button_height">64dp</dimen>
     <dimen name="estimate_total_square_feet">150dp</dimen>
+    <dimen name="card_view_elevation">2dp</dimen>
+    <dimen name="card_view_corner_radius">2dp</dimen>
+    <dimen name="review_card_image">128dp</dimen>
 
 </resources>

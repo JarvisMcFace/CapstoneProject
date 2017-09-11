@@ -26,6 +26,7 @@
     <string name="contact_information">Contact Information</string>
     <string name="add_contact_information">Add</string>
     <string name="continue_esitimate">Continue</string>
+    <string name="submit_estimate">Submit Estimate"</string>
 
     <!-- Customer Information -->
     <string name="business_name">Business Name *</string>

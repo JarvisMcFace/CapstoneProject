@@ -29,24 +29,24 @@
         <activity
             android:name=".activity.CustomerAddressActivity"
             android:label="@string/customer_address_activity_screen_name"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".activity.EstimateBuilderLandingActivity"
             android:label="@string/activity_estimate_builder"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".activity.CarpetCleaningServicesActivity"
             android:label="@string/activity_select_services"
-            android:theme="@style/AppTheme.EstimateCarpetServices.Dialog">
-        </activity>
+            android:theme="@style/AppTheme.EstimateCarpetServices.Dialog"/>
         <activity
             android:name=".activity.EstimateActivity"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden"/>
 
-        </activity>
+        <activity
+            android:name=".activity.EstimateReviewSubmitActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden"/>
 
 
         <!--<provider-->
