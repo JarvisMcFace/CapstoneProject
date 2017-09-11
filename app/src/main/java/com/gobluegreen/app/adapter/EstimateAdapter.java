@@ -337,8 +337,7 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     }
 
-
-    private void updateNumberOfStepEstimatedPrice(RoomTO roomTO, TextView estimatedPrice) {
+`    private void updateNumberOfStepEstimatedPrice(RoomTO roomTO, TextView estimatedPrice) {
 
         int numberOfSteps = roomTO.getNumberSteps();
 
