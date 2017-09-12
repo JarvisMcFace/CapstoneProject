@@ -101,7 +101,6 @@ public class CustomerAddressFragment extends Fragment {
         }
 
         GoBluegreenApplication application = (GoBluegreenApplication) getActivity().getApplication();
-
         EstimateInProgressTO estimateInProgressTO = application.getEstimateInProgressTO();
         if (estimateInProgressTO != null) {
             estimateInProgressTO.setCustomerTO(customerTO);

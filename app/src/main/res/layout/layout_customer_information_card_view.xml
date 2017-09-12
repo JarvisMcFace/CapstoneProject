@@ -203,6 +203,7 @@
                             android:id="@+id/input_customer_postal_code"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/bottom_sheet_button_height"
                             android:layout_marginEnd="@dimen/material_margin"
                             android:layout_marginStart="@dimen/material_margin">
 

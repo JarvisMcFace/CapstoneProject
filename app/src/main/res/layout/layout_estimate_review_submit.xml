@@ -6,6 +6,9 @@
 
     <data>
 
+        <import type="android.view.View" />
+        <import type="com.gobluegreen.app.util.StringUtils" />
+
         <variable
             name="estimate"
             type="com.gobluegreen.app.to.EstimateInProgressTO"/>
@@ -29,6 +32,7 @@
             app:cardUseCompatPadding="true">
 
             <LinearLayout
+                android:layout_marginBottom="@dimen/material_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -58,12 +62,42 @@
 
                 <TextView
                     style="@style/TextAppearance.AppCompat.Body1"
-                    tools:text="Mickey mouse"
-                    android:layout_marginStart="@dimen/material_margin"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/material_margin"
                     android:layout_marginTop="@dimen/material_4"
                     app:estimate_customer_name="@{estimate}"
-                    android:layout_height="wrap_content"/>
+                    tools:text="Mickey mouse"/>
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:layout_marginTop="@dimen/material_4"
+                    app:estimate_customer_address_line1="@{estimate}"
+                    android:visibility="@{StringUtils.isEmpty(estimate.customerTO.address1) ? View.GONE : View.VISIBLE}"
+                    tools:text="Address Line 1"/>
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:layout_marginTop="@dimen/material_4"
+                    app:estimate_customer_address_line2="@{estimate}"
+                    android:visibility="@{StringUtils.isEmpty(estimate.customerTO.address2) ? View.GONE : View.VISIBLE}"
+                    tools:text="Address Line 2"/>
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:layout_marginTop="@dimen/material_4"
+                    app:estimate_city_state_postal_code="@{estimate}"
+                    tools:text="City State, PostalCode"/>
+
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </android.support.v4.widget.NestedScrollView>

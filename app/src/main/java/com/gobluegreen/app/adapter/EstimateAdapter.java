@@ -365,7 +365,6 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
             }
 
             @Override

@@ -2,6 +2,7 @@ package com.gobluegreen.app.fragment;
 
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -27,6 +28,7 @@ import com.gobluegreen.app.to.RoomType;
 import com.gobluegreen.app.to.ServiceType;
 import com.gobluegreen.app.to.UpholsteryType;
 import com.gobluegreen.app.util.CarpetQuoteCacheUtility;
+import com.gobluegreen.app.util.CreateCityStateZipDisplayLine;
 import com.gobluegreen.app.util.ListUtils;
 import com.gobluegreen.app.util.StringUtils;
 
@@ -34,7 +36,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 
 
 /**
@@ -164,7 +165,7 @@ public class EstimateBuilderLandingFragment extends Fragment {
             public void onClick(View v) {
 
                 if (!hasPickedCustomerType()) {
-                  return;
+                    return;
                 }
 
                 Intent intent = new Intent(getActivity(), CustomerAddressActivity.class);
@@ -191,12 +192,12 @@ public class EstimateBuilderLandingFragment extends Fragment {
 
     private boolean hasPickedCustomerType() {
 
-        if (landingBinding.layoutCustomerType.customerTypeRadioGroup.getCheckedRadioButtonId() <= 0){
+        if (landingBinding.layoutCustomerType.customerTypeRadioGroup.getCheckedRadioButtonId() <= 0) {
             landingBinding.layoutCustomerType.customerTypeError.setVisibility(View.VISIBLE);
             return false;
         }
 
-       return true;
+        return true;
     }
 
 
@@ -282,7 +283,7 @@ public class EstimateBuilderLandingFragment extends Fragment {
         }
 
         Set<ServiceType> serviceTypeSet = estimateInProgressTO.getServiceTypeSet();
-        if ((serviceTypeSet == null || serviceTypeSet.size() == 0)  && CustomerType.COMMERCIAL != estimateInProgressTO.getCustomerTO().getCustomerType()) {
+        if ((serviceTypeSet == null || serviceTypeSet.size() == 0) && CustomerType.COMMERCIAL != estimateInProgressTO.getCustomerTO().getCustomerType()) {
             return;
         }
 
@@ -449,26 +450,11 @@ public class EstimateBuilderLandingFragment extends Fragment {
             landingBinding.layoutCustomerInformation.customerInformationAddress.setVisibility(View.VISIBLE);
         }
 
-        StringBuilder stringBuilder = new StringBuilder();
-        String city = customerTO.getCity();
-        if (StringUtils.isNotEmpty(city)) {
-            stringBuilder.append(city);
-        }
 
-        String state = customerTO.getState();
-        if (StringUtils.isNotEmpty(state)) {
-            stringBuilder.append(" ").append(state);
-        }
-
-        String zip = customerTO.getZipCode();
-        String selectedState = getString(R.string.select_state);
-        if (StringUtils.isEmpty(zip) && !selectedState.equalsIgnoreCase(zip)) {
-            stringBuilder.append(" ").append(zip);
-        }
-
-        String cityStateZip = stringBuilder.toString();
-        if (StringUtils.isNotEmpty(cityStateZip)) {
-            landingBinding.layoutCustomerInformation.customerInformationCityState.setText(cityStateZip);
+        Resources resources = getResources();
+        String cityStatePostalCode = CreateCityStateZipDisplayLine.execute(resources, customerTO);
+        if (StringUtils.isNotEmpty(cityStatePostalCode)) {
+            landingBinding.layoutCustomerInformation.customerInformationCityState.setText(cityStatePostalCode);
             landingBinding.layoutCustomerInformation.customerInformationCityState.setVisibility(View.VISIBLE);
         }
         shouldContinueButtonBeEnabled();
