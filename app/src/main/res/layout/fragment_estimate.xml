@@ -30,7 +30,7 @@
                 android:paddingEnd="@dimen/material_padding"
                 android:text="@string/continue_esitimate"
                 android:textAllCaps="true"
-                android:textColor="@color/disabled_gray"/>
+                android:textColor="@color/colorAccent"/>
         </LinearLayout>
     </FrameLayout>
 

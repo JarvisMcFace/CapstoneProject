@@ -6,8 +6,11 @@
 
     <data>
 
-        <import type="android.view.View" />
-        <import type="com.gobluegreen.app.util.StringUtils" />
+        <import type="android.view.View"/>
+
+        <import type="com.gobluegreen.app.util.StringUtils"/>
+
+        <import type="com.gobluegreen.app.util.ListUtils"/>
 
         <variable
             name="estimate"
@@ -32,9 +35,9 @@
             app:cardUseCompatPadding="true">
 
             <LinearLayout
-                android:layout_marginBottom="@dimen/material_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/material_margin"
                 android:orientation="vertical">
 
                 <FrameLayout
@@ -65,7 +68,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/material_margin"
-                    android:layout_marginTop="@dimen/material_4"
                     app:estimate_customer_name="@{estimate}"
                     tools:text="Mickey mouse"/>
 
@@ -74,9 +76,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/material_margin"
-                    android:layout_marginTop="@dimen/material_4"
-                    app:estimate_customer_address_line1="@{estimate}"
                     android:visibility="@{StringUtils.isEmpty(estimate.customerTO.address1) ? View.GONE : View.VISIBLE}"
+                    app:estimate_customer_address_line1="@{estimate}"
                     tools:text="Address Line 1"/>
 
                 <TextView
@@ -84,9 +85,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/material_margin"
-                    android:layout_marginTop="@dimen/material_4"
-                    app:estimate_customer_address_line2="@{estimate}"
                     android:visibility="@{StringUtils.isEmpty(estimate.customerTO.address2) ? View.GONE : View.VISIBLE}"
+                    app:estimate_customer_address_line2="@{estimate}"
                     tools:text="Address Line 2"/>
 
                 <TextView
@@ -94,9 +94,98 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/material_margin"
-                    android:layout_marginTop="@dimen/material_4"
                     app:estimate_city_state_postal_code="@{estimate}"
                     tools:text="City State, PostalCode"/>
+
+                <TextView
+                    style="@style/Review_Submit_Items_Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/material_4"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:layout_marginTop="@dimen/material_margin_half"
+                    android:text="@string/rooms_to_clean"
+                    android:visibility="gone"
+                    app:estimate_room_to_clean_title="@{estimate}"
+                    tools:visibility="visible"/>
+
+
+                <com.gobluegreen.app.custom.CarpetServicesGridView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/material_margin"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:numColumns="2"
+                    android:stretchMode="columnWidth"
+                    app:estimate_room_to_clean_gride_view="@{estimate}"
+                    tools:listitem="@layout/layout_selected_carpet_servcies_item"/>
+
+
+                <TextView
+                    style="@style/Review_Submit_Items_Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/material_4"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:layout_marginTop="@dimen/material_margin_half"
+                    android:text="@string/upholstery_to_clean"
+                    android:visibility="gone"
+                    app:estimate_upholstery_to_clean_title="@{estimate}"
+                    tools:visibility="visible"/>
+
+                <com.gobluegreen.app.custom.CarpetServicesGridView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/material_margin"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:numColumns="2"
+                    android:stretchMode="columnWidth"
+                    app:estimate_upholstery_gride_view="@{estimate}"
+                    tools:listitem="@layout/layout_selected_carpet_servcies_item"/>
+
+                <TextView
+                    android:id="@+id/estimate_price_range_title"
+                    style="@style/Review_Submit_Items_Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/material_4"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:layout_marginTop="@dimen/material_margin_half"
+                    android:text="@string/build_estimated_price_range"
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
+
+                <TextView
+                    android:id="@+id/estimate_price_range"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:visibility="gone"
+                    tools:text="$180 - $200"
+                    tools:visibility="visible"/>
+
+                <TextView
+                    android:id="@+id/estimate_square_feet_title"
+                    style="@style/Review_Submit_Items_Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/material_4"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:layout_marginTop="@dimen/material_margin_half"
+                    android:text="@string/estimated_square_carpet_squre_feet"
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
+
+                <TextView
+                    android:id="@+id/estimate_total_square_feet"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:visibility="gone"
+                    tools:text="200 sq ft"
+                    tools:visibility="visible"/>
 
             </LinearLayout>
         </android.support.v7.widget.CardView>

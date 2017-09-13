@@ -12,8 +12,12 @@ import android.view.ViewGroup;
 import com.gobluegreen.app.R;
 import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.databinding.FragmentEstimateReviewSubmitBinding;
+import com.gobluegreen.app.to.CustomerTO;
+import com.gobluegreen.app.to.CustomerType;
 import com.gobluegreen.app.to.EstimateInProgressTO;
 import com.gobluegreen.app.util.CarpetQuoteCacheUtility;
+import com.gobluegreen.app.util.DeriveEstimatedPriceHighLowRange;
+import com.gobluegreen.app.util.DeriveEstimatedTotalSquareFeet;
 
 /**
  * Created by David on 7/14/17.
@@ -43,6 +47,32 @@ public class EstimateReviewSubmitFragment extends Fragment {
 
         estimateInProgressTO = CarpetQuoteCacheUtility.getEstimateInProgress(application);
         binding.layoutEstimateReviewSubmit.setEstimate(estimateInProgressTO);
+
+        updateReviewQuotes();
+    }
+
+    private void updateReviewQuotes() {
+
+        CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
+
+        if (CustomerType.COMMERCIAL == customerTO.getCustomerType()) {
+            return;
+        }
+
+        String priceEstimateRange = DeriveEstimatedPriceHighLowRange.execute(application);
+        int squareFeetEstimate = DeriveEstimatedTotalSquareFeet.execute(application);
+
+        binding.layoutEstimateReviewSubmit.estimatePriceRangeTitle.setVisibility(View.VISIBLE);
+        binding.layoutEstimateReviewSubmit.estimateSquareFeetTitle.setVisibility(View.VISIBLE);
+        binding.layoutEstimateReviewSubmit.estimatePriceRange.setVisibility(View.VISIBLE);
+        binding.layoutEstimateReviewSubmit.estimateTotalSquareFeet.setVisibility(View.VISIBLE);
+
+        binding.layoutEstimateReviewSubmit.estimatePriceRange.setText(priceEstimateRange);
+        String sqft = getResources().getString(R.string.square_feet);
+        binding.layoutEstimateReviewSubmit.estimateTotalSquareFeet.setText(squareFeetEstimate + " " + sqft);
+
+
+
     }
 
 }

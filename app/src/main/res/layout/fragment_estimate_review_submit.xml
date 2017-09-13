@@ -28,9 +28,10 @@
                 android:layout_gravity="bottom"
                 android:gravity="end|center_vertical"
                 android:paddingEnd="@dimen/material_padding"
+                android:paddingStart="@dimen/material_padding"
                 android:text="@string/submit_estimate"
                 android:textAllCaps="true"
-                android:textColor="@color/disabled_gray"/>
+                android:textColor="@color/colorAccent"/>
         </LinearLayout>
     </FrameLayout>
 
