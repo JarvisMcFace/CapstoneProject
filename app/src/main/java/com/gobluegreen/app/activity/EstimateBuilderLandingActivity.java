@@ -1,6 +1,7 @@
 package com.gobluegreen.app.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -75,6 +76,9 @@ public class EstimateBuilderLandingActivity extends AppCompatActivity {
         GoBluegreenApplication application = (GoBluegreenApplication) getApplication();
         CarpetQuoteCacheUtility.deleteEstimateInProgress(application);
         application.setEstimateInProgressTO(new EstimateInProgressTO());
-        finish();
+
+        Intent intent = new Intent(this,HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }
