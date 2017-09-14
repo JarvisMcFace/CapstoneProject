@@ -98,6 +98,14 @@
                     tools:text="City State, PostalCode"/>
 
                 <TextView
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/material_margin"
+                    app:estimate_phone_number="@{estimate}"
+                    tools:text="(123) 555-1212"/>
+
+                <TextView
                     style="@style/Review_Submit_Items_Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

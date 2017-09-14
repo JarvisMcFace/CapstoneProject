@@ -86,6 +86,21 @@ public class ReviewSubmitBindingAdapter {
         textView.setText(cityStateZip);
     }
 
+    @BindingAdapter("estimate_phone_number")
+    public static void setPhoneNumber(TextView textView, EstimateInProgressTO estimateInProgressTO) {
+
+        CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
+
+        String phoneNumber = customerTO.getPhoneNumber();
+
+        if (StringUtils.isEmpty(phoneNumber)) {
+            textView.setVisibility(View.GONE);
+            return;
+        }
+
+        textView.setText(phoneNumber);
+    }
+
     @BindingAdapter("estimate_room_to_clean_title")
     public static void setRoomToCLeanTitle(TextView textView, EstimateInProgressTO estimateInProgressTO) {
 
@@ -124,7 +139,6 @@ public class ReviewSubmitBindingAdapter {
 
     }
 
-
     @BindingAdapter("estimate_upholstery_to_clean_title")
     public static void setUpholsteryToCleanTitle(TextView textView, EstimateInProgressTO estimateInProgressTO) {
 
@@ -142,10 +156,8 @@ public class ReviewSubmitBindingAdapter {
             return;
         }
 
-
         textView.setVisibility(View.VISIBLE);
     }
-
 
     @BindingAdapter("estimate_upholstery_gride_view")
     public static void setUpholsteryToClean(GridView gridView, EstimateInProgressTO estimateInProgressTO) {
