@@ -71,7 +71,6 @@ public class EstimateBuilderLandingFragment extends Fragment {
         initServicesCardViews();
     }
 
-
     @Override
     public void onPause() {
 
@@ -342,11 +341,15 @@ public class EstimateBuilderLandingFragment extends Fragment {
         CustomerType customerType = customerTO.getCustomerType();
 
         if (CustomerType.RESIDENTIAL == customerType) {
-            landingBinding.layoutCustomerType.customerTypeCommercial.setChecked(true);
-            landingBinding.layoutServicesSelection.servicesSelectionCardview.setVisibility(View.GONE);
-        } else {
+
             landingBinding.layoutCustomerType.customerTypeResidential.setChecked(true);
             landingBinding.layoutServicesSelection.servicesSelectionCardview.setVisibility(View.VISIBLE);
+            landingBinding.layoutCarpetCleaningServices.carpetCleaningServicesCardview.setVisibility(View.VISIBLE);
+        } else {
+            landingBinding.layoutCustomerType.customerTypeCommercial.setChecked(true);
+            landingBinding.layoutServicesSelection.servicesSelectionCardview.setVisibility(View.GONE);
+            landingBinding.layoutCarpetCleaningServices.carpetCleaningServicesCardview.setVisibility(View.GONE);
+            landingBinding.layoutServicesSelection.servicesSelectionCardview.setVisibility(View.GONE);
         }
     }
 
