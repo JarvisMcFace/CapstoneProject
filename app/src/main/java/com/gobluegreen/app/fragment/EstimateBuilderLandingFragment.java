@@ -222,10 +222,10 @@ public class EstimateBuilderLandingFragment extends Fragment {
         }
         upholsteryTypeSet.remove(upholsteryType);
 
-        if (upholsteryTypeSet.size() == 0) {
-            estimateInProgressTO.setUpholsterySet(null);
-
-        }
+//        if (upholsteryTypeSet.size() == 0) {
+//            estimateInProgressTO.setUpholsterySet(null);
+//
+//        }
     }
 
     private void addServiceToEstimate(ServiceType serviceType) {
