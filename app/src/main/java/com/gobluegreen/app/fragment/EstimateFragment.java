@@ -21,6 +21,7 @@ import com.gobluegreen.app.to.EstimateInProgressTO;
 import com.gobluegreen.app.to.EstimateItemTO;
 import com.gobluegreen.app.to.RoomTO;
 import com.gobluegreen.app.to.RoomType;
+import com.gobluegreen.app.util.CarpetQuoteCacheUtility;
 import com.gobluegreen.app.util.DeriveEstimatedPriceHighLowRange;
 import com.gobluegreen.app.util.DeriveEstimatedPriceOfRoom;
 import com.gobluegreen.app.util.DeriveEstimatedTotalSquareFeet;
@@ -114,7 +115,14 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
 
         int estimatedTotalSquareFeet = DeriveEstimatedTotalSquareFeet.execute(application);
         estimateBinding.layoutEstimate.estimatedTotalSquareFeet.setText(String.valueOf(estimatedTotalSquareFeet));
+    }
 
+    @Override
+    public void onPause() {
+
+        GoBluegreenApplication application = (GoBluegreenApplication) getActivity().getApplication();
+        CarpetQuoteCacheUtility.saveEstimateInProgress(application);
+        super.onPause();
     }
 
     private void populateRoomsToEstimate() {

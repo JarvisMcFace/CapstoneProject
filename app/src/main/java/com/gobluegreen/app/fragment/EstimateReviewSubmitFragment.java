@@ -15,9 +15,13 @@ import com.gobluegreen.app.databinding.FragmentEstimateReviewSubmitBinding;
 import com.gobluegreen.app.to.CustomerTO;
 import com.gobluegreen.app.to.CustomerType;
 import com.gobluegreen.app.to.EstimateInProgressTO;
+import com.gobluegreen.app.to.RoomTO;
 import com.gobluegreen.app.util.CarpetQuoteCacheUtility;
 import com.gobluegreen.app.util.DeriveEstimatedPriceHighLowRange;
 import com.gobluegreen.app.util.DeriveEstimatedTotalSquareFeet;
+import com.gobluegreen.app.util.ListUtils;
+
+import java.util.List;
 
 /**
  * Created by David on 7/14/17.
@@ -61,6 +65,13 @@ public class EstimateReviewSubmitFragment extends Fragment {
 
         String priceEstimateRange = DeriveEstimatedPriceHighLowRange.execute(application);
         int squareFeetEstimate = DeriveEstimatedTotalSquareFeet.execute(application);
+
+
+        List<RoomTO> roomTOs = estimateInProgressTO.getRoomTOs();
+
+        if (ListUtils.isEmpty(roomTOs)) {
+            return;
+        }
 
         binding.layoutEstimateReviewSubmit.estimatePriceRangeTitle.setVisibility(View.VISIBLE);
         binding.layoutEstimateReviewSubmit.estimateSquareFeetTitle.setVisibility(View.VISIBLE);

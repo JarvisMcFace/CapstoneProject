@@ -282,8 +282,19 @@ public class EstimateBuilderLandingFragment extends Fragment {
             return;
         }
 
+        CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
+
+        String firstName = customerTO.getFirstName();
+        String lastName = customerTO.getLastName();
+        String phoneNumber = customerTO.getPhoneNumber();
+
+        if (StringUtils.isEmpty(firstName) || StringUtils.isEmpty(lastName) || StringUtils.isEmpty(phoneNumber)) {
+            return;
+        }
+
         Set<ServiceType> serviceTypeSet = estimateInProgressTO.getServiceTypeSet();
-        if ((serviceTypeSet == null || serviceTypeSet.size() == 0) && CustomerType.COMMERCIAL != estimateInProgressTO.getCustomerTO().getCustomerType()) {
+
+        if ((serviceTypeSet == null || serviceTypeSet.size() == 0) && CustomerType.COMMERCIAL != customerTO.getCustomerType()) {
             return;
         }
 

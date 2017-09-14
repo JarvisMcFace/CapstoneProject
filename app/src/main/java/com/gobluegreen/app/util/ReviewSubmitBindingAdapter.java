@@ -136,6 +136,13 @@ public class ReviewSubmitBindingAdapter {
             return;
         }
 
+        Set<UpholsteryType> upholsteryTypeSet = estimateInProgressTO.getUpholsterySet();
+
+        if (upholsteryTypeSet == null || upholsteryTypeSet.size() == 0) {
+            return;
+        }
+
+
         textView.setVisibility(View.VISIBLE);
     }
 
@@ -155,6 +162,11 @@ public class ReviewSubmitBindingAdapter {
 
         final String DOT = "\u00b7";
         Set<UpholsteryType> upholsteryTypeSet = estimateInProgressTO.getUpholsterySet();
+
+        if (upholsteryTypeSet == null || upholsteryTypeSet.size() == 0) {
+            return;
+        }
+
         Resources resources = gridView.getResources();
         List<String> upholsteryList = new ArrayList<>();
         for (UpholsteryType upholsteryType : upholsteryTypeSet) {
