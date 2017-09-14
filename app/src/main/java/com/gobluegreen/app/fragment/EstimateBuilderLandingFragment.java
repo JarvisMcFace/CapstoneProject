@@ -19,6 +19,7 @@ import com.gobluegreen.app.R;
 import com.gobluegreen.app.activity.CarpetCleaningServicesActivity;
 import com.gobluegreen.app.activity.CustomerAddressActivity;
 import com.gobluegreen.app.activity.EstimateActivity;
+import com.gobluegreen.app.activity.EstimateReviewSubmitActivity;
 import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.databinding.FragmentEstimateBuilderLandingBinding;
 import com.gobluegreen.app.to.CustomerTO;
@@ -297,18 +298,45 @@ public class EstimateBuilderLandingFragment extends Fragment {
             return;
         }
 
-        landingBinding.landingContinueButton.setOnClickListener(getContinueButtonOnClickListener);
+        if (customerTO.getCustomerType() == CustomerType.COMMERCIAL) {
+            landingBinding.landingContinueButton.setOnClickListener(getComericalContinueButtonOnClickListener);
+        } else {
+            landingBinding.landingContinueButton.setOnClickListener(getCustomerContinueButtonOnClickListener);
+        }
+
         int enabledButtonColor = ContextCompat.getColor(getContext(), R.color.colorAccent);
         landingBinding.contiueLabel.setTextColor(enabledButtonColor);
     }
 
-    private View.OnClickListener getContinueButtonOnClickListener = new View.OnClickListener() {
+    private View.OnClickListener getCustomerContinueButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getActivity(), EstimateActivity.class);
-            startActivity(intent);
+            navigateToNextActivity();
         }
     };
+
+    private View.OnClickListener getComericalContinueButtonOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            navigateToNextActivity();
+        }
+    };
+
+    private void navigateToNextActivity() {
+
+        Intent intent = null;
+
+        CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
+
+        if (CustomerType.COMMERCIAL == customerTO.getCustomerType()) {
+            intent = new Intent(getActivity(), EstimateReviewSubmitActivity.class);
+
+        } else {
+            intent = new Intent(getActivity(), EstimateActivity.class);
+        }
+
+        startActivity(intent);
+    }
 
     private void restoreEstimate() {
 
@@ -465,7 +493,6 @@ public class EstimateBuilderLandingFragment extends Fragment {
             landingBinding.layoutCustomerInformation.customerInformationAddress.setText(address);
             landingBinding.layoutCustomerInformation.customerInformationAddress.setVisibility(View.VISIBLE);
         }
-
 
         Resources resources = getResources();
         String cityStatePostalCode = CreateCityStateZipDisplayLine.execute(resources, customerTO);
