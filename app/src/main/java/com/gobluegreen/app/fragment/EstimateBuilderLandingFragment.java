@@ -354,13 +354,9 @@ public class EstimateBuilderLandingFragment extends Fragment {
                     landingBinding.layoutServicesSelection.servicesSelectionCarpetCheckbox.setChecked(true);
                     addCarpetServicesToCardView();
                     break;
-                case TILE_GROUT:
-                    break;
                 case UPHOLSTERY:
                     landingBinding.layoutServicesSelection.servicesSelectionUpholsteryCheckbox.setChecked(true);
                     addUpholsteryEstimate();
-                    break;
-                case WOOD_FLOOR:
                     break;
             }
         }

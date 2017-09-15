@@ -1,4 +1,4 @@
-package com.gobluegreen.app.data.customer;
+package com.gobluegreen.app.data.estimate;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
@@ -17,14 +17,14 @@ import com.gobluegreen.app.to.EstimateInProgressTO;
  * Created by David on 7/17/17.
  */
 
-public class CustomerContentProvider extends ContentProvider {
+public class EstimateContentProvider extends ContentProvider {
 
-    private CustomerDbAdapter dbAdapter;
+    private EstimateDbAdapter dbAdapter;
 
-    private static final String AUTHORITY = "com.go bluegreen.app.data.customer.provider";
-    private static final String BASE_PATH = "customer";
+    private static final String AUTHORITY = "com.gobluegreen.app.data.estimate.provider";
+    private static final String BASE_PATH = "estimate";
 
-    private static final int CUSTOMER_CODE = 100;
+    private static final int ESTIMATE_CODE = 100;
 
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
     public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + AUTHORITY + "/" + BASE_PATH;
@@ -32,16 +32,16 @@ public class CustomerContentProvider extends ContentProvider {
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
-        uriMatcher.addURI(AUTHORITY, BASE_PATH, CUSTOMER_CODE);
+        uriMatcher.addURI(AUTHORITY, BASE_PATH, ESTIMATE_CODE);
     }
 
-    public CustomerContentProvider() {
+    public EstimateContentProvider() {
         //intentionally left blank
     }
 
     @Override
     public boolean onCreate() {
-        CustomerDbAdapter customerDbAdapter = new CustomerDbAdapter(getContext());
+        EstimateDbAdapter customerDbAdapter = new EstimateDbAdapter(getContext());
         dbAdapter = customerDbAdapter.open();
         return true;
     }
@@ -51,7 +51,7 @@ public class CustomerContentProvider extends ContentProvider {
     public String getType(@NonNull Uri uri) {
         final int match = uriMatcher.match(uri);
         switch (match) {
-            case CUSTOMER_CODE:
+            case ESTIMATE_CODE:
                 return CONTENT_ITEM_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri " + uri);
@@ -102,13 +102,13 @@ public class CustomerContentProvider extends ContentProvider {
         CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CustomerContract.FIRST_NAME,customerTO.getFirstName());
-        contentValues.put(CustomerContract.LAST_NAME,customerTO.getLastName());
-        contentValues.put(CustomerContract.ADDRESS1,customerTO.getAddress1());
-        contentValues.put(CustomerContract.CITY,customerTO.getCity());
-        contentValues.put(CustomerContract.STATE,customerTO.getState());
-        contentValues.put(CustomerContract.ZIP,customerTO.getZipCode());
-        contentValues.put(CustomerContract.PHONE_NUMBER,customerTO.getPhoneNumber());
+//        contentValues.put(CustomerContract.FIRST_NAME,customerTO.getFirstName());
+//        contentValues.put(CustomerContract.LAST_NAME,customerTO.getLastName());
+//        contentValues.put(CustomerContract.ADDRESS1,customerTO.getAddress1());
+//        contentValues.put(CustomerContract.CITY,customerTO.getCity());
+//        contentValues.put(CustomerContract.STATE,customerTO.getState());
+//        contentValues.put(CustomerContract.ZIP,customerTO.getZipCode());
+//        contentValues.put(CustomerContract.PHONE_NUMBER,customerTO.getPhoneNumber());
 
         return contentValues;
     }

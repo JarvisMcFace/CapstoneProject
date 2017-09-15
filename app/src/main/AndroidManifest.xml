@@ -49,10 +49,10 @@
             android:windowSoftInputMode="stateHidden"/>
 
 
-        <!--<provider-->
-        <!--android:name=".data.customer.CustomerContentProvider"-->
-        <!--android:authorities="com.go bluegreen.app.data.customer.provider"-->
-        <!--android:exported="false"/>-->
+        <provider
+            android:name=".data.estimate.EstimateContentProvider"
+            android:authorities="com.gobluegreen.app.data.estimate.provider"
+            android:exported="false"/>
 
     </application>
 

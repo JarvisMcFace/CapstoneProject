@@ -20,6 +20,7 @@ import com.gobluegreen.app.util.CarpetQuoteCacheUtility;
 import com.gobluegreen.app.util.DeriveEstimatedPriceHighLowRange;
 import com.gobluegreen.app.util.DeriveEstimatedTotalSquareFeet;
 import com.gobluegreen.app.util.ListUtils;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -53,6 +54,26 @@ public class EstimateReviewSubmitFragment extends Fragment {
         binding.layoutEstimateReviewSubmit.setEstimate(estimateInProgressTO);
 
         updateReviewQuotes();
+
+        binding.landingSubitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitEstimate();
+            }
+        });
+
+
+    }
+
+    private void submitEstimate() {
+
+        Gson gson = new Gson();
+
+        String estimateString = gson.toJson(estimateInProgressTO, EstimateInProgressTO.class);
+
+
+
+
     }
 
     private void updateReviewQuotes() {
@@ -81,8 +102,6 @@ public class EstimateReviewSubmitFragment extends Fragment {
         binding.layoutEstimateReviewSubmit.estimatePriceRange.setText(priceEstimateRange);
         String sqft = getResources().getString(R.string.square_feet);
         binding.layoutEstimateReviewSubmit.estimateTotalSquareFeet.setText(squareFeetEstimate + " " + sqft);
-
-
 
     }
 

@@ -7,7 +7,5 @@ package com.gobluegreen.app.to;
 public enum ServiceType {
 
     CARPET,
-    TILE_GROUT,
-    UPHOLSTERY,
-    WOOD_FLOOR
+    UPHOLSTERY
 }

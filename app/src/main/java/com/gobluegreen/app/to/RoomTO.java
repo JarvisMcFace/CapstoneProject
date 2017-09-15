@@ -13,7 +13,6 @@ public class RoomTO implements Serializable {
     private RoomType roomType;
     private int length;
     private int width;
-    private boolean moveFurniture;
     private boolean carpetProtector;
     private int squareFeet;
     private double priceEstimate;
@@ -43,14 +42,6 @@ public class RoomTO implements Serializable {
 
     public void setWidth(int width) {
         this.width = width;
-    }
-
-    public boolean isMoveFurniture() {
-        return moveFurniture;
-    }
-
-    public void setMoveFurniture(boolean moveFurniture) {
-        this.moveFurniture = moveFurniture;
     }
 
     public boolean isCarpetProtector() {
