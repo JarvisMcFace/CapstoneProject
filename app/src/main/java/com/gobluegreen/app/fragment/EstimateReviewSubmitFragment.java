@@ -3,16 +3,19 @@ package com.gobluegreen.app.fragment;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.gobluegreen.app.R;
+import com.gobluegreen.app.activity.HomeActivity;
 import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.data.PersistentAsyncListener;
 import com.gobluegreen.app.data.PersistentAsyncQueryHandler;
@@ -113,6 +116,11 @@ public class EstimateReviewSubmitFragment extends Fragment implements Persistent
 
     private void submitEstimate() {
 
+        int disabledColor = ContextCompat.getColor(getContext(), R.color.disabled_gray);
+        binding.landingSubitButton.setEnabled(false);
+        binding.buttonSubmitEstiamte.setTextColor(disabledColor);
+        binding.progressHorizontal.setVisibility(View.VISIBLE);
+
         tokenInProgress = new ArrayList<>();
 
         Uri uri = EstimateContentProvider.CONTENT_URI;
@@ -123,7 +131,7 @@ public class EstimateReviewSubmitFragment extends Fragment implements Persistent
         ContentValues contentValues = ContentValueCreator.createEstimateValues(estimateInProgressTO);
         persistentAsyncQueryHandler.startInsert(ESTIMATE_TOKEN, null, uri, contentValues);
 
-        //TODO Show progress indicator
+
     }
 
     @Override
@@ -137,7 +145,6 @@ public class EstimateReviewSubmitFragment extends Fragment implements Persistent
             case ESTIMATE_TOKEN:
 
                 tokenInProgress.remove(EstimateDbAdapter.ESTIMATE_TABLE);
-
 
                 long estimateTokenId = (long) returnValue;
 
@@ -159,7 +166,6 @@ public class EstimateReviewSubmitFragment extends Fragment implements Persistent
                 }
 
                 //Services
-                tokenInProgress.add(EstimateDbAdapter.SERVICE_TYPE_TABLE);
                 Uri servicesUri = EstimateContentProvider.CONTENT_URI.buildUpon().appendPath(EstimateDbAdapter.SERVICE_TYPE_TABLE).build();
                 ContentValues[] servicesContentValues = ContentValueCreator.createServicesValues(estimateInProgressTO, estimateTokenId);
 
@@ -184,5 +190,12 @@ public class EstimateReviewSubmitFragment extends Fragment implements Persistent
                 break;
         }
 
+        if (ListUtils.isEmpty(tokenInProgress)) {
+            binding.progressHorizontal.setVisibility(View.GONE);
+
+            CarpetQuoteCacheUtility.deleteEstimateInProgress(application);
+            Intent intent = HomeActivity.newIntent(getContext());
+            startActivity(intent);
+        }
     }
 }

@@ -6,9 +6,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/layout_estimate_review_submit"
-            layout="@layout/layout_estimate_review_submit"/>
 
 
         <LinearLayout
@@ -19,7 +16,18 @@
             android:background="@drawable/material_ripple"
             android:clickable="true"
             android:elevation="@dimen/material_margin_half"
+            android:orientation="vertical"
             android:translationZ="@dimen/material_margin_half">
+
+            <ProgressBar
+                android:id="@+id/progress_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+                android:indeterminate="true"
+                android:maxHeight="24dip"
+                android:minHeight="24dip"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/button_submit_estiamte"
@@ -33,6 +41,10 @@
                 android:textAllCaps="true"
                 android:textColor="@color/colorAccent"/>
         </LinearLayout>
+
+        <include
+            android:id="@+id/layout_estimate_review_submit"
+            layout="@layout/layout_estimate_review_submit"/>
     </FrameLayout>
 
 
