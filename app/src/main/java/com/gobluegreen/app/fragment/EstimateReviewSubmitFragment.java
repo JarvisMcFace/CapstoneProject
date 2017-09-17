@@ -28,7 +28,6 @@ import com.gobluegreen.app.util.CarpetQuoteCacheUtility;
 import com.gobluegreen.app.util.DeriveEstimatedPriceHighLowRange;
 import com.gobluegreen.app.util.DeriveEstimatedTotalSquareFeet;
 import com.gobluegreen.app.util.ListUtils;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,9 +113,6 @@ public class EstimateReviewSubmitFragment extends Fragment implements Persistent
 
     private void submitEstimate() {
 
-        Gson gson = new Gson();
-        String estimateString = gson.toJson(estimateInProgressTO, EstimateInProgressTO.class);
-
         tokenInProgress = new ArrayList<>();
 
         Uri uri = EstimateContentProvider.CONTENT_URI;
@@ -127,8 +123,7 @@ public class EstimateReviewSubmitFragment extends Fragment implements Persistent
         ContentValues contentValues = ContentValueCreator.createEstimateValues(estimateInProgressTO);
         persistentAsyncQueryHandler.startInsert(ESTIMATE_TOKEN, null, uri, contentValues);
 
-
-        //TODO Show progres
+        //TODO Show progress indicator
     }
 
     @Override
@@ -163,7 +158,6 @@ public class EstimateReviewSubmitFragment extends Fragment implements Persistent
                     }
                 }
 
-
                 //Services
                 tokenInProgress.add(EstimateDbAdapter.SERVICE_TYPE_TABLE);
                 Uri servicesUri = EstimateContentProvider.CONTENT_URI.buildUpon().appendPath(EstimateDbAdapter.SERVICE_TYPE_TABLE).build();
@@ -188,8 +182,6 @@ public class EstimateReviewSubmitFragment extends Fragment implements Persistent
             case ESTIMATE_SERVICES_TOKEN:
                 tokenInProgress.remove(EstimateDbAdapter.SERVICE_TYPE_TABLE);
                 break;
-
-
         }
 
     }
