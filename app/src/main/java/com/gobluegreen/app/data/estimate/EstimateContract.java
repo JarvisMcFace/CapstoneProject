@@ -6,12 +6,9 @@ package com.gobluegreen.app.data.estimate;
 public class EstimateContract {
 
     //EstimateInProgressTO
-    public static final String ESTIATE_ID = "id";
-    public static final String ESTIATE_SERVICES_TYPE_ID = "service_id";
-    public static final String ESTIATE_UPHOLSTERY_TYPE_ID = "upholstery_id";
-    public static final String ESTIATE_ROOMS_ID = "rooms_id";
-    public static final String ESTIATE_CUSTOMER_ID = "customer_id";
-    public static final String ESTIATE_ROOM_TYPE_ID = "room_type_id";
+    public static final String ESTIMATE_ID = "id";
+    public static final String ESTIMATE_DATE = "estimateDate";
+    public static final String ESTIMATE_DAVE= "estimatDave"; //TODO David
 
     //ServiceType
     public static final String SERVICE_ID = "_id";
@@ -20,6 +17,7 @@ public class EstimateContract {
 
     //CustomerTO
     public static final String CUSTOMER_ID = "id";
+    public static final String CUSTOMER_TYPE = "customerType";
     public static final String CUSTOMER_FIRST_NAME = "firstName";
     public static final String CUSTOMER_LAST_NAME = "lastName";
     public static final String CUSTOMER_ADDRESS1 = "address1";

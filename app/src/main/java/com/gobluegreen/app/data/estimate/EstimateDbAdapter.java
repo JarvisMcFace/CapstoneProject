@@ -24,12 +24,19 @@ public class EstimateDbAdapter {
     public static final String CREATE_ESTIMATE_TABLE =
             "CREATE TABLE IF NOT EXISTS "
                     + ESTIMATE_TABLE + " ("
-                    + EstimateContract.ESTIATE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + EstimateContract.ESTIATE_SERVICES_TYPE_ID + " INTERGER, "
-                    + EstimateContract.ESTIATE_UPHOLSTERY_TYPE_ID + " INTERGER, "
-                    + EstimateContract.ESTIATE_ROOMS_ID + "INTERGER, "
-                    + EstimateContract.ESTIATE_CUSTOMER_ID + " INTERGERL, "
-                    + EstimateContract.ESTIATE_ROOM_TYPE_ID + " INTERGER)";
+                    + EstimateContract.ESTIMATE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + EstimateContract.ESTIMATE_DAVE + "  TEXT NOT NULL, "
+                    + EstimateContract.ESTIMATE_DATE + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+
+//      "CREATE TABLE IF NOT EXISTS "
+//              + ESTIMATE_TABLE + " ("
+//            + EstimateContract.ESTIMATE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+//            + EstimateContract.ESTIAMTE_SERVICES_TYPE_ID + " INTERGER, "
+//            + EstimateContract.ESTIMATE_UPHOLSTERY_TYPE_ID + " INTERGER, "
+//            + EstimateContract.ESTIAMTE_ROOMS_ID + "INTERGER, "
+//            + EstimateContract.ESTIMATE_CUSTOMER_ID + " INTERGER, "
+//            + EstimateContract.ESTIMATE_ROOM_TYPE_ID + " INTERGER, "
+//            + EstimateContract.ESTIMATE_DATE + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 
 
     public static final String CREATE_SERVICE_TYPE_TABLE =
@@ -38,7 +45,7 @@ public class EstimateDbAdapter {
                     + EstimateContract.SERVICE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + EstimateContract.SERVICE_TYPE + " TEXT NOT NULL, "
                     + EstimateContract.SERVICE_ESTIMATE_ID + " INTEGER, "
-                    + "FOREIGN KEY(" + EstimateContract.SERVICE_ID + ") REFERENCES " + EstimateDbAdapter.ESTIMATE_TABLE + "(" + EstimateContract.ESTIATE_ID + "))";
+                    + "FOREIGN KEY(" + EstimateContract.SERVICE_ID + ") REFERENCES " + EstimateDbAdapter.ESTIMATE_TABLE + "(" + EstimateContract.ESTIMATE_ID + "))";
 
 
     public static final String CREATE_ROOM_TABLE =
@@ -52,13 +59,14 @@ public class EstimateDbAdapter {
                     + EstimateContract.ROOM_PRICE_ESTIMATE + "  TEXT NOT NULL,  "
                     + EstimateContract.ROOM_ESTIMATE_SQFT + " TEXT NOT NULL, "
                     + EstimateContract.ROOM_ESITMATE_ID + " INTEGER, "
-                    + "FOREIGN KEY(" + EstimateContract.ROOM_ID + ") REFERENCES " + EstimateDbAdapter.ESTIMATE_TABLE + "(" + EstimateContract.ESTIATE_ID + "))";
+                    + "FOREIGN KEY(" + EstimateContract.ROOM_ID + ") REFERENCES " + EstimateDbAdapter.ESTIMATE_TABLE + "(" + EstimateContract.ESTIMATE_ID + "))";
 
 
     public static final String CREATE_CUSTOMER_TABLE =
             "CREATE TABLE IF NOT EXISTS "
                     + CUSTOMER_TABLE + " ("
                     + EstimateContract.CUSTOMER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + EstimateContract.CUSTOMER_TYPE + " TEXT NOT NULL, "
                     + EstimateContract.CUSTOMER_FIRST_NAME + " TEXT NOT NULL, "
                     + EstimateContract.CUSTOMER_LAST_NAME + " TEXT NOT NULL, "
                     + EstimateContract.CUSTOMER_ADDRESS1 + " TEXT NOT NULL, "
@@ -67,7 +75,7 @@ public class EstimateDbAdapter {
                     + EstimateContract.CUSTOMER_ZIP + " TEXT NOT NULL, "
                     + EstimateContract.CUSTOMER_PHONE_NUMBER + " TEXT NOT NULL, "
                     + EstimateContract.CUSTOMER_ESITMATE_ID + " INTEGER, "
-                    + "FOREIGN KEY(" + EstimateContract.CUSTOMER_ESITMATE_ID + ") REFERENCES " + EstimateDbAdapter.ESTIMATE_TABLE + "(" + EstimateContract.ESTIATE_ID + "))";
+                    + "FOREIGN KEY(" + EstimateContract.CUSTOMER_ESITMATE_ID + ") REFERENCES " + EstimateDbAdapter.ESTIMATE_TABLE + "(" + EstimateContract.ESTIMATE_ID + "))";
 
     private final Context context;
     private DatabaseHelper databaseHelper;
@@ -83,9 +91,11 @@ public class EstimateDbAdapter {
         return this;
     }
 
-    public long insertEstimateBuilder(ContentValues contentValues) {
-        return sqLiteDatabase.insert(ESTIMATE_TABLE, null, contentValues);
+    public long insertBuilder(String insertTable, ContentValues contentValues) {
+        return sqLiteDatabase.insert(insertTable, null, contentValues);
     }
+
+
 
     public Cursor queryAllEstimateBuilder() {
 

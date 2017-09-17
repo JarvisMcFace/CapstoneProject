@@ -10,9 +10,6 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.gobluegreen.app.to.CustomerTO;
-import com.gobluegreen.app.to.EstimateInProgressTO;
-
 /**
  * Created by David on 7/17/17.
  */
@@ -24,7 +21,10 @@ public class EstimateContentProvider extends ContentProvider {
     private static final String AUTHORITY = "com.gobluegreen.app.data.estimate.provider";
     private static final String BASE_PATH = "estimate";
 
-    private static final int ESTIMATE_CODE = 100;
+    private static final int ESTIMATE = 100;
+    private static final int ESTIMATE_CUSTOMER = 101;
+    private static final int ESTIMATE_ROOM = 102;
+    private static final int ESTIMATE_SERVICE = 103;
 
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
     public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + AUTHORITY + "/" + BASE_PATH;
@@ -32,7 +32,10 @@ public class EstimateContentProvider extends ContentProvider {
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
-        uriMatcher.addURI(AUTHORITY, BASE_PATH, ESTIMATE_CODE);
+        uriMatcher.addURI(AUTHORITY, BASE_PATH, ESTIMATE);
+        uriMatcher.addURI(AUTHORITY, BASE_PATH + "/" + EstimateDbAdapter.CUSTOMER_TABLE, ESTIMATE_CUSTOMER);
+        uriMatcher.addURI(AUTHORITY, BASE_PATH + "/" + EstimateDbAdapter.ROOM_TABLE, ESTIMATE_ROOM);
+        uriMatcher.addURI(AUTHORITY, BASE_PATH + "/" + EstimateDbAdapter.SERVICE_TYPE_TABLE, ESTIMATE_SERVICE);
     }
 
     public EstimateContentProvider() {
@@ -51,7 +54,7 @@ public class EstimateContentProvider extends ContentProvider {
     public String getType(@NonNull Uri uri) {
         final int match = uriMatcher.match(uri);
         switch (match) {
-            case ESTIMATE_CODE:
+            case ESTIMATE:
                 return CONTENT_ITEM_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri " + uri);
@@ -74,7 +77,27 @@ public class EstimateContentProvider extends ContentProvider {
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
 
-        final long id = dbAdapter.insertEstimateBuilder(values);
+        long id = 0;
+
+        switch (uriMatcher.match(uri)) {
+            case ESTIMATE:
+                id = dbAdapter.insertBuilder(EstimateDbAdapter.ESTIMATE_TABLE,values);
+                break;
+
+            case ESTIMATE_CUSTOMER:
+                id = dbAdapter.insertBuilder(EstimateDbAdapter.CUSTOMER_TABLE,values);
+                break;
+
+            case ESTIMATE_ROOM:
+                id = dbAdapter.insertBuilder(EstimateDbAdapter.ROOM_TABLE,values);
+                break;
+
+            case ESTIMATE_SERVICE:
+                id = dbAdapter.insertBuilder(EstimateDbAdapter.SERVICE_TYPE_TABLE,values);
+                break;
+
+
+        }
 
         Context context = getContext();
         if (context != null) {
@@ -97,19 +120,8 @@ public class EstimateContentProvider extends ContentProvider {
     }
 
 
-    public static ContentValues getContentValues(EstimateInProgressTO estimateInProgressTO) {
 
-        CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
 
-        ContentValues contentValues = new ContentValues();
-//        contentValues.put(CustomerContract.FIRST_NAME,customerTO.getFirstName());
-//        contentValues.put(CustomerContract.LAST_NAME,customerTO.getLastName());
-//        contentValues.put(CustomerContract.ADDRESS1,customerTO.getAddress1());
-//        contentValues.put(CustomerContract.CITY,customerTO.getCity());
-//        contentValues.put(CustomerContract.STATE,customerTO.getState());
-//        contentValues.put(CustomerContract.ZIP,customerTO.getZipCode());
-//        contentValues.put(CustomerContract.PHONE_NUMBER,customerTO.getPhoneNumber());
 
-        return contentValues;
-    }
+
 }

@@ -2,6 +2,7 @@ package com.gobluegreen.app.data;
 
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.net.Uri;
 
 import java.lang.ref.WeakReference;
@@ -21,8 +22,8 @@ public class PersistentAsyncQueryHandler  extends AsyncQueryHandler{
 
     @Override
     protected void onInsertComplete(int token, Object cookie, Uri uri) {
-
+        long id = ContentUris.parseId(uri);
         PersistentAsyncListener persistentAsyncListener = listener.get();
-        persistentAsyncListener.onTransactionComplete(cookie);
+        persistentAsyncListener.onTransactionComplete(token, id);
     }
 }

@@ -6,5 +6,5 @@ package com.gobluegreen.app.data;
 
 public interface PersistentAsyncListener {
 
-    void onTransactionComplete(Object returnValue);
+    void onTransactionComplete(int token, Object returnValue);
 }
