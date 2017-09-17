@@ -328,7 +328,9 @@ public class EstimateBuilderLandingFragment extends Fragment {
 
         CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
 
-        if (CustomerType.COMMERCIAL == customerTO.getCustomerType()) {
+        boolean withCarpetService = hasCarpetService();
+
+        if (CustomerType.COMMERCIAL == customerTO.getCustomerType() || !withCarpetService) {
             intent = new Intent(getActivity(), EstimateReviewSubmitActivity.class);
 
         } else {
@@ -336,6 +338,25 @@ public class EstimateBuilderLandingFragment extends Fragment {
         }
 
         startActivity(intent);
+    }
+
+    private boolean hasCarpetService() {
+
+        CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
+        if (CustomerType.COMMERCIAL == customerTO.getCustomerType()) {
+            return false;
+        }
+
+        Set<ServiceType> serviceTypeSet = estimateInProgressTO.getServiceTypeSet();
+        if (serviceTypeSet == null) {
+            return false;
+        }
+
+        if (serviceTypeSet.contains(ServiceType.CARPET)) {
+            return true;
+        }
+
+        return false;
     }
 
     private void restoreEstimate() {

@@ -112,6 +112,11 @@ public class ReviewSubmitBindingAdapter {
             return;
         }
 
+        List<RoomType> roomTypes = estimateInProgressTO.getRoomTypes();
+        if (roomTypes == null) {
+            return;
+        }
+
         textView.setVisibility(View.VISIBLE);
     }
 
@@ -127,6 +132,10 @@ public class ReviewSubmitBindingAdapter {
         }
 
         List<RoomType> roomTypes = estimateInProgressTO.getRoomTypes();
+        if (roomTypes == null) {
+            return;
+        }
+
         List<String> roomServiceList = new ArrayList<>();
         final String DOT = "\u00b7";
         for (RoomType roomType : roomTypes) {
