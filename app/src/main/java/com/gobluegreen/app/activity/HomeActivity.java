@@ -11,6 +11,8 @@ import com.gobluegreen.app.R;
 public class HomeActivity extends AppCompatActivity {
 
 
+    public static final String EXTRA_HOME_ESITMATED_SUBMITED = "com.gobluegreen.app.activity.submitestimate";
+
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -22,8 +24,9 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
     }
 }

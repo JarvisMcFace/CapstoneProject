@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.gobluegreen.app.R;
 import com.gobluegreen.app.activity.EstimateBuilderLandingActivity;
+import com.gobluegreen.app.activity.HomeActivity;
 import com.gobluegreen.app.adapter.ServicesPagerAdapter;
 import com.gobluegreen.app.databinding.FragmentHomeBinding;
 
@@ -29,7 +31,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView =  inflater.inflate(R.layout.fragment_home, container, false);
+        rootView = inflater.inflate(R.layout.fragment_home, container, false);
         fragmentHomeBinding = DataBindingUtil.bind(rootView);
         return rootView;
     }
@@ -44,6 +46,21 @@ public class HomeFragment extends Fragment {
 
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
+        Intent intent = getActivity().getIntent();
+        if (intent != null) {
+           boolean showSubmitMessage = intent.getBooleanExtra(HomeActivity.EXTRA_HOME_ESITMATED_SUBMITED, false);
+            if (showSubmitMessage) {
+                showSubmitSnackBar();
+            }
+        }
+    }
+
+
 
     private View.OnClickListener ceateEstimateOnClickListener = new View.OnClickListener() {
         @Override
@@ -53,4 +70,10 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
         }
     };
+
+    private void showSubmitSnackBar() {
+
+        Snackbar.make(rootView, R.string.success_submit_message, Snackbar.LENGTH_SHORT).show();
+
+    }
 }

@@ -195,6 +195,7 @@ public class EstimateReviewSubmitFragment extends Fragment implements Persistent
 
             CarpetQuoteCacheUtility.deleteEstimateInProgress(application);
             Intent intent = HomeActivity.newIntent(getContext());
+            intent.putExtra(HomeActivity.EXTRA_HOME_ESITMATED_SUBMITED, true);
             startActivity(intent);
         }
     }

@@ -69,6 +69,7 @@
     <string name="cancel_estimate_question">Are you sure you want to cancel this esitmate</string>
     <string name="cancel_yes">Yes</string>
     <string name="please_select_radio_error">Please select an option</string>
+    <string name="success_submit_message">Your esitmate has been submitted.</string>
 
 
 </resources>
