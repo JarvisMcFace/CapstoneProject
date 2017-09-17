@@ -70,6 +70,8 @@
     <string name="cancel_yes">Yes</string>
     <string name="please_select_radio_error">Please select an option</string>
     <string name="success_submit_message">Your esitmate has been submitted.</string>
-
+    <string name="review_estimates">Review Estimates</string>
+    <string name="review_estimates_text">Review previously submitted estimates.</string>
+    <string name="review_estimates_review">Review</string>
 
 </resources>

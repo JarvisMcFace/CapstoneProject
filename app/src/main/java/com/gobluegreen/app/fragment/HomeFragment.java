@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment {
         fragmentHomeBinding.servicesViewpager.setAdapter(new ServicesPagerAdapter(getFragmentManager()));
         fragmentHomeBinding.servicesIndicator.setViewPager(fragmentHomeBinding.servicesViewpager);
 
-        fragmentHomeBinding.createEstimate.setOnClickListener(ceateEstimateOnClickListener);
+        fragmentHomeBinding.layoutCardViewEsitmateBuilder.setOnClickListener(ceateEstimateOnClickListener);
 
     }
 
