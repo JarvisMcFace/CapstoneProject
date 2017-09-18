@@ -26,6 +26,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activity.ReviewEstimateActivity"
+            android:label="@string/review_activity_screen_name"
+            android:theme="@style/AppTheme">
+        </activity>
         <activity
             android:name=".activity.CustomerAddressActivity"
             android:label="@string/customer_address_activity_screen_name"

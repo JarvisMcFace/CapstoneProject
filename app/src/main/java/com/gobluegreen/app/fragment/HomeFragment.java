@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.gobluegreen.app.R;
 import com.gobluegreen.app.activity.EstimateBuilderLandingActivity;
 import com.gobluegreen.app.activity.HomeActivity;
+import com.gobluegreen.app.activity.ReviewEstimateActivity;
 import com.gobluegreen.app.adapter.ServicesPagerAdapter;
 import com.gobluegreen.app.databinding.FragmentHomeBinding;
 
@@ -42,7 +43,8 @@ public class HomeFragment extends Fragment {
         fragmentHomeBinding.servicesViewpager.setAdapter(new ServicesPagerAdapter(getFragmentManager()));
         fragmentHomeBinding.servicesIndicator.setViewPager(fragmentHomeBinding.servicesViewpager);
 
-        fragmentHomeBinding.layoutCardViewEsitmateBuilder.setOnClickListener(ceateEstimateOnClickListener);
+        fragmentHomeBinding.layoutCardViewEsitmateBuilder.createEstimate.setOnClickListener(ceateEstimateOnClickListener);
+        fragmentHomeBinding.layoutCardViewReviewEsitmates.reviewEstimate.setOnClickListener(createReviewEstimateOnClickListener);
 
     }
 
@@ -53,7 +55,7 @@ public class HomeFragment extends Fragment {
 
         Intent intent = getActivity().getIntent();
         if (intent != null) {
-           boolean showSubmitMessage = intent.getBooleanExtra(HomeActivity.EXTRA_HOME_ESITMATED_SUBMITED, false);
+            boolean showSubmitMessage = intent.getBooleanExtra(HomeActivity.EXTRA_HOME_ESITMATED_SUBMITED, false);
             if (showSubmitMessage) {
                 showSubmitSnackBar();
             }
@@ -61,12 +63,20 @@ public class HomeFragment extends Fragment {
     }
 
 
-
     private View.OnClickListener ceateEstimateOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
             Intent intent = new Intent(getActivity(), EstimateBuilderLandingActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    private View.OnClickListener createReviewEstimateOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            Intent intent = ReviewEstimateActivity.newIntent(getContext());
             startActivity(intent);
         }
     };

@@ -2,6 +2,7 @@
     <string name="app_name">Bluegreen Floor Care</string>
 
     <string name="home_activity_screen_name">Bluegreen Floor Care</string>
+    <string name="review_activity_screen_name">Review Estimate</string>
     <string name="title_activity_feature_services">Featured Services</string>
 
     <string name="feature_service_title_we_call_wi_come">We Call Wisconsin Home</string>
