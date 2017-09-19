@@ -65,7 +65,26 @@ public class EstimateContentProvider extends ContentProvider {
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
 
-        Cursor cursor = dbAdapter.queryAllEstimateBuilder();
+        Cursor cursor= null;
+
+        switch (uriMatcher.match(uri)) {
+            case ESTIMATE:
+                cursor = dbAdapter.queryEstimate(EstimateDbAdapter.ESTIMATE_TABLE);
+                break;
+//
+//            case ESTIMATE_CUSTOMER:
+//                id = dbAdapter.insertBuilder(EstimateDbAdapter.CUSTOMER_TABLE,values);
+//                break;
+//
+//            case ESTIMATE_ROOM:
+//                id = dbAdapter.insertBuilder(EstimateDbAdapter.ROOM_TABLE,values);
+//                break;
+//
+//            case ESTIMATE_SERVICE:
+//                id = dbAdapter.insertBuilder(EstimateDbAdapter.SERVICE_TYPE_TABLE,values);
+//                break;
+        }
+
         if (cursor != null) {
             cursor.setNotificationUri(getContext().getContentResolver(), uri);
         }
@@ -95,8 +114,6 @@ public class EstimateContentProvider extends ContentProvider {
             case ESTIMATE_SERVICE:
                 id = dbAdapter.insertBuilder(EstimateDbAdapter.SERVICE_TYPE_TABLE,values);
                 break;
-
-
         }
 
         Context context = getContext();

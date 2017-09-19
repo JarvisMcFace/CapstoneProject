@@ -95,12 +95,10 @@ public class EstimateDbAdapter {
         return sqLiteDatabase.insert(insertTable, null, contentValues);
     }
 
-
-
-    public Cursor queryAllEstimateBuilder() {
+    public Cursor queryEstimate(String tableName) {
 
         Cursor cursor = sqLiteDatabase.query(
-                ESTIMATE_TABLE,
+                tableName,
                 null,
                 null,
                 null,
