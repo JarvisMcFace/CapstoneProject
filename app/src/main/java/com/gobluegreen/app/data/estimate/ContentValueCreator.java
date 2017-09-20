@@ -2,14 +2,15 @@ package com.gobluegreen.app.data.estimate;
 
 import android.content.ContentValues;
 
+import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.to.CustomerTO;
 import com.gobluegreen.app.to.EstimateInProgressTO;
 import com.gobluegreen.app.to.RoomTO;
-import com.gobluegreen.app.to.ServiceType;
+import com.gobluegreen.app.util.DeriveEstimatedPriceHighLowRange;
+import com.gobluegreen.app.util.DeriveEstimatedTotalSquareFeet;
 import com.gobluegreen.app.util.ListUtils;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by David on 9/16/17.
@@ -19,12 +20,23 @@ public class ContentValueCreator {
 
     private static final String EMPTY_STRING = "";
 
-    public static ContentValues createEstimateValues(EstimateInProgressTO estimateInProgressTO) {
+    public static ContentValues createEstimateValues(GoBluegreenApplication application) {
 
-        CustomerTO customerTO = estimateInProgressTO.getCustomerTO();
+        EstimateInProgressTO estimateInProgressTO = application.getEstimateInProgressTO();
+
+        int estimatedSquareFeet = DeriveEstimatedTotalSquareFeet.execute(application);
+        String priceEstimate = DeriveEstimatedPriceHighLowRange.execute(application);
+
+        int numberOfRooms = 0;
+        List<RoomTO> roomTOs = estimateInProgressTO.getRoomTOs();
+        if (ListUtils.isNotEmpty(roomTOs)) {
+            numberOfRooms = roomTOs.size();
+        }
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(EstimateContract.ESTIMATE_DAVE, customerTO.getFirstName());
+        contentValues.put(EstimateContract.ESTIMATE_NUMBER_ROOMS, safeString(String.valueOf(numberOfRooms)));
+        contentValues.put(EstimateContract.ESTIMATE_SQFT, safeString(String.valueOf(estimatedSquareFeet)));
+        contentValues.put(EstimateContract.ESTIMATE_PRICE_ESTIMATE, safeString(priceEstimate));
 
         return contentValues;
     }
@@ -44,64 +56,6 @@ public class ContentValueCreator {
         contentValues.put(EstimateContract.CUSTOMER_ESITMATE_ID, estimateTokenId);
 
         return contentValues;
-    }
-
-    public static ContentValues[] createRoomValues(EstimateInProgressTO estimateInProgressTO, long estimateTokenId) {
-
-        List<RoomTO> roomTOs = estimateInProgressTO.getRoomTOs();
-
-        if (ListUtils.isEmpty(roomTOs)) {
-            return null;
-        }
-
-        int numberRooms = roomTOs.size();
-        ContentValues[] createRoomValues = new ContentValues[numberRooms];
-
-        for (int i = 0; i < numberRooms; i++) {
-
-            RoomTO roomTO = roomTOs.get(i);
-
-            ContentValues value = new ContentValues();
-            value.put(EstimateContract.ROOM_LENGTH, safeInt(roomTO.getLength()));
-            value.put(EstimateContract.ROOM_WIDTH, safeInt(roomTO.getWidth()));
-            if (roomTO.isCarpetProtector()) {
-                value.put(EstimateContract.ROOM_CARPET_PROTECTOR, "true");
-            } else {
-                value.put(EstimateContract.ROOM_CARPET_PROTECTOR, "false");
-            }
-
-            value.put(EstimateContract.ROOM_SQUARE_FEET, safeInt(roomTO.getSquareFeet()));
-            value.put(EstimateContract.ROOM_PRICE_ESTIMATE, safeDouble(roomTO.getPriceEstimate()));
-            value.put(EstimateContract.ROOM_ESTIMATE_SQFT, safeInt(roomTO.getEstimatedSquareFeet()));
-            value.put(EstimateContract.ROOM_ESITMATE_ID, estimateTokenId);
-
-            createRoomValues[i] = value;
-        }
-
-        return createRoomValues;
-    }
-
-    public static ContentValues[] createServicesValues(EstimateInProgressTO estimateInProgressTO, long estimateTokenId) {
-
-        Set<ServiceType> serviceTypeSet = estimateInProgressTO.getServiceTypeSet();
-
-        if (serviceTypeSet == null) {
-            return null;
-        }
-
-        int numberServices = serviceTypeSet.size();
-        ContentValues[] createRoomValues = new ContentValues[numberServices];
-
-        int serviceIndex = 0;
-        for (ServiceType serviceType : serviceTypeSet) {
-            ContentValues value = new ContentValues();
-            value.put(EstimateContract.SERVICE_TYPE, serviceType.toString());
-            value.put(EstimateContract.SERVICE_ESTIMATE_ID, estimateTokenId);
-            createRoomValues[serviceIndex] = value;
-            serviceIndex++;
-
-        }
-        return createRoomValues;
     }
 
     private static String safeDouble(double value) {

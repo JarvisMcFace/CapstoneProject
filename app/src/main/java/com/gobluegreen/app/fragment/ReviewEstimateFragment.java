@@ -24,7 +24,7 @@ import com.gobluegreen.app.databinding.FragmentReviewEstimatesBinding;
 public class ReviewEstimateFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = ReviewEstimateFragment.class.getSimpleName();
-
+    private static final int LOADER_ID = 0;
     private View rootView;
     private FragmentReviewEstimatesBinding reviewBinding;
 
@@ -51,7 +51,7 @@ public class ReviewEstimateFragment extends Fragment implements LoaderManager.Lo
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getLoaderManager().initLoader(0, null, this);
+        getLoaderManager().initLoader(LOADER_ID, null, this);
     }
 
 

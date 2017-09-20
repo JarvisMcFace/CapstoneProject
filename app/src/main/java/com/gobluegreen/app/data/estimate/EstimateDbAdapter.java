@@ -15,52 +15,19 @@ import com.gobluegreen.app.data.DatabaseHelper;
 
 public class EstimateDbAdapter {
 
-    public static final String ESTIMATE_TABLE = "Estimates";
-    public static final String SERVICE_TYPE_TABLE = "Servicetype";
-    public static final String ROOM_TABLE = "Room";
-    public static final String CUSTOMER_TABLE = "Customer";
+    private static final String TAG = EstimateDbAdapter.class.getSimpleName();
 
+    public static final String ESTIMATE_TABLE = "Estimates";
+    public static final String CUSTOMER_TABLE = "Customer";
 
     public static final String CREATE_ESTIMATE_TABLE =
             "CREATE TABLE IF NOT EXISTS "
                     + ESTIMATE_TABLE + " ("
                     + EstimateContract.ESTIMATE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + EstimateContract.ESTIMATE_DAVE + "  TEXT NOT NULL, "
+                    + EstimateContract.ESTIMATE_NUMBER_ROOMS + " TEXT NOT NULL, "
+                    + EstimateContract.ESTIMATE_PRICE_ESTIMATE + " TEXT NOT NULL, "
+                    + EstimateContract.ESTIMATE_SQFT + " TEXT NOT NULL, "
                     + EstimateContract.ESTIMATE_DATE + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
-
-//      "CREATE TABLE IF NOT EXISTS "
-//              + ESTIMATE_TABLE + " ("
-//            + EstimateContract.ESTIMATE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-//            + EstimateContract.ESTIAMTE_SERVICES_TYPE_ID + " INTERGER, "
-//            + EstimateContract.ESTIMATE_UPHOLSTERY_TYPE_ID + " INTERGER, "
-//            + EstimateContract.ESTIAMTE_ROOMS_ID + "INTERGER, "
-//            + EstimateContract.ESTIMATE_CUSTOMER_ID + " INTERGER, "
-//            + EstimateContract.ESTIMATE_ROOM_TYPE_ID + " INTERGER, "
-//            + EstimateContract.ESTIMATE_DATE + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
-
-
-    public static final String CREATE_SERVICE_TYPE_TABLE =
-            "CREATE TABLE IF NOT EXISTS "
-                    + SERVICE_TYPE_TABLE + " ("
-                    + EstimateContract.SERVICE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + EstimateContract.SERVICE_TYPE + " TEXT NOT NULL, "
-                    + EstimateContract.SERVICE_ESTIMATE_ID + " INTEGER, "
-                    + "FOREIGN KEY(" + EstimateContract.SERVICE_ID + ") REFERENCES " + EstimateDbAdapter.ESTIMATE_TABLE + "(" + EstimateContract.ESTIMATE_ID + "))";
-
-
-    public static final String CREATE_ROOM_TABLE =
-            "CREATE TABLE IF NOT EXISTS "
-                    + ROOM_TABLE + " ("
-                    + EstimateContract.ROOM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + EstimateContract.ROOM_LENGTH + "  TEXT NOT NULL,  "
-                    + EstimateContract.ROOM_WIDTH + "  TEXT NOT NULL,  "
-                    + EstimateContract.ROOM_CARPET_PROTECTOR + "  TEXT NOT NULL,  "
-                    + EstimateContract.ROOM_SQUARE_FEET + "  TEXT NOT NULL,  "
-                    + EstimateContract.ROOM_PRICE_ESTIMATE + "  TEXT NOT NULL,  "
-                    + EstimateContract.ROOM_ESTIMATE_SQFT + " TEXT NOT NULL, "
-                    + EstimateContract.ROOM_ESITMATE_ID + " INTEGER, "
-                    + "FOREIGN KEY(" + EstimateContract.ROOM_ID + ") REFERENCES " + EstimateDbAdapter.ESTIMATE_TABLE + "(" + EstimateContract.ESTIMATE_ID + "))";
-
 
     public static final String CREATE_CUSTOMER_TABLE =
             "CREATE TABLE IF NOT EXISTS "

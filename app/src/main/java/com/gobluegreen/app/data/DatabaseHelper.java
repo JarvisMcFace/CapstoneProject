@@ -29,8 +29,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void createAllTables(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("PRAGMA foreign_keys=ON;");
         sqLiteDatabase.execSQL(EstimateDbAdapter.CREATE_ESTIMATE_TABLE);
-        sqLiteDatabase.execSQL(EstimateDbAdapter.CREATE_SERVICE_TYPE_TABLE);
-        sqLiteDatabase.execSQL(EstimateDbAdapter.CREATE_ROOM_TABLE);
         sqLiteDatabase.execSQL(EstimateDbAdapter.CREATE_CUSTOMER_TABLE);
     }
 }

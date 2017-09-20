@@ -3,7 +3,6 @@ package com.gobluegreen.app.fragment;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gobluegreen.app.R;
-import com.gobluegreen.app.activity.HomeActivity;
 import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.data.PersistentAsyncListener;
 import com.gobluegreen.app.data.PersistentAsyncQueryHandler;
@@ -39,6 +37,9 @@ import java.util.List;
  * Created by David on 7/14/17.
  */
 public class EstimateReviewSubmitFragment extends Fragment implements PersistentAsyncListener {
+
+    private static final int ESTIMATE_TOKEN = 1;
+    private static final int ESTIMATE_CUSTOEMR_TOKEN = 2;
 
     private View rootView;
     private FragmentEstimateReviewSubmitBinding binding;
@@ -75,15 +76,7 @@ public class EstimateReviewSubmitFragment extends Fragment implements Persistent
                 submitEstimate();
             }
         });
-
-
     }
-
-    private static final int ESTIMATE_TOKEN = 1;
-    private static final int ESTIMATE_CUSTOEMR_TOKEN = 2;
-    private static final int ESTIMATE_ROOM_TOKEN = 3;
-    private static final int ESTIMATE_SERVICES_TOKEN = 4;
-
 
     private void updateReviewQuotes() {
 
@@ -95,7 +88,6 @@ public class EstimateReviewSubmitFragment extends Fragment implements Persistent
 
         String priceEstimateRange = DeriveEstimatedPriceHighLowRange.execute(application);
         int squareFeetEstimate = DeriveEstimatedTotalSquareFeet.execute(application);
-
 
         List<RoomTO> roomTOs = estimateInProgressTO.getRoomTOs();
 
@@ -128,10 +120,8 @@ public class EstimateReviewSubmitFragment extends Fragment implements Persistent
         contentResolver = application.getContentResolver();
         persistentAsyncQueryHandler = new PersistentAsyncQueryHandler(contentResolver, this);
 
-        ContentValues contentValues = ContentValueCreator.createEstimateValues(estimateInProgressTO);
+        ContentValues contentValues = ContentValueCreator.createEstimateValues(application);
         persistentAsyncQueryHandler.startInsert(ESTIMATE_TOKEN, null, uri, contentValues);
-
-
     }
 
     @Override
@@ -154,49 +144,20 @@ public class EstimateReviewSubmitFragment extends Fragment implements Persistent
                 Uri customerUri = EstimateContentProvider.CONTENT_URI.buildUpon().appendPath(EstimateDbAdapter.CUSTOMER_TABLE).build();
                 persistentAsyncQueryHandler.startInsert(ESTIMATE_CUSTOEMR_TOKEN, null, customerUri, contentValues);
 
-                //Rooms
-                Uri roomUri = EstimateContentProvider.CONTENT_URI.buildUpon().appendPath(EstimateDbAdapter.ROOM_TABLE).build();
-                ContentValues[] roomContentValues = ContentValueCreator.createRoomValues(estimateInProgressTO, estimateTokenId);
-
-                if (roomContentValues != null){
-                    for (ContentValues roomContentValue : roomContentValues) {
-                        tokenInProgress.add(EstimateDbAdapter.ROOM_TABLE);
-                        persistentAsyncQueryHandler.startInsert(ESTIMATE_ROOM_TOKEN, null, roomUri, roomContentValue);
-                    }
-                }
-
-                //Services
-                Uri servicesUri = EstimateContentProvider.CONTENT_URI.buildUpon().appendPath(EstimateDbAdapter.SERVICE_TYPE_TABLE).build();
-                ContentValues[] servicesContentValues = ContentValueCreator.createServicesValues(estimateInProgressTO, estimateTokenId);
-
-                if (servicesContentValues != null){
-                    for (ContentValues servicesContentValue : servicesContentValues) {
-                        tokenInProgress.add(EstimateDbAdapter.SERVICE_TYPE_TABLE);
-                        persistentAsyncQueryHandler.startInsert(ESTIMATE_SERVICES_TOKEN, null, servicesUri, servicesContentValue);
-                    }
-                }
                 break;
 
             case ESTIMATE_CUSTOEMR_TOKEN:
                 tokenInProgress.remove(EstimateDbAdapter.CUSTOMER_TABLE);
-                break;
-
-            case ESTIMATE_ROOM_TOKEN:
-                tokenInProgress.remove(EstimateDbAdapter.ROOM_TABLE);
-                break;
-
-            case ESTIMATE_SERVICES_TOKEN:
-                tokenInProgress.remove(EstimateDbAdapter.SERVICE_TYPE_TABLE);
                 break;
         }
 
         if (ListUtils.isEmpty(tokenInProgress)) {
             binding.progressHorizontal.setVisibility(View.GONE);
 
-            CarpetQuoteCacheUtility.deleteEstimateInProgress(application);
-            Intent intent = HomeActivity.newIntent(getContext());
-            intent.putExtra(HomeActivity.EXTRA_HOME_ESITMATED_SUBMITED, true);
-            startActivity(intent);
+//            CarpetQuoteCacheUtility.deleteEstimateInProgress(application);
+//            Intent intent = HomeActivity.newIntent(getContext());
+//            intent.putExtra(HomeActivity.EXTRA_HOME_ESITMATED_SUBMITED, true);
+//            startActivity(intent);
         }
     }
 }

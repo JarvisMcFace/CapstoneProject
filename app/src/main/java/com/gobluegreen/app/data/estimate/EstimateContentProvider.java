@@ -13,7 +13,6 @@ import android.support.annotation.Nullable;
 /**
  * Created by David on 7/17/17.
  */
-
 public class EstimateContentProvider extends ContentProvider {
 
     private EstimateDbAdapter dbAdapter;
@@ -23,19 +22,15 @@ public class EstimateContentProvider extends ContentProvider {
 
     private static final int ESTIMATE = 100;
     private static final int ESTIMATE_CUSTOMER = 101;
-    private static final int ESTIMATE_ROOM = 102;
-    private static final int ESTIMATE_SERVICE = 103;
 
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
     public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + AUTHORITY + "/" + BASE_PATH;
 
-    private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+    public static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
         uriMatcher.addURI(AUTHORITY, BASE_PATH, ESTIMATE);
         uriMatcher.addURI(AUTHORITY, BASE_PATH + "/" + EstimateDbAdapter.CUSTOMER_TABLE, ESTIMATE_CUSTOMER);
-        uriMatcher.addURI(AUTHORITY, BASE_PATH + "/" + EstimateDbAdapter.ROOM_TABLE, ESTIMATE_ROOM);
-        uriMatcher.addURI(AUTHORITY, BASE_PATH + "/" + EstimateDbAdapter.SERVICE_TYPE_TABLE, ESTIMATE_SERVICE);
     }
 
     public EstimateContentProvider() {
@@ -71,18 +66,6 @@ public class EstimateContentProvider extends ContentProvider {
             case ESTIMATE:
                 cursor = dbAdapter.queryEstimate(EstimateDbAdapter.ESTIMATE_TABLE);
                 break;
-//
-//            case ESTIMATE_CUSTOMER:
-//                id = dbAdapter.insertBuilder(EstimateDbAdapter.CUSTOMER_TABLE,values);
-//                break;
-//
-//            case ESTIMATE_ROOM:
-//                id = dbAdapter.insertBuilder(EstimateDbAdapter.ROOM_TABLE,values);
-//                break;
-//
-//            case ESTIMATE_SERVICE:
-//                id = dbAdapter.insertBuilder(EstimateDbAdapter.SERVICE_TYPE_TABLE,values);
-//                break;
         }
 
         if (cursor != null) {
@@ -105,14 +88,6 @@ public class EstimateContentProvider extends ContentProvider {
 
             case ESTIMATE_CUSTOMER:
                 id = dbAdapter.insertBuilder(EstimateDbAdapter.CUSTOMER_TABLE,values);
-                break;
-
-            case ESTIMATE_ROOM:
-                id = dbAdapter.insertBuilder(EstimateDbAdapter.ROOM_TABLE,values);
-                break;
-
-            case ESTIMATE_SERVICE:
-                id = dbAdapter.insertBuilder(EstimateDbAdapter.SERVICE_TYPE_TABLE,values);
                 break;
         }
 

@@ -8,12 +8,9 @@ public class EstimateContract {
     //EstimateInProgressTO
     public static final String ESTIMATE_ID = "id";
     public static final String ESTIMATE_DATE = "estimateDate";
-    public static final String ESTIMATE_DAVE= "estimatDave"; //TODO David
-
-    //ServiceType
-    public static final String SERVICE_ID = "_id";
-    public static final String SERVICE_TYPE = "serviceType";
-    public static final String SERVICE_ESTIMATE_ID = "estimate_id";
+    public static final String ESTIMATE_NUMBER_ROOMS = "numberOfRooms";
+    public static final String ESTIMATE_PRICE_ESTIMATE = "priceEstimate";
+    public static final String ESTIMATE_SQFT = "estimatesqft";
 
     //CustomerTO
     public static final String CUSTOMER_ID = "id";
@@ -26,17 +23,6 @@ public class EstimateContract {
     public static final String CUSTOMER_ZIP = "zipCode";
     public static final String CUSTOMER_PHONE_NUMBER = "phoneNumber";
     public static final String CUSTOMER_ESITMATE_ID = "estimateId";
-
-    //ROOM
-    public static final String ROOM_ID = "id";
-    public static final String ROOM_LENGTH = "length";
-    public static final String ROOM_WIDTH = "width";
-    public static final String ROOM_MOVE_FURNITURE = "moveFurniture";
-    public static final String ROOM_CARPET_PROTECTOR = "carpetProtector";
-    public static final String ROOM_SQUARE_FEET = "squareFeet";
-    public static final String ROOM_PRICE_ESTIMATE = "priceEstimate";
-    public static final String ROOM_ESTIMATE_SQFT = "estimatesqft";
-    public static final String ROOM_ESITMATE_ID = "estimateId";
 
 
 }
