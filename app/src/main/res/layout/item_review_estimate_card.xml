@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <import type="com.gobluegreen.app.util.StringUtils"/>
+
+        <import type="com.gobluegreen.app.util.ListUtils"/>
+
+        <variable
+            name="review"
+            type="com.gobluegreen.app.to.ReviewEstimateTO"/>
+    </data>
 
     <android.support.v7.widget.CardView
         android:id="@+id/estimate_carpet_service_room_cardview"
@@ -15,15 +30,55 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/carpet_service_label"
                 style="@style/TextAppearance.AppCompat.Title"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/material_margin_half"
-                android:layout_marginEnd="@dimen/material_margin"
                 android:layout_marginStart="@dimen/material_margin"
-                android:layout_marginTop="@dimen/cardview_title_margin"
-                tools:text="Living Room"/>
+                android:layout_marginTop="@dimen/material_margin_half"
+                app:review_client_type="@{review}"
+                tools:text="Residential"/>
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/material_margin"
+                app:review_customer_name="@{review}"
+                tools:text="Mickey mouse"/>
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/material_margin"
+                android:visibility="@{StringUtils.isEmpty(review.customerTO.address1) ? View.GONE : View.VISIBLE}"
+                app:review_customer_address_line1="@{review}"
+                tools:text="Address Line 1"/>
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/material_margin"
+                android:visibility="@{StringUtils.isEmpty(review.customerTO.address2) ? View.GONE : View.VISIBLE}"
+                app:review_customer_address_line2="@{review}"
+                tools:text="Address Line 2"/>
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/material_margin"
+                app:review_city_state_postal_code="@{review}"
+                tools:text="City State, PostalCode"/>
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/material_margin"
+                app:review_phone_number="@{review}"
+                tools:text="(123) 555-1212"/>
 
 
         </LinearLayout>

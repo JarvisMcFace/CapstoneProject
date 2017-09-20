@@ -1,12 +1,13 @@
 package com.gobluegreen.app.to;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Set;
 
 /**
  * Created by David on 7/5/17.
  */
-public class ReviewEstimate implements Serializable{
+public class ReviewEstimateTO implements Serializable{
 
     private static final long serialVersionUID = -993644511096944070L;
 
@@ -15,6 +16,7 @@ public class ReviewEstimate implements Serializable{
     private String  numberOfRooms;
     private String priceEstimatesRange;
     private String estimatedSqFt;
+    private Calendar estimateDate;
 
     public Set<ServiceType> getServiceTypeSet() {
         return serviceTypeSet;
@@ -54,5 +56,13 @@ public class ReviewEstimate implements Serializable{
 
     public void setEstimatedSqFt(String estimatedSqFt) {
         this.estimatedSqFt = estimatedSqFt;
+    }
+
+    public Calendar getEstimateDate() {
+        return estimateDate;
+    }
+
+    public void setEstimateDate(Calendar estimateDate) {
+        this.estimateDate = estimateDate;
     }
 }

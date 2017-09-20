@@ -29,4 +29,6 @@ public class EstimateLoader extends CursorLoader {
     private EstimateLoader(Context context, Uri uri) {
         super(context, uri, null, null, null, null);
     }
+
+
 }
