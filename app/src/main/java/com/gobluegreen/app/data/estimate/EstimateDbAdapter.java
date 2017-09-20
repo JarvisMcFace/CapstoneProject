@@ -64,15 +64,9 @@ public class EstimateDbAdapter {
 
     public Cursor queryEstimate(String tableName) {
 
-        Cursor cursor = sqLiteDatabase.query(
-                tableName,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-        );
+        String rawQuery = "SELECT * FROM " + CUSTOMER_TABLE + ", " + ESTIMATE_TABLE
+                + " WHERE " + EstimateContract.CUSTOMER_ESITMATE_ID + " = " + ESTIMATE_TABLE + "." + EstimateContract.ESTIMATE_ID ;
+        Cursor cursor = sqLiteDatabase.rawQuery(rawQuery,null);
         return cursor;
     }
 
