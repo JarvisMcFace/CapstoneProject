@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
 
@@ -20,23 +20,54 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/estimate_carpet_service_room_cardview"
-        style="@style/CardView_Common_Elements"
+        style="@style/Review_CardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/material_margin"
+            android:layout_marginTop="@dimen/material_margin"
             android:orientation="vertical">
 
-            <TextView
-                style="@style/TextAppearance.AppCompat.Title"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/material_margin"
-                android:layout_marginTop="@dimen/material_margin_half"
-                app:review_client_type="@{review}"
-                tools:text="Residential"/>
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/material_margin"
+                        app:review_client_type="@{review}"
+                        tools:text="Residential"/>
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/material_margin">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:review_estimate_date="@{review}"
+                        tools:text="Jul 17, 2017"/>
+                </FrameLayout>
+
+
+            </LinearLayout>
 
             <TextView
                 style="@style/TextAppearance.AppCompat.Body1"
@@ -60,15 +91,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/material_margin"
-                android:visibility="@{StringUtils.isEmpty(review.customerTO.address2) ? View.GONE : View.VISIBLE}"
-                app:review_customer_address_line2="@{review}"
-                tools:text="Address Line 2"/>
-
-            <TextView
-                style="@style/TextAppearance.AppCompat.Body1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/material_margin"
                 app:review_city_state_postal_code="@{review}"
                 tools:text="City State, PostalCode"/>
 
@@ -79,6 +101,82 @@
                 android:layout_marginStart="@dimen/material_margin"
                 app:review_phone_number="@{review}"
                 tools:text="(123) 555-1212"/>
+
+
+            <LinearLayout
+                app:review_commercial_estimate="@{review}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/material_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:layout_weight="1"
+                    android:text="@string/estimated_price_range"/>
+
+                <TextView
+                    android:id="@+id/review_price_estimate_range"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:layout_weight="1"
+                    tools:text="$120 - $120"/>
+            </LinearLayout>
+
+            <LinearLayout
+                app:review_commercial_estimate="@{review}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:layout_weight="1"
+                    android:text="@string/number_of_rooms"/>
+
+                <TextView
+                    android:id="@+id/review_price_estimate_number_rooms"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:layout_weight="1"
+                    tools:text="3"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                app:review_commercial_estimate="@{review}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:layout_weight="1"
+                    android:text="Estimated Square Feet"/>
+
+                <TextView
+                    android:id="@+id/review_price_estimate_square_feet"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/material_margin"
+                    android:layout_weight="1"
+                    tools:text="393"/>
+
+            </LinearLayout>
 
 
         </LinearLayout>

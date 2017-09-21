@@ -35,6 +35,16 @@
         <item name="cardUseCompatPadding">true</item>
     </style>
 
+    <style name="Review_CardView">
+        <item name="android:layout_margin">@dimen/material_4</item>
+        <item name="android:layout_marginTop">@dimen/material_4</item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardCornerRadius">@dimen/cardview_corner_radius</item>
+        <item name="cardElevation">@dimen/cardview_default_elevation</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+
     <style name="Review_Submit_Items_Title" parent="TextAppearance.AppCompat.Title">
         <item name="android:textSize">16sp</item>
     </style>

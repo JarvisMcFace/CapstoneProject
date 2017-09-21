@@ -2,7 +2,6 @@ package com.gobluegreen.app.adapter;
 
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import com.gobluegreen.app.adapter.viewholder.ReviewEstimateItemHolder;
 import com.gobluegreen.app.data.estimate.ReviewEstimateCursorHelper;
 import com.gobluegreen.app.databinding.ItemReviewEstimateCardBinding;
 import com.gobluegreen.app.to.ReviewEstimateTO;
+import com.gobluegreen.app.util.StringUtils;
 
 /**
  * Created by David on 9/17/17.
@@ -19,6 +19,7 @@ import com.gobluegreen.app.to.ReviewEstimateTO;
 
 public class ReviewEstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private static final int ESTIMATE_ID_COLUMN = 1;
     private final static String TAG = ReviewEstimateAdapter.class.getSimpleName();
 
     private Cursor cursor;
@@ -43,13 +44,28 @@ public class ReviewEstimateAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         ItemReviewEstimateCardBinding binding = reviewEstimateItemHolder.getBinding();
         binding.setReview(reviewEstimateTO);
 
-        Log.d(TAG, "David: " + "onBindViewHolder() called with: holder = [" + holder + "], position = [" + position + "]");
+        String priceRange = reviewEstimateTO.getPriceEstimatesRange();
+        String sqFeet =reviewEstimateTO.getEstimatedSqFt();
+
+        if (StringUtils.isNotEmpty(priceRange)) {
+            binding.reviewPriceEstimateRange.setText(priceRange);
+        }
+
+        if (StringUtils.isNotEmpty(sqFeet)) {
+            binding.reviewPriceEstimateSquareFeet.setText(sqFeet);
+        }
+
+        String numberRooms = reviewEstimateTO.getNumberOfRooms();
+        if (StringUtils.isNotEmpty(numberRooms)) {
+            binding.reviewPriceEstimateNumberRooms.setText(numberRooms);
+        }
+
     }
 
     @Override
     public long getItemId(int position) {
         cursor.moveToPosition(position);
-        return cursor.getLong(1); //TODO David
+        return cursor.getLong(ESTIMATE_ID_COLUMN);
     }
 
     @Override

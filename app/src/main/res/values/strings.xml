@@ -74,5 +74,7 @@
     <string name="review_estimates">Review Estimates</string>
     <string name="review_estimates_text">Review previously submitted estimates.</string>
     <string name="review_estimates_review">Review</string>
+    <string name="estimated_price_range">Estimated Price Range</string>
+    <string name="number_of_rooms">Number of rooms</string>
 
 </resources>

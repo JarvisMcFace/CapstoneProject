@@ -3,12 +3,17 @@ package com.gobluegreen.app.util;
 import android.content.res.Resources;
 import android.databinding.BindingAdapter;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gobluegreen.app.R;
 import com.gobluegreen.app.to.CustomerTO;
 import com.gobluegreen.app.to.CustomerType;
 import com.gobluegreen.app.to.ReviewEstimateTO;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by David on 9/10/17.
@@ -91,6 +96,33 @@ public class ReviewBindingAdapter {
         }
 
         textView.setText(phoneNumber);
+    }
+
+    @BindingAdapter("review_estimate_date")
+    public static void setEstimateDate(TextView textView, ReviewEstimateTO reviewEstimateTO) {
+
+
+        Calendar calendar = reviewEstimateTO.getEstimateDate();
+
+        String pattern = "MMM dd, yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+        Date date = new Date(calendar.getTimeInMillis());
+
+        String formattedDate = simpleDateFormat.format(date);
+        textView.setText(formattedDate);
+    }
+
+    @BindingAdapter("review_commercial_estimate")
+    public static void hideCommercialEstimates(LinearLayout linearLayout, ReviewEstimateTO reviewEstimateTO) {
+
+        CustomerTO customerTO = reviewEstimateTO.getCustomerTO();
+        CustomerType customerType = customerTO.getCustomerType();
+
+        if (CustomerType.COMMERCIAL == customerType) {
+            linearLayout.setVisibility(View.GONE);
+            return;
+        }
     }
 
 
