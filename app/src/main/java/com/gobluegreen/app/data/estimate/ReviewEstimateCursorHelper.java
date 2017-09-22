@@ -7,7 +7,9 @@ import com.gobluegreen.app.to.CustomerTO;
 import com.gobluegreen.app.to.CustomerType;
 import com.gobluegreen.app.to.ReviewEstimateTO;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -18,7 +20,25 @@ public class ReviewEstimateCursorHelper {
 
     private static final String TAG = ReviewEstimateCursorHelper.class.getSimpleName();
 
-    public static ReviewEstimateTO retrieveReviewEstimateTO(Cursor cursor, int position) {
+    public static List<ReviewEstimateTO> retrieveAllEstimates(Cursor cursor) {
+
+        List<ReviewEstimateTO> reviewEstimateTOs = new ArrayList<>();
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast() && cursor.getCount() > 0) {
+                ReviewEstimateTO reviewEstimateTO = retrieveReviewEstimateTO(cursor);
+                if (reviewEstimateTO != null) {
+                    reviewEstimateTOs.add(reviewEstimateTO);
+                }
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return reviewEstimateTOs;
+    }
+
+    public static ReviewEstimateTO retrieveReviewEstimateTO(Cursor cursor) {
 
         //Estimate
         final int estimateDateIndex = cursor.getColumnIndex(EstimateContract.ESTIMATE_DATE);
@@ -86,4 +106,6 @@ public class ReviewEstimateCursorHelper {
 
 
     }
+
+
 }

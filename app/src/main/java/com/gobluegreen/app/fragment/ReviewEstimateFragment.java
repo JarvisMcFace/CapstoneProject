@@ -17,6 +17,7 @@ import com.gobluegreen.app.R;
 import com.gobluegreen.app.adapter.ReviewEstimateAdapter;
 import com.gobluegreen.app.data.EstimateLoader;
 import com.gobluegreen.app.databinding.FragmentReviewEstimatesBinding;
+import com.gobluegreen.app.util.RefreshReviewEstimateWidget;
 
 /**
  * Created by David on 7/5/17.
@@ -66,7 +67,7 @@ public class ReviewEstimateFragment extends Fragment implements LoaderManager.Lo
 
         ReviewEstimateAdapter reviewEstimateAdapter = new ReviewEstimateAdapter(cursor);
         reviewBinding.reviewEstimateRecyclerView.setAdapter(reviewEstimateAdapter);
-
+        RefreshReviewEstimateWidget.execute(getActivity().getApplication());
     }
 
     @Override

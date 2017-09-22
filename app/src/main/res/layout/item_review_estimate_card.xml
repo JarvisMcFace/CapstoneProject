@@ -165,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/material_margin"
                     android:layout_weight="1"
-                    android:text="Estimated Square Feet"/>
+                    android:text="@string/estimated_square_feet"/>
 
                 <TextView
                     android:id="@+id/review_price_estimate_square_feet"

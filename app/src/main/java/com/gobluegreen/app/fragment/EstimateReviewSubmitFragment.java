@@ -3,6 +3,7 @@ package com.gobluegreen.app.fragment;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gobluegreen.app.R;
+import com.gobluegreen.app.activity.HomeActivity;
 import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.data.PersistentAsyncListener;
 import com.gobluegreen.app.data.PersistentAsyncQueryHandler;
@@ -29,6 +31,7 @@ import com.gobluegreen.app.util.CarpetQuoteCacheUtility;
 import com.gobluegreen.app.util.DeriveEstimatedPriceHighLowRange;
 import com.gobluegreen.app.util.DeriveEstimatedTotalSquareFeet;
 import com.gobluegreen.app.util.ListUtils;
+import com.gobluegreen.app.util.RefreshReviewEstimateWidget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -154,10 +157,13 @@ public class EstimateReviewSubmitFragment extends Fragment implements Persistent
         if (ListUtils.isEmpty(tokenInProgress)) {
             binding.progressHorizontal.setVisibility(View.GONE);
 
-//            CarpetQuoteCacheUtility.deleteEstimateInProgress(application);
-//            Intent intent = HomeActivity.newIntent(getContext());
-//            intent.putExtra(HomeActivity.EXTRA_HOME_ESITMATED_SUBMITED, true);
-//            startActivity(intent);
+
+            RefreshReviewEstimateWidget.execute(application);
+
+            CarpetQuoteCacheUtility.deleteEstimateInProgress(application);
+            Intent intent = HomeActivity.newIntent(getContext());
+            intent.putExtra(HomeActivity.EXTRA_HOME_ESITMATED_SUBMITED, true);
+            startActivity(intent);
         }
     }
 }

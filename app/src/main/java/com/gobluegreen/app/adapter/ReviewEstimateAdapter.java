@@ -38,7 +38,7 @@ public class ReviewEstimateAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         cursor.moveToPosition(position);
-        ReviewEstimateTO reviewEstimateTO = ReviewEstimateCursorHelper.retrieveReviewEstimateTO(cursor, position);
+        ReviewEstimateTO reviewEstimateTO = ReviewEstimateCursorHelper.retrieveReviewEstimateTO(cursor);
 
         ReviewEstimateItemHolder reviewEstimateItemHolder = (ReviewEstimateItemHolder) holder;
         ItemReviewEstimateCardBinding binding = reviewEstimateItemHolder.getBinding();

@@ -76,5 +76,11 @@
     <string name="review_estimates_review">Review</string>
     <string name="estimated_price_range">Estimated Price Range</string>
     <string name="number_of_rooms">Number of rooms</string>
+    <string name="no_estimates_to_show">No estimates to show yet, go ahead and get one.</string>
+    <string name="estimated_square_feet">Estimated Square Feet</string>
+    <string name="est_sq_ft">est sq ft</string>
+    <string name="nbr_rooms">nbr rooms</string>
+    <string name="we_will_contact_you_soon">We will contact you soon</string>
+    <string name="price_range">price range</string>
 
 </resources>
