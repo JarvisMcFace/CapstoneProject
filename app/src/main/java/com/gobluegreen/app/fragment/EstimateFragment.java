@@ -17,6 +17,7 @@ import com.gobluegreen.app.adapter.CarpetRoomServiceCallBack;
 import com.gobluegreen.app.adapter.EstimateAdapter;
 import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.databinding.FragmentEstimateBinding;
+import com.gobluegreen.app.to.CleaningPriceFactors;
 import com.gobluegreen.app.to.EstimateInProgressTO;
 import com.gobluegreen.app.to.EstimateItemTO;
 import com.gobluegreen.app.to.RoomTO;
@@ -27,6 +28,7 @@ import com.gobluegreen.app.util.DeriveEstimatedPriceOfRoom;
 import com.gobluegreen.app.util.DeriveEstimatedTotalSquareFeet;
 import com.gobluegreen.app.util.ListUtils;
 import com.gobluegreen.app.util.PopulateEstimateItems;
+import com.gobluegreen.app.util.PriceFactorCacheHelper;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -63,8 +65,19 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
 
         estimateInProgressTO = application.getEstimateInProgressTO();
 
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        estimateBinding.layoutEstimate.estimateRecyclerView.setLayoutManager(linearLayoutManager);
+        CleaningPriceFactors cleaningPriceFactors = PriceFactorCacheHelper.getCleaningPriceFactors(application);
+        if (cleaningPriceFactors == null) {
+
+            estimateBinding.layoutEstimate.layoutEstimate.setVisibility(View.GONE);
+            estimateBinding.layoutEstimateError.layoutEstimateError.setVisibility(View.VISIBLE);
+
+        } else {
+            estimateBinding.layoutEstimate.layoutEstimate.setVisibility(View.VISIBLE);
+            estimateBinding.layoutEstimateError.layoutEstimateError.setVisibility(View.GONE);
+            final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+            estimateBinding.layoutEstimate.estimateRecyclerView.setLayoutManager(linearLayoutManager);
+        }
+
 
         estimateBinding.landingContinueButton.setOnClickListener(getContinueButtonOnClickListener);
     }
@@ -88,20 +101,19 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
             return;
         }
 
-        if (roomTO.getRoomType() != RoomType.STAIRWAY_LANDING && roomTO.isDimensionByLengthWidth()){
+        if (roomTO.getRoomType() != RoomType.STAIRWAY_LANDING && roomTO.isDimensionByLengthWidth()) {
 
 
             int roomLength = roomTO.getLength();
             int roomWidth = roomTO.getWidth();
 
-            if (roomLength > 0 && roomWidth > 0 ) {
+            if (roomLength > 0 && roomWidth > 0) {
                 int squareFeet = roomLength * roomTO.getWidth();
                 roomTO.setSquareFeet(squareFeet);
             } else {
                 roomTO.setSquareFeet(0);
             }
         }
-
 
 
         double estimatedRoomPrice = DeriveEstimatedPriceOfRoom.execute(application, roomTO);

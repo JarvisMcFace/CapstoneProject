@@ -50,7 +50,11 @@
       "squareFeetFactor": 0.8
     },
     {
-      "carpetProtectorFactor": 0.2, "pricePerSquareFeet": 0.5, "roomType": "STAIRWAY_LANDING", "squareFeetFactor": 0.8, "pricePerStep": 4
+      "carpetProtectorFactor": 0.2,
+      "pricePerSquareFeet": 0.5,
+      "roomType": "STAIRWAY_LANDING",
+      "squareFeetFactor": 0.8,
+      "pricePerStep": 4
     },
     {
       "carpetProtectorFactor": 0.2,

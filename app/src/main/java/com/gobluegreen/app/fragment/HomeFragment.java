@@ -14,9 +14,10 @@ import android.view.ViewGroup;
 import com.gobluegreen.app.R;
 import com.gobluegreen.app.activity.EstimateBuilderLandingActivity;
 import com.gobluegreen.app.activity.HomeActivity;
-import com.gobluegreen.app.activity.ReviewEstimateActivity;
 import com.gobluegreen.app.adapter.ServicesPagerAdapter;
+import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.databinding.FragmentHomeBinding;
+import com.gobluegreen.app.util.PriceFactorCacheHelper;
 
 /**
  *
@@ -43,7 +44,7 @@ public class HomeFragment extends Fragment {
         fragmentHomeBinding.servicesViewpager.setAdapter(new ServicesPagerAdapter(getFragmentManager()));
         fragmentHomeBinding.servicesIndicator.setViewPager(fragmentHomeBinding.servicesViewpager);
 
-        fragmentHomeBinding.layoutCardViewEsitmateBuilder.createEstimate.setOnClickListener(ceateEstimateOnClickListener);
+        fragmentHomeBinding.layoutCardViewEsitmateBuilder.createEstimate.setOnClickListener(createEstimateOnClickListener);
         fragmentHomeBinding.layoutCardViewReviewEsitmates.reviewEstimate.setOnClickListener(createReviewEstimateOnClickListener);
 
     }
@@ -63,7 +64,7 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private View.OnClickListener ceateEstimateOnClickListener = new View.OnClickListener() {
+    private View.OnClickListener createEstimateOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
@@ -76,8 +77,11 @@ public class HomeFragment extends Fragment {
         @Override
         public void onClick(View v) {
 
-            Intent intent = ReviewEstimateActivity.newIntent(getContext());
-            startActivity(intent);
+//            Intent intent = ReviewEstimateActivity.newIntent(getContext());
+//            startActivity(intent);
+
+            GoBluegreenApplication application = (GoBluegreenApplication) getActivity().getApplication();
+            PriceFactorCacheHelper.deletesCleaningPriceFactor(application);
         }
     };
 

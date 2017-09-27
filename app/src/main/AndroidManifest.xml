@@ -77,6 +77,8 @@
         </receiver>
 
 
+        <service android:name=".service.FetchPriceFactorService" />
+
     </application>
 
 </manifest>

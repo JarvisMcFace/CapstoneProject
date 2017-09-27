@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="firebase_api_url">https://firebasestorage.googleapis.com/v0/b/blue-green-floor-care.appspot.com/o/cleaningprices.json?alt=media&amp;token=dc154074-9f4c-474e-9629-8638b734363a</string>
+
+
+</resources>

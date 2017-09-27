@@ -7,8 +7,14 @@
         android:layout_height="match_parent">
 
         <include
+            android:visibility="gone"
             android:id="@+id/layout_estimate"
             layout="@layout/layout_estimate"/>
+
+
+        <include
+            android:id="@+id/layout_estimate_error"
+            layout="@layout/layout_estimate_error"/>
 
 
         <LinearLayout

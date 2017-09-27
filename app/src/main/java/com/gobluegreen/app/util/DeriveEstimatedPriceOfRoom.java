@@ -16,7 +16,7 @@ public class DeriveEstimatedPriceOfRoom {
     public static double execute(GoBluegreenApplication application, RoomTO roomTO) {
 
 
-        Map<RoomType, CleaningPriceFactorTO> cleaningPriceFactorTOMap =  application.getCleaningPriceFactorTOMap();
+        Map<RoomType, CleaningPriceFactorTO> cleaningPriceFactorTOMap = PriceFactorCacheHelper.getCleaningPriceFactorTOMap(application);
 
         CleaningPriceFactorTO cleaningPriceFactorTO = cleaningPriceFactorTOMap.get(roomTO.getRoomType());
 
@@ -26,7 +26,7 @@ public class DeriveEstimatedPriceOfRoom {
         double carpetProtectorFactor = cleaningPriceFactorTO.getCarpetProtectorFactor();
 
         double carpetProtectorCost = 0;
-        if (roomTO.isCarpetProtector()){
+        if (roomTO.isCarpetProtector()) {
             carpetProtectorCost = calculateCarpetProtectorPrice(roomTO, carpetProtectorFactor);
         }
 

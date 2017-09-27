@@ -1,5 +1,6 @@
 package com.gobluegreen.app.util;
 
+import com.gobluegreen.app.R;
 import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.to.CleaningPriceFactors;
 import com.gobluegreen.app.to.EstimateInProgressTO;
@@ -17,6 +18,12 @@ public class DeriveEstimatedPriceHighLowRange {
 
         EstimateInProgressTO estimateInProgressTO = application.getEstimateInProgressTO();
 
+        CleaningPriceFactors cleaningPriceFactors = PriceFactorCacheHelper.getCleaningPriceFactors(application);
+
+        if (cleaningPriceFactors == null) {
+            return application.getString(R.string.error_getting_price);
+
+        }
         List<RoomTO> roomTOs = estimateInProgressTO.getRoomTOs();
         if (ListUtils.isEmpty(roomTOs)) {
             return "";
@@ -27,7 +34,6 @@ public class DeriveEstimatedPriceHighLowRange {
             estimatedTotalCost += roomTO.getPriceEstimate();
         }
 
-        CleaningPriceFactors cleaningPriceFactors = application.getCleaningPriceFactors();
 
         double estimatedLowRange = estimatedTotalCost * cleaningPriceFactors.getLowEstRangeFactor();
         double estimatedHighRange = estimatedTotalCost * cleaningPriceFactors.getHighEstRangeFactor();

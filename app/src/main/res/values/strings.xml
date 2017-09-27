@@ -82,5 +82,7 @@
     <string name="nbr_rooms">nbr rooms</string>
     <string name="we_will_contact_you_soon">We will contact you soon</string>
     <string name="price_range">price range</string>
+    <string name="error_getting_price_factors_text">There was a problem retrieving pricing informatoin, please try again soon</string>
+    <string name="error_getting_price">please call for estimate</string>
 
 </resources>
