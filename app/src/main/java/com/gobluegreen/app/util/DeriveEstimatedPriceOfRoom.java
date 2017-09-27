@@ -20,6 +20,11 @@ public class DeriveEstimatedPriceOfRoom {
 
         CleaningPriceFactorTO cleaningPriceFactorTO = cleaningPriceFactorTOMap.get(roomTO.getRoomType());
 
+        if (roomTO.getRoomType() == RoomType.STAIRWAY_LANDING) {
+
+            double perStepPrice = cleaningPriceFactorTO.getPricePerStep();
+            return roomTO.getNumberSteps() * perStepPrice;
+        }
 
         double squareFeetFactor = cleaningPriceFactorTO.getSquareFeetFactor();
         double pricePerSquareFeet = cleaningPriceFactorTO.getPricePerSquareFeet();
@@ -43,9 +48,4 @@ public class DeriveEstimatedPriceOfRoom {
 
         return 0;
     }
-
-    private double squareFeetFactor;
-    private double pricePerSquareFeet;  // $.5
-    private double moveFurnitureFactor;    //no value
-    private double carpetProtectorFactor;   //sq *.
 }

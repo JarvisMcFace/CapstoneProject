@@ -81,6 +81,10 @@ public class CarpetCleaningServicesFragment extends Fragment {
 
         for (String roomDescription : roomDescriptions) {
 
+            if (RoomType.STAIRWAY_LANDING.getDescription().equalsIgnoreCase(roomDescription)) {
+                continue;
+            }
+
             RoomDescriptionItemTO roomDescriptionItemTO = new RoomDescriptionItemTO();
             roomDescriptionItemTO.setDescription(roomDescription);
             RoomType roomType = RoomType.lookupRoomType(roomDescription);
@@ -157,7 +161,7 @@ public class CarpetCleaningServicesFragment extends Fragment {
 
         List<RoomTO> roomToRemove = new ArrayList<>();
         for (RoomTO roomTO : roomTOs) {
-           RoomType roomType =  roomTO.getRoomType();
+            RoomType roomType = roomTO.getRoomType();
             if (roomTypes.contains(roomType)) {
                 continue;
             }

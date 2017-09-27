@@ -342,9 +342,16 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         int numberOfSteps = roomTO.getNumberSteps();
 
         if (numberOfSteps > 0) {
-            // TODO: 7/25/17 price per stemp?
-            estimatedPrice.setText("TODO step price");
+
+            Double estimatePrice = roomTO.getPriceEstimate();
+            if (!Double.isNaN(estimatePrice) && estimatePrice > 0) {
+                String formattedPrice = CurrencyFormatter.execute(estimatePrice);
+                estimatedPrice.setText(formattedPrice);
+            }
+
+
         } else {
+
             estimatedPrice.setText("");
         }
 
