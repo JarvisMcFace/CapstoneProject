@@ -13,6 +13,7 @@
     <color name="black">#000000</color>
     <color name="default_background">#fff3f3f3</color>
     <color name="disabled_gray">#808080</color>
+    <color name="divider">#ebebeb</color>
     <color name="estimate_overview">#98eb9c</color>
     <color name="error_color">#cc3131</color>
     <color name="translucent_black">#15000000</color>

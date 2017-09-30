@@ -1,17 +1,14 @@
 package com.gobluegreen.app.util;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.gobluegreen.app.R;
-import com.gobluegreen.app.activity.ReviewEstimateActivity;
 
 import java.lang.ref.WeakReference;
 
@@ -40,54 +37,11 @@ public class LeftNavigationDrawer {
         DrawerLayout drawerLayout = (DrawerLayout) activity.findViewById(R.id.nav_drawer_layout);
         if (drawerLayout != null) {
             drawerLayout.addDrawerListener(new DrawerListener(weakActivity));
-//            drawerLayout.setDrawerListener(new DrawerListener(weakActivity));
         }
 
         final NavigationView navigationView = (NavigationView) activity.findViewById(R.id.navigation);
-        if (navigationView == null) {
-            return;
-        }
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                selectDrawerItem(weakActivity, menuItem);
-                return true;
-            }
-        });
+        navigationView.setNavigationItemSelectedListener(getNavigationItemSelectedListener(weakActivity));
     }
-
-    private void selectDrawerItem(WeakReference<Activity> weakActivity, MenuItem menuItem) {
-        Intent drawerIntent = null;
-        final Activity activity = weakActivity.get();
-
-        switch (menuItem.getItemId()) {
-
-            case R.id.navigation_locations:
-                drawerIntent = ReviewEstimateActivity.newIntent(activity);
-                drawerIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        }
-
-        DrawerLayout drawerLayout = (DrawerLayout) activity.findViewById(R.id.nav_drawer_layout);
-
-        if (drawerLayout != null) {
-            drawerLayout.closeDrawer(Gravity.START);
-        }
-
-        if (drawerIntent != null) {
-            Handler handler = new Handler();
-            final Intent finalDrawerIntent = drawerIntent;
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    activity.startActivity(finalDrawerIntent);
-                }
-            }, 200);
-        }
-
-    }
-
 
     private class DrawerListener extends DrawerLayout.SimpleDrawerListener {
 
@@ -101,14 +55,28 @@ public class LeftNavigationDrawer {
         public void onDrawerOpened(View drawerView) {
             Activity activity = weakActivity.get();
             activity.invalidateOptionsMenu();
-
         }
 
         @Override
         public void onDrawerClosed(View drawerView) {
             Activity activity = weakActivity.get();
             activity.invalidateOptionsMenu();
-
         }
     }
+
+    private NavigationView.OnNavigationItemSelectedListener getNavigationItemSelectedListener(final WeakReference<Activity> weakActivity) {
+        return new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                selectedDraweritem(weakActivity, menuItem);
+                return true;
+            }
+        };
+    }
+
+    private void selectedDraweritem(WeakReference<Activity> weakActivity, MenuItem menuItem) {
+
+        Log.d("David", "David: " + "selectedDraweritem() called with: weakActivity = [" + weakActivity + "], menuItem = [" + menuItem + "]");
+    }
+
 }

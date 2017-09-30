@@ -1,6 +1,7 @@
 package com.gobluegreen.app.fragment;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -17,7 +18,10 @@ import com.gobluegreen.app.activity.HomeActivity;
 import com.gobluegreen.app.adapter.ServicesPagerAdapter;
 import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.databinding.FragmentHomeBinding;
+import com.gobluegreen.app.util.LeftNavigationDrawer;
 import com.gobluegreen.app.util.PriceFactorCacheHelper;
+
+import java.lang.ref.WeakReference;
 
 /**
  *
@@ -63,6 +67,12 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        WeakReference<Activity> weakActivity = new WeakReference<Activity>(getActivity());
+        LeftNavigationDrawer.getInstance().navOnStart(weakActivity);
+    }
 
     private View.OnClickListener createEstimateOnClickListener = new View.OnClickListener() {
         @Override
