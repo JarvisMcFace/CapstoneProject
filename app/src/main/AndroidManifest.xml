@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.gobluegreen.app">
 
-    <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> -->
-    <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> -->
+     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
     <application
         android:name=".application.GoBluegreenApplication"
         android:allowBackup="true"
@@ -51,6 +52,11 @@
 
         <activity
             android:name=".activity.EstimateReviewSubmitActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden"/>
+
+        <activity
+            android:name=".activity.LocationActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden"/>
 

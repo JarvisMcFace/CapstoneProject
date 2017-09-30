@@ -18,7 +18,6 @@ public class HomeActivity extends AppCompatActivity {
     public static final String EXTRA_HOME_ESITMATED_SUBMITED = "com.gobluegreen.app.activity.submitestimate";
     private ActionBarDrawerToggle drawerToggle;
 
-
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

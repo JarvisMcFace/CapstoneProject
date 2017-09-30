@@ -1,14 +1,17 @@
 package com.gobluegreen.app.util;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.gobluegreen.app.R;
+import com.gobluegreen.app.activity.LocationActivity;
 
 import java.lang.ref.WeakReference;
 
@@ -76,7 +79,34 @@ public class LeftNavigationDrawer {
 
     private void selectedDraweritem(WeakReference<Activity> weakActivity, MenuItem menuItem) {
 
-        Log.d("David", "David: " + "selectedDraweritem() called with: weakActivity = [" + weakActivity + "], menuItem = [" + menuItem + "]");
+        Intent drawerIntent = null;
+        final Activity activity = weakActivity.get();
+
+        switch (menuItem.getItemId()) {
+
+            case R.id.navigation_locations:
+                drawerIntent = LocationActivity.newIntent(activity);
+                drawerIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                break;
+
+        }
+
+        DrawerLayout drawerLayout = (DrawerLayout) activity.findViewById(R.id.nav_drawer_layout);
+
+        if (drawerIntent != null) {
+            drawerLayout.closeDrawer(Gravity.LEFT);
+        }
+
+        if (drawerIntent != null) {
+            Handler handler = new Handler();
+            final Intent finalDrawerIntent = drawerIntent;
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    activity.startActivity(finalDrawerIntent);
+                }
+            }, 200);
+        }
     }
 
 }
