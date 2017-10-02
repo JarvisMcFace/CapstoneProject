@@ -4,11 +4,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    </LinearLayout>
+        <FrameLayout
+            android:id="@+id/show_locations_list"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/single_list_item_height"
+            android:layout_marginBottom="@dimen/material_margin"
+            android:background="@color/white"
+            android:elevation="@dimen/bottom_list_elevation"
+            app:behavior_peekHeight="@dimen/single_list_item_height"
+            app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+            <TextView
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/material_margin"
+                android:layout_marginStart="@dimen/material_margin"
+                android:gravity="center"
+                android:text="@string/show_locations"
+                android:textStyle="bold"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/bottom_sheet_locations"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:elevation="@dimen/bottom_list_elevation"
+            app:behavior_hideable="true"
+            app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_location_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/item_location"/>
+        </FrameLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
 </layout>

@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment {
 
 //            Intent intent = ReviewEstimateActivity.newIntent(getContext());
 //            startActivity(intent);
-
+//TODO David - enable this used for testing
             GoBluegreenApplication application = (GoBluegreenApplication) getActivity().getApplication();
             PriceFactorCacheHelper.deletesCleaningPriceFactor(application);
         }

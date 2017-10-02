@@ -29,4 +29,7 @@
     <dimen name="widget_review_min_height">110dp</dimen>
     <dimen name="widget_review_min_width">180dp</dimen>
     <dimen name="widget_font_size">12sp</dimen>
+    <dimen name="bottom_list_elevation">16dp</dimen>
+    <dimen name="single_list_item_height">48dp</dimen>
+    <dimen name="three_list_item_height">88dp</dimen>
 </resources>

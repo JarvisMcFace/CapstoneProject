@@ -88,7 +88,7 @@
     <string name="navigation_menu_locations">Location</string>
     <string name="open_navigatoin">Open navigation drawer</string>
     <string name="close_navigation">Close navigation drawer</string>
-
+    <string name="show_locations">Show Locations</string>
 
 
 </resources>

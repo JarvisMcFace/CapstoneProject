@@ -22,12 +22,6 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <fragment
-            android:id="@+id/location_fragment"
-            android:name="com.gobluegreen.app.fragment.LocationFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView

@@ -1,0 +1,34 @@
+{
+  "locationTOs": [
+    {
+      "city": "Milwaukee",
+      "phoneNumber": "414.944.0859",
+      "postalCode": "53122",
+      "street": "WI"
+    },
+    {
+      "city": "Madison",
+      "phoneNumber": "608.478.3007",
+      "postalCode": "53716",
+      "street": "WI"
+    },
+    {
+      "city": "Waukesha",
+      "phoneNumber": "262.649.2082",
+      "postalCode": "53188",
+      "street": "WI"
+    },
+    {
+      "city": "Menomonee Falls",
+      "phoneNumber": "262.581.9186",
+      "postalCode": "53051",
+      "street": "WI"
+    },
+    {
+      "city": "Sun Prairie",
+      "phoneNumber": "608.257.2990",
+      "postalCode": "53590",
+      "street": "4587 County Rd TT"
+    }
+  ]
+}
