@@ -49,7 +49,7 @@ public class FetchPriceFactorService extends IntentService {
 
     private void fetchPriceFactors() {
 
-        String fireBaseUrl = application.getString(R.string.firebase_api_url);
+        String fireBaseUrl = application.getString(R.string.price_factors_url);
 
         Request.Builder builder = new Request.Builder();
         builder.url(fireBaseUrl);

@@ -91,4 +91,8 @@
     <string name="show_locations">Show Locations</string>
 
 
+    <string name="no_network_connection">No Network Connection Please try again</string>
+    <string name="error_getting_locations">There was an technical problem retrieving list of locations, please try again later.</string>
+
+
 </resources>

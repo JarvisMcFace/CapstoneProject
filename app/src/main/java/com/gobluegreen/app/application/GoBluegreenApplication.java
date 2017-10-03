@@ -5,8 +5,8 @@ import android.content.Intent;
 
 import com.facebook.stetho.Stetho;
 import com.gobluegreen.app.service.FetchPriceFactorService;
-import com.gobluegreen.app.to.CleaningPriceFactors;
 import com.gobluegreen.app.to.EstimateInProgressTO;
+import com.gobluegreen.app.to.ServiceLocationsTO;
 
 /**
  * Created by David on 7/5/17.
@@ -17,7 +17,8 @@ public class GoBluegreenApplication extends Application {
     private static final String TAG = GoBluegreenApplication.class.getSimpleName();
 
     private EstimateInProgressTO estimateInProgressTO;
-    private CleaningPriceFactors cleaningPriceFactors;
+    private boolean locationCallSuccessful;
+    private ServiceLocationsTO serviceLocationsTO;
 
     @Override
     public void onCreate() {
@@ -39,7 +40,19 @@ public class GoBluegreenApplication extends Application {
         this.estimateInProgressTO = estimateInProgressTO;
     }
 
+    public boolean isLocationCallSuccessful() {
+        return locationCallSuccessful;
+    }
 
+    public void setLocationCallSuccessful(boolean locationCallSuccessful) {
+        this.locationCallSuccessful = locationCallSuccessful;
+    }
 
+    public ServiceLocationsTO getServiceLocationsTO() {
+        return serviceLocationsTO;
+    }
 
+    public void setServiceLocationsTO(ServiceLocationsTO serviceLocationsTO) {
+        this.serviceLocationsTO = serviceLocationsTO;
+    }
 }
