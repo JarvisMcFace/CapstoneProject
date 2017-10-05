@@ -15,6 +15,7 @@
     {
       "city": "Waukesha",
       "phoneNumber": "262.649.2082",
+      "street": "2110 Pewaukee Rd, Ste 105",
       "postalCode": "53188",
       "street": "WI"
     },
@@ -22,13 +23,21 @@
       "city": "Menomonee Falls",
       "phoneNumber": "262.581.9186",
       "postalCode": "53051",
-      "street": "WI"
+      "street": "N56 W13441 Silver Spring Dr",
+      "coordinates": {
+        "latitude": 43.1197704,
+        "longitude": -88.1138249
+      }
     },
     {
       "city": "Sun Prairie",
       "phoneNumber": "608.257.2990",
       "postalCode": "53590",
-      "street": "4587 County Rd TT"
+      "street": "4587 County Rd TT",
+      "coordinates": {
+        "latitude": 43.11287,
+        "longitude": -89.211576
+      }
     }
   ]
 }

@@ -15,6 +15,7 @@ public class LocationTO implements Serializable {
     private String state;
     private String postalCode;
     private String phoneNumber;
+    private Coordinates coordinates;
 
     public String getStreet() {
         return street;
@@ -54,5 +55,13 @@ public class LocationTO implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
     }
 }

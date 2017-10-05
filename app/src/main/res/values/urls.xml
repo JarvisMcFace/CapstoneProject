@@ -3,7 +3,7 @@
 
 
     <string name="price_factors_url">https://firebasestorage.googleapis.com/v0/b/blue-green-floor-care.appspot.com/o/cleaningprices.json?alt=media&amp;token=dc154074-9f4c-474e-9629-8638b734363a</string>
-    <string name="locations_url">https://firebasestorage.googleapis.com/v0/b/blue-green-floor-care.appspot.com/o/locations.json?alt=media&amp;token=fe439775-e2dc-4cea-98fb-9a7eac92135d</string>
+    <string name="locations_url">https://firebasestorage.googleapis.com/v0/b/blue-green-floor-care.appspot.com/o/locations.json?alt=media&amp;token=f557b399-4459-475e-af4b-2bb7f8fc1c6f</string>
 
 
 </resources>

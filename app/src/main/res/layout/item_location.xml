@@ -15,20 +15,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
+
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_marginBottom="@dimen/material_margin_half"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/material_margin_half"
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/location_item_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="@dimen/material_margin"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
                 android:orientation="vertical">
 
                 <TextView
@@ -37,7 +40,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/material_margin"
-
                     android:text="@{location.city}"
                     tools:text="Waukesha"/>
 
@@ -57,14 +59,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/material_margin"
-                    android:paddingTop="@dimen/material_4"
-                    android:paddingBottom="@dimen/material_4"
                     android:autoLink="phone"
+                    android:paddingBottom="@dimen/material_4"
+                    android:paddingTop="@dimen/material_4"
                     android:text="@{location.phoneNumber}"
                     tools:text="608.478.3007"/>
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/google_maps"
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

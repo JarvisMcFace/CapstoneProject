@@ -24,22 +24,30 @@ import com.gobluegreen.app.R;
 import com.gobluegreen.app.adapter.LocationsAdapter;
 import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.databinding.FragmentLocationBinding;
+import com.gobluegreen.app.to.Coordinates;
 import com.gobluegreen.app.to.LocationTO;
 import com.gobluegreen.app.to.ServiceLocationsTO;
 import com.gobluegreen.app.util.ListUtils;
 import com.gobluegreen.app.util.NetworkUtil;
 import com.gobluegreen.app.util.OkHttpHelper;
 import com.gobluegreen.app.util.OkHttpHelperCallback;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by David on 9/29/17.
  */
-public class LocationFragment extends Fragment implements OkHttpHelperCallback {
+public class LocationFragment extends Fragment implements OkHttpHelperCallback, LocationsCallBack {
 
     private String TAG = LocationFragment.class.getSimpleName();
     private static final int LOCATION_REQUEST_ID = 1;
@@ -51,6 +59,8 @@ public class LocationFragment extends Fragment implements OkHttpHelperCallback {
     private BottomSheetBehavior bottomSheetBehavior;
     private LinearLayoutManager linearLayoutManager;
     private List<LocationTO> locationTOs;
+    private List<Marker> markers;
+    private Map<Marker, LocationTO> markerLocationMap;
     private boolean isListOpen;
 
     @Override
@@ -104,7 +114,35 @@ public class LocationFragment extends Fragment implements OkHttpHelperCallback {
         application.setServiceLocationsTO(serviceLocationsTO);
 
         loadData();
+    }
 
+    @Override
+    public void moveToLocation(LocationTO locationTO) {
+
+        Log.d(TAG, "David: " + "moveToLocation() called with: locationTO = [" + locationTO + "]");
+        Marker selectedMarker = getSelectedMarker(locationTO);
+        selectedMarker.showInfoWindow();
+        LatLng markerPosition = selectedMarker.getPosition();
+        LatLng offsetPosition = new LatLng(markerPosition.latitude, markerPosition.longitude);
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(offsetPosition, 15));
+    }
+
+    private Marker getSelectedMarker(LocationTO selectedLocationTO) {
+
+        for (Map.Entry<Marker, LocationTO> entry : markerLocationMap.entrySet()) {
+            Marker keyMarker = entry.getKey();
+            LocationTO locationTO = entry.getValue();
+
+            if (selectedLocationTO.getCity().equalsIgnoreCase(locationTO.getCity())) {
+                return keyMarker;
+            }
+
+        }
+        return null;
+    }
+
+    @Override
+    public void startGoogleMaps(LocationTO locationTO) {
 
     }
 
@@ -176,7 +214,8 @@ public class LocationFragment extends Fragment implements OkHttpHelperCallback {
         ServiceLocationsTO serviceLocationsTO = application.getServiceLocationsTO();
         locationTOs = serviceLocationsTO.getLocationTOs();
 
-        LocationsAdapter locationsAdapter = new LocationsAdapter(application, locationTOs);
+        WeakReference<LocationsCallBack> weakReferenceCarpetRoomServiceCallBack = new WeakReference<LocationsCallBack>(this);
+        LocationsAdapter locationsAdapter = new LocationsAdapter(application, locationTOs, weakReferenceCarpetRoomServiceCallBack);
         locationBinding.recyclerViewLocationList.setAdapter(locationsAdapter);
 
         updateMap();
@@ -184,7 +223,36 @@ public class LocationFragment extends Fragment implements OkHttpHelperCallback {
 
 
     private void updateMap() {
+        if (ListUtils.isEmpty(locationTOs) || googleMap == null) {
+            return;
+        }
 
+        addMarkers();
+    }
+
+    private void addMarkers() {
+
+        if (ListUtils.isEmpty(locationTOs)) {
+            return;
+        }
+
+        markers = new ArrayList<>();
+        markerLocationMap = new LinkedHashMap<>();
+
+        for (LocationTO locationTO : locationTOs) {
+
+            Coordinates coordinates = locationTO.getCoordinates();
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(cordinatesToLatLong(coordinates));
+            markerOptions.title(locationTO.getCity());
+            markerLocationMap.put(googleMap.addMarker(markerOptions), locationTO);
+
+        }
+
+    }
+
+    private LatLng cordinatesToLatLong(Coordinates coordinates) {
+        return new LatLng(coordinates.getLatitude(), coordinates.getLongitude());
     }
 
 

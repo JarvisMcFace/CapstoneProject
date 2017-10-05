@@ -105,7 +105,7 @@ public class LeftNavigationDrawer {
                 public void run() {
                     activity.startActivity(finalDrawerIntent);
                 }
-            }, 200);
+            }, 250);
         }
     }
 
