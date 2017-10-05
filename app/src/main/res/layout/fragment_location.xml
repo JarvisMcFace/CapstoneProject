@@ -37,7 +37,7 @@
         <FrameLayout
             android:id="@+id/bottom_sheet_locations"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/locations_bottom_sheet_height"
             android:background="@color/white"
             android:elevation="@dimen/bottom_list_elevation"
             app:behavior_hideable="true"
