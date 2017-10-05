@@ -33,4 +33,5 @@
     <dimen name="bottom_list_elevation">16dp</dimen>
     <dimen name="single_list_item_height">48dp</dimen>
     <dimen name="three_list_item_height">88dp</dimen>
+    <dimen name="locations_bottom_sheet_height">280dp</dimen>
 </resources>

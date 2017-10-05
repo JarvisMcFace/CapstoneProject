@@ -10,7 +10,6 @@ import com.gobluegreen.app.adapter.viewholder.LocationsViewHolder;
 import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.databinding.ItemLocationBinding;
 import com.gobluegreen.app.to.LocationTO;
-import com.gobluegreen.app.to.ServiceLocationsTO;
 
 import java.util.List;
 
@@ -22,10 +21,9 @@ public class LocationsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private GoBluegreenApplication application;
     private List<LocationTO> locationTOs;
 
-    public LocationsAdapter(GoBluegreenApplication application) {
+    public LocationsAdapter(GoBluegreenApplication application,  List<LocationTO> locationTOs) {
         this.application = application;
-
-        populateData();
+        this.locationTOs = locationTOs;
     }
 
     @Override
@@ -48,10 +46,4 @@ public class LocationsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public int getItemCount() {
         return locationTOs.size();
     }
-
-    private void populateData() {
-        ServiceLocationsTO serviceLocationsTO = application.getServiceLocationsTO();
-        locationTOs = serviceLocationsTO.getLocationTOs();
-    }
-
 }
