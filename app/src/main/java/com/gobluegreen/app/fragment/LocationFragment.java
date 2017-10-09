@@ -1,14 +1,18 @@
 package com.gobluegreen.app.fragment;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +31,7 @@ import com.gobluegreen.app.databinding.FragmentLocationBinding;
 import com.gobluegreen.app.to.Coordinates;
 import com.gobluegreen.app.to.LocationTO;
 import com.gobluegreen.app.to.ServiceLocationsTO;
+import com.gobluegreen.app.util.IsRequestedPackageInstalled;
 import com.gobluegreen.app.util.ListUtils;
 import com.gobluegreen.app.util.NetworkUtil;
 import com.gobluegreen.app.util.OkHttpHelper;
@@ -144,8 +149,52 @@ public class LocationFragment extends Fragment implements OkHttpHelperCallback, 
     @Override
     public void startGoogleMaps(LocationTO locationTO) {
 
+        String googleMapsPackageURI = "com.google.android.apps.maps";
+
+        WeakReference<Activity> activityWeakReference = new WeakReference<Activity>(getActivity());
+        boolean isGoogleMapsInstalled = IsRequestedPackageInstalled.execute(activityWeakReference, googleMapsPackageURI);
+
+        if (isGoogleMapsInstalled) {
+            String latitude = String.valueOf(locationTO.getCoordinates().getLatitude());
+            String longitude = String.valueOf(locationTO.getCoordinates().getLongitude());
+
+            Uri uri = Uri.parse("google.navigation:q="+ latitude + "," + longitude);
+            Intent intent= new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        } else {
+            locationBinding.bottomSheetLocations.setVisibility(View.GONE);
+            int accentColor = ContextCompat.getColor(getActivity(), R.color.white);
+            Snackbar.make(locationBinding.getRoot(), getString(R.string.get_google_maps), Snackbar.LENGTH_LONG)
+                    .setAction(getString(R.string.get), getSnackBarOnClickListener(googleMapsPackageURI))
+                    .setActionTextColor(accentColor)
+                    .addCallback(new Snackbar.Callback() {
+
+                        @Override
+                        public void onShown(Snackbar sb) {
+                            super.onShown(sb);
+                        }
+
+                        @Override
+                        public void onDismissed(Snackbar transientBottomBar, int event) {
+                            super.onDismissed(transientBottomBar, event);
+                            locationBinding.bottomSheetLocations.setVisibility(View.VISIBLE);
+                        }
+                    })
+                    .show();
+        }
     }
 
+    private View.OnClickListener getSnackBarOnClickListener(final String googleMapPackageUri) {
+
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent( Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(("https://play.google.com/store/apps/details?id=" + googleMapPackageUri)));
+                startActivity(intent);
+            }
+        };
+    }
     private void initBottomSheet() {
         Resources resources = application.getResources();
         bottomSheetPeekHeight = resources.getDimensionPixelOffset(R.dimen.locations_bottom_sheet_height);

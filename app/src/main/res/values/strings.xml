@@ -93,6 +93,8 @@
 
     <string name="no_network_connection">No Network Connection Please try again</string>
     <string name="error_getting_locations">There was an technical problem retrieving list of locations, please try again later.</string>
+    <string name="get_google_maps">Download Google Maps to view directions.</string>
+    <string name="get">GET</string>
 
 
 </resources>
