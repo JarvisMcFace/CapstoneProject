@@ -15,9 +15,9 @@
             android:name="com.google.android.gms.maps.MapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cameraTargetLat="43.1197702"
-            app:cameraTargetLng="-88.1138024"
-            app:cameraZoom="12"/>
+            app:cameraTargetLat="42.9172119"
+            app:cameraTargetLng="-88.675865"
+            app:cameraZoom="8.5"/>
 
         <fragment
             android:id="@+id/location_fragment"

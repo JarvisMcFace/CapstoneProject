@@ -85,7 +85,7 @@
     <string name="error_getting_price_factors_text">There was a problem retrieving pricing informatoin, please try again soon</string>
     <string name="error_getting_price">please call for estimate</string>
     <string name="navigation_menu_Home">Home</string>
-    <string name="navigation_menu_locations">Location</string>
+    <string name="navigation_menu_locations">Our Locations</string>
     <string name="open_navigatoin">Open navigation drawer</string>
     <string name="close_navigation">Close navigation drawer</string>
     <string name="show_locations">Show Locations</string>
