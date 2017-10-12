@@ -15,11 +15,11 @@ import android.view.ViewGroup;
 import com.gobluegreen.app.R;
 import com.gobluegreen.app.activity.EstimateBuilderLandingActivity;
 import com.gobluegreen.app.activity.HomeActivity;
+import com.gobluegreen.app.activity.ReviewEstimateActivity;
 import com.gobluegreen.app.adapter.ServicesPagerAdapter;
-import com.gobluegreen.app.application.GoBluegreenApplication;
 import com.gobluegreen.app.databinding.FragmentHomeBinding;
 import com.gobluegreen.app.util.LeftNavigationDrawer;
-import com.gobluegreen.app.util.PriceFactorCacheHelper;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.lang.ref.WeakReference;
 
@@ -30,6 +30,7 @@ public class HomeFragment extends Fragment {
 
     private View rootView;
     private FragmentHomeBinding fragmentHomeBinding;
+    private FirebaseAnalytics firebaseAnalytics;
 
     public HomeFragment() {
     }
@@ -58,6 +59,7 @@ public class HomeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
+        firebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
         Intent intent = getActivity().getIntent();
         if (intent != null) {
             boolean showSubmitMessage = intent.getBooleanExtra(HomeActivity.EXTRA_HOME_ESITMATED_SUBMITED, false);
@@ -65,6 +67,7 @@ public class HomeFragment extends Fragment {
                 showSubmitSnackBar();
             }
         }
+
     }
 
     @Override
@@ -78,6 +81,11 @@ public class HomeFragment extends Fragment {
         @Override
         public void onClick(View v) {
 
+            Bundle bundle = new Bundle();
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "button");
+            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "start estimate");
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
             Intent intent = new Intent(getActivity(), EstimateBuilderLandingActivity.class);
             startActivity(intent);
         }
@@ -87,11 +95,14 @@ public class HomeFragment extends Fragment {
         @Override
         public void onClick(View v) {
 
-//            Intent intent = ReviewEstimateActivity.newIntent(getContext());
-//            startActivity(intent);
-//TODO David - enable this used for testing
-            GoBluegreenApplication application = (GoBluegreenApplication) getActivity().getApplication();
-            PriceFactorCacheHelper.deletesCleaningPriceFactor(application);
+            Bundle bundle = new Bundle();
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "button");
+            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "review estimate");
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
+            Intent intent = ReviewEstimateActivity.newIntent(getContext());
+            startActivity(intent);
+
         }
     };
 
