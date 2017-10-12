@@ -44,11 +44,9 @@ public class EstimateReviewSubmitFragment extends Fragment implements Persistent
     private static final int ESTIMATE_TOKEN = 1;
     private static final int ESTIMATE_CUSTOEMR_TOKEN = 2;
 
-    private View rootView;
     private FragmentEstimateReviewSubmitBinding binding;
     private GoBluegreenApplication application;
     private EstimateInProgressTO estimateInProgressTO;
-    private ContentResolver contentResolver;
     private PersistentAsyncQueryHandler persistentAsyncQueryHandler;
     private List<String> tokenInProgress;
 
@@ -57,7 +55,7 @@ public class EstimateReviewSubmitFragment extends Fragment implements Persistent
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_estimate_review_submit, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_estimate_review_submit, container, false);
         binding = DataBindingUtil.bind(rootView);
         return rootView;
     }
@@ -120,7 +118,7 @@ public class EstimateReviewSubmitFragment extends Fragment implements Persistent
 
         Uri uri = EstimateContentProvider.CONTENT_URI;
         tokenInProgress.add(EstimateDbAdapter.ESTIMATE_TABLE);
-        contentResolver = application.getContentResolver();
+        ContentResolver contentResolver = application.getContentResolver();
         persistentAsyncQueryHandler = new PersistentAsyncQueryHandler(contentResolver, this);
 
         ContentValues contentValues = ContentValueCreator.createEstimateValues(application);

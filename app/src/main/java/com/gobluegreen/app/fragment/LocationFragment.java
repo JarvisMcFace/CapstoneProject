@@ -64,7 +64,6 @@ public class LocationFragment extends Fragment implements OkHttpHelperCallback, 
     private BottomSheetBehavior bottomSheetBehavior;
     private LinearLayoutManager linearLayoutManager;
     private List<LocationTO> locationTOs;
-    private List<Marker> markers;
     private Map<Marker, LocationTO> markerLocationMap;
     private boolean isListOpen;
 
@@ -285,7 +284,7 @@ public class LocationFragment extends Fragment implements OkHttpHelperCallback, 
             return;
         }
 
-        markers = new ArrayList<>();
+        List<Marker> markers = new ArrayList<>();
         markerLocationMap = new LinkedHashMap<>();
 
         for (LocationTO locationTO : locationTOs) {

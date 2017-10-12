@@ -47,7 +47,6 @@ public class EstimateDbAdapter {
                     + "FOREIGN KEY(" + EstimateContract.CUSTOMER_ESITMATE_ID + ") REFERENCES " + EstimateDbAdapter.ESTIMATE_TABLE + "(" + EstimateContract.ESTIMATE_ID + "))";
 
     private final Context context;
-    private DatabaseHelper databaseHelper;
     private SQLiteDatabase sqLiteDatabase;
 
     public EstimateDbAdapter(Context context) {
@@ -55,7 +54,7 @@ public class EstimateDbAdapter {
     }
 
     public EstimateDbAdapter open() throws SQLException {
-        databaseHelper = new DatabaseHelper(context, DatabaseConstants.DATABASE_NAME, null, DatabaseConstants.DATABASE_VERSION);
+        DatabaseHelper databaseHelper = new DatabaseHelper(context, DatabaseConstants.DATABASE_NAME, null, DatabaseConstants.DATABASE_VERSION);
         sqLiteDatabase = databaseHelper.getWritableDatabase();
         return this;
     }

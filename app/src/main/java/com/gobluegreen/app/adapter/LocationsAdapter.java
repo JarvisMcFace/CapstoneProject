@@ -20,12 +20,11 @@ import java.util.List;
  */
 public class LocationsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private GoBluegreenApplication application;
     private List<LocationTO> locationTOs;
     private WeakReference<LocationsCallBack> weakReferenceCarpetRoomServiceCallBack;
 
     public LocationsAdapter(GoBluegreenApplication application, List<LocationTO> locationTOs, WeakReference<LocationsCallBack> weakReferenceCarpetRoomServiceCallBack) {
-        this.application = application;
+        GoBluegreenApplication application1 = application;
         this.locationTOs = locationTOs;
         this.weakReferenceCarpetRoomServiceCallBack = weakReferenceCarpetRoomServiceCallBack;
     }

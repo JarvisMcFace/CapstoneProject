@@ -29,7 +29,6 @@ import com.gobluegreen.app.util.StringUtils;
 
 public class CustomerAddressFragment extends Fragment {
 
-    private View rootView;
     private FragmentCustomerAddressBinding customerAddressBinding;
     private EstimateInProgressTO estimateInProgressTO;
 
@@ -39,7 +38,7 @@ public class CustomerAddressFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_customer_address, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_customer_address, container, false);
         customerAddressBinding = DataBindingUtil.bind(rootView);
         return rootView;
     }

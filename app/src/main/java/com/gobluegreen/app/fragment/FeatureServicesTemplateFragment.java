@@ -20,10 +20,6 @@ public class FeatureServicesTemplateFragment extends Fragment {
     private static final String FEATURE_SERVICE_SUBTITLE_RESOURCE_ID = "com.gobluegreen.bluegreeenfloorcare.fragmet.feature.service.subtitle_id";
     private static final String FEATURE_SERVICE_IMAGE_ID = "com.gobluegreen.bluegreeenfloorcare.fragmet.feature.service.image_resource";
 
-    private int featureServiceTitleResourceId;
-    private int featureServiceSubTitleResourceId;
-    private int imageResourceId;
-
     public FeatureServicesTemplateFragment() {
         // Required empty constructor
     }
@@ -51,9 +47,9 @@ public class FeatureServicesTemplateFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            featureServiceTitleResourceId = getArguments().getInt(FEATURE_SERVICE_TITLE_RESOURCE_ID);
-            featureServiceSubTitleResourceId = getArguments().getInt(FEATURE_SERVICE_SUBTITLE_RESOURCE_ID);
-            imageResourceId = getArguments().getInt(FEATURE_SERVICE_IMAGE_ID);
+            int featureServiceTitleResourceId = getArguments().getInt(FEATURE_SERVICE_TITLE_RESOURCE_ID);
+            int featureServiceSubTitleResourceId = getArguments().getInt(FEATURE_SERVICE_SUBTITLE_RESOURCE_ID);
+            int imageResourceId = getArguments().getInt(FEATURE_SERVICE_IMAGE_ID);
         }
     }
 

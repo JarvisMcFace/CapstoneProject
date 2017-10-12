@@ -41,18 +41,16 @@ import javax.annotation.Nonnull;
  */
 public class EstimateFragment extends Fragment implements CarpetRoomServiceCallBack {
 
-    private View rootView;
     private FragmentEstimateBinding estimateBinding;
     private GoBluegreenApplication application;
     private EstimateInProgressTO estimateInProgressTO;
-    private EstimateAdapter estimateAdapter;
 
     public EstimateFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_estimate, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_estimate, container, false);
         estimateBinding = DataBindingUtil.bind(rootView);
         return rootView;
     }
@@ -90,7 +88,7 @@ public class EstimateFragment extends Fragment implements CarpetRoomServiceCallB
         List<EstimateItemTO> estimateItemTOs = PopulateEstimateItems.execute(application);
 
         WeakReference<CarpetRoomServiceCallBack> weakReferenceCarpetRoomServiceCallBack = new WeakReference<CarpetRoomServiceCallBack>(this);
-        estimateAdapter = new EstimateAdapter(estimateItemTOs, weakReferenceCarpetRoomServiceCallBack);
+        EstimateAdapter estimateAdapter = new EstimateAdapter(estimateItemTOs, weakReferenceCarpetRoomServiceCallBack);
         estimateBinding.layoutEstimate.estimateRecyclerView.setAdapter(estimateAdapter);
     }
 

@@ -26,7 +26,6 @@ public class ReviewEstimateFragment extends Fragment implements LoaderManager.Lo
 
     private static final String TAG = ReviewEstimateFragment.class.getSimpleName();
     private static final int LOADER_ID = 0;
-    private View rootView;
     private FragmentReviewEstimatesBinding reviewBinding;
 
     public ReviewEstimateFragment() {
@@ -34,7 +33,7 @@ public class ReviewEstimateFragment extends Fragment implements LoaderManager.Lo
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_review_estimates, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_review_estimates, container, false);
         reviewBinding = DataBindingUtil.bind(rootView);
         return rootView;
     }

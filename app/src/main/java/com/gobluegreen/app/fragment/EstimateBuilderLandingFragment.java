@@ -50,7 +50,6 @@ public class EstimateBuilderLandingFragment extends Fragment {
     public static final int CARPET_CLEANING_REQUEST_CODE = 100;
     public static final int CUSTOMER_INFORMATION_REQUEST_CODE = 200;
 
-    private View rootView;
     private FragmentEstimateBuilderLandingBinding landingBinding;
     private EstimateInProgressTO estimateInProgressTO;
 
@@ -59,7 +58,7 @@ public class EstimateBuilderLandingFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_estimate_builder_landing, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_estimate_builder_landing, container, false);
         landingBinding = DataBindingUtil.bind(rootView);
         return rootView;
     }

@@ -32,13 +32,12 @@ public class ReviewRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
 
     private static final String ZERO_VALUE = "0";
     private Application application;
-    private int appWidgetId;
     private List<ReviewEstimateTO> reviewEstimateTOs;
 
 
     public ReviewRemoteViewFactory(Application application, Intent intent) {
         this.application = application;
-        appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+        int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         setWidgetEstimates();
     }
 

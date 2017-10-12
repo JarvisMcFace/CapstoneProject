@@ -37,12 +37,12 @@ public class LeftNavigationDrawer {
     public void navOnStart(final WeakReference<Activity> weakActivity) {
         final Activity activity = weakActivity.get();
 
-        DrawerLayout drawerLayout = (DrawerLayout) activity.findViewById(R.id.nav_drawer_layout);
+        DrawerLayout drawerLayout = activity.findViewById(R.id.nav_drawer_layout);
         if (drawerLayout != null) {
             drawerLayout.addDrawerListener(new DrawerListener(weakActivity));
         }
 
-        final NavigationView navigationView = (NavigationView) activity.findViewById(R.id.navigation);
+        final NavigationView navigationView = activity.findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(getNavigationItemSelectedListener(weakActivity));
     }
 
@@ -91,7 +91,7 @@ public class LeftNavigationDrawer {
 
         }
 
-        DrawerLayout drawerLayout = (DrawerLayout) activity.findViewById(R.id.nav_drawer_layout);
+        DrawerLayout drawerLayout = activity.findViewById(R.id.nav_drawer_layout);
 
         if (drawerIntent != null) {
             drawerLayout.closeDrawer(Gravity.START);

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
 
-    <string name="price_factors_url">https://firebasestorage.googleapis.com/v0/b/blue-green-floor-care.appspot.com/o/cleaningprices.json?alt=media&amp;token=dc154074-9f4c-474e-9629-8638b734363a</string>
+    <string name="price_factors_url" tools:ignore="TypographyDashes">https://firebasestorage.googleapis.com/v0/b/blue-green-floor-care.appspot.com/o/cleaningprices.json?alt=media&amp;token=dc154074-9f4c-474e-9629-8638b734363a</string>
     <string name="locations_url">https://firebasestorage.googleapis.com/v0/b/blue-green-floor-care.appspot.com/o/locations.json?alt=media&amp;token=f557b399-4459-475e-af4b-2bb7f8fc1c6f</string>
 
 

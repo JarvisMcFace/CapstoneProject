@@ -33,8 +33,6 @@ public class EstimateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private enum MeasureBy {SQUARE_FOOT, DEMENSION}
 
-    ;
-
     public static final int VIEW_TYPE_HEADER = 1;
     public static final int VIEW_TYPE_ROOM = 2;
     public static final int VIEW_TYPE_STAIRWAY = 3;
