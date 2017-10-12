@@ -6,39 +6,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:visibility="gone"
-            android:id="@+id/layout_estimate"
-            layout="@layout/layout_estimate"/>
-
-
-        <include
-            android:id="@+id/layout_estimate_error"
-            layout="@layout/layout_estimate_error"/>
 
 
         <LinearLayout
-            android:id="@+id/landing_continue_button"
+            android:id="@+id/landing_subit_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@drawable/material_ripple"
             android:clickable="true"
             android:elevation="@dimen/material_margin_half"
+            android:orientation="vertical"
             android:translationZ="@dimen/material_margin_half">
 
+            <ProgressBar
+                android:id="@+id/progress_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+                android:indeterminate="true"
+                android:maxHeight="24dip"
+                android:minHeight="24dip"
+                android:visibility="gone"/>
+
             <TextView
-                android:id="@+id/contiue_label"
+                android:id="@+id/button_submit_estiamte"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/bottom_sheet_button_height"
                 android:layout_gravity="bottom"
                 android:gravity="end|center_vertical"
                 android:paddingEnd="@dimen/material_padding"
                 android:paddingStart="@dimen/material_padding"
-                android:text="@string/continue_esitimate"
+                android:text="@string/submit_estimate"
                 android:textAllCaps="true"
                 android:textColor="@color/colorAccent"/>
         </LinearLayout>
+
+        <include
+            android:id="@+id/layout_estimate_review_submit"
+            layout="@layout/layout_estimate_review_submit"/>
     </FrameLayout>
 
 

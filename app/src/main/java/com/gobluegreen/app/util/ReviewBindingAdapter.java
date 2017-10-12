@@ -1,5 +1,6 @@
 package com.gobluegreen.app.util;
 
+import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.databinding.BindingAdapter;
 import android.view.View;
@@ -105,7 +106,7 @@ public class ReviewBindingAdapter {
         Calendar calendar = reviewEstimateTO.getEstimateDate();
 
         String pattern = "MMM dd, yyyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
         Date date = new Date(calendar.getTimeInMillis());
 

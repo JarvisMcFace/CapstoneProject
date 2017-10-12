@@ -33,8 +33,8 @@
                 android:layout_height="@dimen/bottom_sheet_button_height"
                 android:layout_gravity="bottom"
                 android:gravity="end|center_vertical"
-                android:paddingEnd="@dimen/material_padding"
                 android:paddingStart="@dimen/material_padding"
+                android:paddingEnd="@dimen/material_padding"
                 android:text="@string/continue_esitimate"
                 android:textAllCaps="true"
                 android:textColor="@color/colorAccent"/>

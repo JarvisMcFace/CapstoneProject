@@ -1,5 +1,6 @@
 package com.gobluegreen.app.service;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.appwidget.AppWidgetManager;
 import android.content.ContentResolver;
@@ -98,7 +99,7 @@ public class ReviewRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
         Calendar calendar = reviewEstimateTO.getEstimateDate();
 
         String pattern = "MMM dd, yyyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         Date date = new Date(calendar.getTimeInMillis());
         String formattedDate = simpleDateFormat.format(date);
         remoteViews.setTextViewText(R.id.widget_date, formattedDate);

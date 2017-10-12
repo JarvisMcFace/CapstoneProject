@@ -6,23 +6,25 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        tools:ignore="contentDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-       android:scaleType="fitXY"
+        android:scaleType="fitXY"
         android:src="@drawable/carpet_cleaning"/>
 
     <TextView
-        style="@style/Base.TextAppearance.AppCompat.Title"
-        android:textColor="@color/white"
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/material_margin"
-        android:text="Professionals\nthat\ncare"
-        android:gravity="right"
+        android:layout_marginTop="@dimen/feature_services_template_title_height"
+        android:gravity="end"
+        android:text="@string/professionals_nthat_ncare"
+        android:textColor="@color/white"
         android:textSize="36sp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/feature_services_template_title_height"/>
+        app:layout_constraintLeqt_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

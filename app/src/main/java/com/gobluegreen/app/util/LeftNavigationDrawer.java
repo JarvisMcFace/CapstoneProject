@@ -94,7 +94,7 @@ public class LeftNavigationDrawer {
         DrawerLayout drawerLayout = (DrawerLayout) activity.findViewById(R.id.nav_drawer_layout);
 
         if (drawerIntent != null) {
-            drawerLayout.closeDrawer(Gravity.LEFT);
+            drawerLayout.closeDrawer(Gravity.START);
         }
 
         if (drawerIntent != null) {

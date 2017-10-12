@@ -95,6 +95,9 @@
     <string name="error_getting_locations">There was an technical problem retrieving list of locations, please try again later.</string>
     <string name="get_google_maps">Download Google Maps to view directions.</string>
     <string name="get">GET</string>
+    <string name="get_navigation_directions">Get navigation directions</string>
+    <string name="cancel_estimate">Cancel Estimate</string>
+    <string name="professionals_nthat_ncare">Professionals that care</string>
 
 
 </resources>

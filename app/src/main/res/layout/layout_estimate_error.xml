@@ -17,10 +17,11 @@
             android:layout_height="135dp"
             android:layout_gravity="center"
             android:background="@color/estimate_overview"
-            android:elevation="2dp"
+            android:elevation="@dimen/card_view_elevation"
             android:orientation="horizontal">
 
             <ImageView
+                tools:ignore="contentDescription"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center_vertical"

@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         tools:showIn="@layout/fragment_estimate_builder_landing"
-        tools:visibility="visible">
+        tools:visibility="visible"
+        tools:ignore="DuplicateIncludedIds">
 
         <LinearLayout
             android:layout_width="match_parent"

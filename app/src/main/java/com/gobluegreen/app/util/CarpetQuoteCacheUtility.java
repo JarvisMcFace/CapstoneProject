@@ -45,7 +45,7 @@ public class CarpetQuoteCacheUtility {
 
         try {
             SharedPreferences sharedPreferences = application.getSharedPreferences(SharedPreferenceFileName.SHARED_PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
+
 
             if (!sharedPreferences.contains(SAVED_CARPET_ESTIMATE_KEY)) {
                 return null;
