@@ -56,7 +56,7 @@ public class EstimateBuilderLandingActivity extends AppCompatActivity {
                                 dialog.dismiss();
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 

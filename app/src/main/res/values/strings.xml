@@ -98,6 +98,21 @@
     <string name="get_navigation_directions">Get navigation directions</string>
     <string name="cancel_estimate">Cancel Estimate</string>
     <string name="professionals_nthat_ncare">Professionals that care</string>
+    <string name="event_button">button</string>
+    <string name="event_start_estimate">start estimate</string>
+    <string name="event_review_estimate">review estimate</string>
+    <string name="no">No</string>
+    <string name="living_room">Living Room</string>
+    <string name="dining_room">Dining Room</string>
+    <string name="den_office">Den/Office</string>
+    <string name="bedroom_master">Bedroom - Master</string>
+    <string name="bedroom_two">Bedroom #2</string>
+    <string name="family_great_room">Family/Great Room</string>
+    <string name="recretion_room">Recreation Room</string>
+    <string name="stairway_landing">Stairway Landing</string>
+    <string name="hallway">Hallway</string>
+    <string name="additiona_room1">Additional Room 1</string>
+    <string name="additional_room2">Additional Room 2</string>
 
 
 </resources>

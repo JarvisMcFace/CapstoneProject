@@ -82,8 +82,8 @@ public class HomeFragment extends Fragment {
         public void onClick(View v) {
 
             Bundle bundle = new Bundle();
-            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "button");
-            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "start estimate");
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.event_button));
+            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, getString(R.string.event_start_estimate));
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
             Intent intent = new Intent(getActivity(), EstimateBuilderLandingActivity.class);
@@ -96,8 +96,8 @@ public class HomeFragment extends Fragment {
         public void onClick(View v) {
 
             Bundle bundle = new Bundle();
-            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "button");
-            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "review estimate");
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,getString(R.string.event_button));
+            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, getString(R.string.event_review_estimate));
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
             Intent intent = ReviewEstimateActivity.newIntent(getContext());
