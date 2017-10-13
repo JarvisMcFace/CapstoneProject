@@ -20,10 +20,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("/Users/David/Desktop/bluegreenKeystore.jks")
-            storePassword "storePassword"
+            storeFile file("bluegreenKeystore.jks")
+            storePassword "2Hm#ya%*T3cxR@9999!"
             keyAlias "GoBluegreen"
-            keyPassword "keyPassword"
+            keyPassword "cYU#a^SJ6Jdd%ds2@999!"
         }
     }
 
